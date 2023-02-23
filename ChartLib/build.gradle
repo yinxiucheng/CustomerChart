@@ -5,6 +5,8 @@ plugins {
 }
 
 android {
+    namespace 'com.yxc.customerchart'
+    compileSdk 33
 }
 
 dependencies {

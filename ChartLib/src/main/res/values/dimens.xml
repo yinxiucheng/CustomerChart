@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="banner_point_size">5dp</dimen>
+    <dimen name="banner_point_margin">2.5dp</dimen>
+    <dimen name="chart_common_padding_start">30dp</dimen>
+    <dimen name="chart_common_padding_end">43.67dp</dimen>
+    <dimen name="chart_more_number_padding_end">49dp</dimen>
+</resources>

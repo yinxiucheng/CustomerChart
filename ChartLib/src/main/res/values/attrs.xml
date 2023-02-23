@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- chartBorder -->
+    <attr name="barBorderColor" format="color" />
+    <attr name="barBorderWidth" format="dimension" />
+    <attr name="barSpace" format="float" />
+    <attr name="barChartMaxWidth" format="dimension" />
+
+    <attr name="txtColor" format="color|reference" />
+    <attr name="txtSize" format="dimension" />
+    <attr name="contentPaddingBottom" format="dimension" tools:override="true" />
+    <attr name="contentPaddingTop" format="dimension" tools:override="true" />
+    <attr name="highLightRoundRectRadius" format="dimension" />
+    <attr name="barChartRadius" format="dimension" />
+
+    <attr name="enableValueMark" format="boolean" />
+    <attr name="enableCharValueDisplay" format="boolean" />
+    <attr name="enableYAxisLineDash" format="boolean"/>
+    <attr name="enableYAxisZero" format="boolean" />
+    <attr name="enableYAxisGridLine" format="boolean" />
+    <attr name="enableStartYAxisLabel" format="boolean" />
+    <attr name="enableEndYAxisLabel" format="boolean" />
+    <attr name="enableBarBorder" format="boolean" />
+    <attr name="enableScrollToScale" format="boolean" />
+    <attr name="enableXAxisLabel" format="boolean" />
+    <attr name="enableXAxisDisplayLabel" format="boolean" />
+    <attr name="enableXAxisGridLine" format="boolean" />
+    <attr name="enableXAxisFirstGridLine" format="boolean" />
+    <attr name="enableXAxisSecondGridLine" format="boolean" />
+    <attr name="enableXAxisThirdGridLine" format="boolean" />
+    <attr name="enableXAxisLineCircle" format="boolean" />
+    <attr name="enableEndDayXAxis" format="boolean"/>
+    <attr name="enableXAxisBg" format="boolean" />
+    <attr name="averageDisplay" format="boolean" />
+
+
+    <!-- YAxis -->
+    <attr name="yAxisMaximum" format="integer" />
+    <attr name="yAxisMinimum" format="float" />
+    <attr name="yAxisLabelTxtSize" format="dimension" />
+    <attr name="yAxisLabelTxtColor" format="color" />
+    <attr name="yAxisLabelSize" format="integer" />
+    <attr name="yAxisLineColor" format="color" />
+    <attr name="yAxisLabelHorizontalPadding" format="dimension" />
+    <attr name="yAxisLabelVerticalPadding" format="dimension" />
+    <attr name="yAxisReverse" format="boolean" />
+    <attr name="yAxisHighStandardLine" format="float" />
+    <attr name="yAxisMiddleStandardLine" format="float" />
+    <attr name="yAxisLowStandardLine" format="float" />
+    <attr name="yAxisZeroLineType" format="integer" />
+
+    <!-- XAxis -->
+    <attr name="xAxisTxtSize" format="dimension" />
+    <attr name="xAxisTxtColor" format="color" />
+    <attr name="xAxisFirstDividerColor" format="color" />
+    <attr name="xAxisSecondDividerColor" format="color" />
+    <attr name="xAxisThirdDividerColor" format="color" />
+    <attr name="xAxisLabelTxtPadding" format="dimension" />
+    <attr name="xAxisLabelPosition" format="integer" />
+    <attr name="xFirstLinePosition" format="integer" />
+    <attr name="xAxisScaleDistance" format="integer" />
+    <attr name="displayNumbers" format="integer" />
+    <attr name="xAxisBgRadius" format="dimension" />
+    <attr name="xAxisLabelFont" format="reference" />
+
+    <!--high light-->
+    <attr name="highLightBigTextSize" format="dimension"/>
+    <attr name="highLightSmallTextSize" format="dimension"/>
+    
+    <!--LinearLayoutManager-->
+    <attr name="layoutManagerOrientation" format="integer" />
+    <attr name="layoutManagerReverseLayout" format="boolean" />
+
+    <!-- RecyclerView -->
+    <attr name="ratioVelocity" format="float" />
+    <attr name="ratioSpeed" format="float" />
+
+    <!--fill color-->
+    <attr name="lineShaderBeginColor" format="color" />
+    <attr name="lineShaderEndColor" format="color" />
+    <attr name="enableLineFill" format="boolean" />
+    <attr name="lineColor" format="color" />
+    <attr name="fillAlpha" format="integer" />
+    <attr name="recyclerPaddingLeft" format="dimension" />
+    <attr name="recyclerPaddingRight" format="dimension" />
+
+
+    <attr name="isDisplay" format="boolean" />
+    <attr name="chartColor" format="color|reference" />
+    <attr name="invalidChartColor" format="color|reference" />
+    <attr name="highLightColor" format="color|reference"/>
+
+    <attr name="lineMaxColor" format="color|reference" />
+    <attr name="lineMinColor" format="color|reference" />
+    <attr name="enableDrawCircle" format="boolean"/>
+    <attr name="dynamicAdjustItemFillWidth" format="boolean"/>
+
+    <declare-styleable name="BarChartRecyclerView">
+
+        <attr name="barBorderColor" />
+        <attr name="barBorderWidth" />
+        <attr name="barSpace" />
+        <attr name="chartColor" />
+        <attr name="invalidChartColor"/>
+        <attr name="highLightColor"/>
+
+        <attr name="chartEdgeColor" format="color" />
+
+        <!-- 顶部文字属性 -->
+        <attr name="barChartValueTxtSize" format="dimension" />
+        <attr name="barChartValueTxtColor" format="color" />
+        <attr name="barChartValueTxtMaskSize" format="dimension" />
+        <attr name="barChartValueTxtMaskColor" format="color" />
+        <attr name="barChartValuePaddingBottom" format="dimension" />
+        <attr name="barChartValuePaddingLeft" format="dimension" />
+        <attr name="highLightRoundRectRadius" />
+        <attr name="barChartRadius"/>
+
+        <attr name="barChartRoundRectRadiusRatio" format="float" />
+        <attr name="barChartMaxWidth" />
+        <attr name="rateChartDarkColor" format="color|reference" />
+        <attr name="rateChartLightColor" format="color|reference" />
+        <attr name="enableAverageRectF" format="boolean"/>
+
+        <attr name="recyclerPaddingLeft" />
+        <attr name="recyclerPaddingRight" />
+        <attr name="contentPaddingBottom" />
+        <attr name="contentPaddingTop" />
+
+        <attr name="enableCharValueDisplay" />
+        <attr name="enableYAxisLineDash"/>
+        <attr name="enableYAxisZero" />
+        <attr name="enableYAxisGridLine" />
+        <attr name="enableStartYAxisLabel" />
+        <attr name="enableEndYAxisLabel" />
+        <attr name="enableBarBorder" />
+        <attr name="enableScrollToScale" />
+        <attr name="enableValueMark" />
+        <attr name="enableEndDayXAxis"/>
+        <attr name="enableXAxisLabel" />
+        <attr name="enableXAxisDisplayLabel" />
+        <attr name="enableXAxisGridLine" />
+        <attr name="enableXAxisFirstGridLine" />
+        <attr name="enableXAxisSecondGridLine" />
+        <attr name="enableXAxisThirdGridLine" />
+        <attr name="enableXAxisLineCircle" />
+        <attr name="averageDisplay" />
+        <attr name="enableXAxisBg" />
+
+        <attr name="ratioVelocity" />
+        <attr name="ratioSpeed" />
+
+        <!-- YAxis -->
+        <attr name="yAxisMaximum" />
+        <attr name="yAxisMinimum" />
+        <attr name="yAxisLabelTxtSize" />
+        <attr name="yAxisLabelTxtColor" />
+        <attr name="yAxisLabelSize" />
+        <attr name="yAxisLineColor" />
+        <attr name="yAxisLabelHorizontalPadding" />
+        <attr name="yAxisLabelVerticalPadding" />
+        <attr name="yAxisReverse" />
+        <attr name="yAxisHighStandardLine" />
+        <attr name="yAxisMiddleStandardLine" />
+        <attr name="yAxisLowStandardLine" />
+        <attr name="yAxisZeroLineType" />
+
+        <!-- XAxis -->
+        <attr name="xAxisTxtSize" />
+        <attr name="xAxisTxtColor" />
+        <attr name="xAxisFirstDividerColor" />
+        <attr name="xAxisSecondDividerColor" />
+        <attr name="xAxisThirdDividerColor" />
+        <attr name="xAxisLabelTxtPadding" />
+        <attr name="xAxisScaleDistance" />
+        <attr name="displayNumbers" />
+        <attr name="xAxisBgRadius" />
+        <attr name="xAxisLabelPosition" />
+        <attr name="xFirstLinePosition" />
+        <attr name="xAxisLabelFont" />
+
+        <!--high light-->
+        <attr name="lineHighLightType" format="integer" />
+        <attr name="linePointRadius" format="dimension" />
+        <attr name="linePointSelectStrokeWidth" format="dimension" />
+        <attr name="linePointSelectRadius" format="dimension" />
+        <attr name="lineSelectCircles" format="integer" />
+        <attr name="highLightBigTextSize"/>
+        <attr name="highLightSmallTextSize"/>
+
+        <!--fill color-->
+        <attr name="lineShaderBeginColor" />
+        <attr name="lineShaderEndColor" />
+        <attr name="enableLineFill" />
+        <attr name="lineColor" />
+        <attr name="fillAlpha" />
+
+        <!--LinearLayoutManager-->
+        <attr name="layoutManagerOrientation" />
+        <attr name="layoutManagerReverseLayout" />
+
+        <!--bezier curve-->
+        <attr name="txtColor" />
+        <attr name="txtSize" />
+
+        <attr name="isDisplay" />
+
+        <!-- segmentChart -->
+        <attr name="barChartSegment" format="integer"/>
+
+        <attr name="dynamicAdjustItemFillWidth"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="BezierChartRecyclerView">
+        <attr name="barBorderColor" />
+        <attr name="barBorderWidth" />
+        <attr name="barSpace" />
+        <attr name="chartColor" />
+        <attr name="recyclerPaddingLeft" />
+        <attr name="recyclerPaddingRight" />
+        <attr name="contentPaddingBottom" />
+        <attr name="contentPaddingTop" />
+        <attr name="highLightRoundRectRadius" />
+        <attr name="barChartRadius"/>
+
+        <attr name="enableCharValueDisplay" />
+        <attr name="enableYAxisZero" />
+        <attr name="enableYAxisLineDash"/>
+        <attr name="enableYAxisGridLine" />
+        <attr name="enableStartYAxisLabel" />
+        <attr name="enableEndYAxisLabel" />
+        <attr name="enableBarBorder" />
+        <attr name="enableScrollToScale" />
+        <attr name="enableValueMark" />
+        <attr name="enableEndDayXAxis"/>
+        <attr name="enableXAxisLabel" />
+        <attr name="enableXAxisDisplayLabel" />
+        <attr name="enableXAxisGridLine" />
+        <attr name="enableXAxisFirstGridLine" />
+        <attr name="enableXAxisSecondGridLine" />
+        <attr name="enableXAxisThirdGridLine" />
+        <attr name="enableXAxisLineCircle" />
+        <attr name="enableXAxisBg" />
+        <attr name="averageDisplay" />
+
+        <attr name="ratioVelocity" />
+        <attr name="ratioSpeed" />
+
+        <!-- YAxis -->
+        <attr name="yAxisMaximum" />
+        <attr name="yAxisMinimum" />
+        <attr name="yAxisLabelTxtSize" />
+        <attr name="yAxisLabelTxtColor" />
+        <attr name="yAxisLabelSize" />
+        <attr name="yAxisLineColor" />
+        <attr name="yAxisLabelHorizontalPadding" />
+        <attr name="yAxisLabelVerticalPadding" />
+        <attr name="yAxisReverse" />
+        <attr name="yAxisHighStandardLine" />
+        <attr name="yAxisMiddleStandardLine" />
+        <attr name="yAxisLowStandardLine" />
+        <attr name="yAxisZeroLineType" />
+
+        <!-- XAxis -->
+        <attr name="xAxisTxtSize" />
+        <attr name="xAxisTxtColor" />
+        <attr name="xAxisFirstDividerColor" />
+        <attr name="xAxisSecondDividerColor" />
+        <attr name="xAxisThirdDividerColor" />
+        <attr name="xAxisLabelTxtPadding" />
+        <attr name="xAxisScaleDistance" />
+        <attr name="displayNumbers" />
+        <attr name="xAxisBgRadius" />
+        <attr name="xAxisLabelPosition" />
+        <attr name="xFirstLinePosition" />
+        <attr name="xAxisLabelFont" />
+
+        <!--bezier curve-->
+        <attr name="bezierIntensity" format="float" />
+        <attr name="enableBezierLineFill" format="boolean" />
+        <attr name="bezierFillColor" format="color" />
+        <attr name="bezierLinePaintColor" format="color" />
+        <attr name="bezierFillAlpha" format="integer" />
+        <attr name="bezierLinePaintStrokeWidth" format="dimension" />
+
+        <!--fill color-->
+        <attr name="lineShaderBeginColor" />
+        <attr name="lineShaderEndColor" />
+        <attr name="enableLineFill" />
+        <attr name="lineColor" />
+        <attr name="fillAlpha" />
+
+        <!--LinearLayoutManager-->
+        <attr name="layoutManagerOrientation" />
+        <attr name="layoutManagerReverseLayout" />
+        <!--bezier curve-->
+        <attr name="txtColor" />
+        <attr name="txtSize" />
+        <attr name="isDisplay" />
+    </declare-styleable>
+
+    <declare-styleable name="LineChartRecyclerView">
+        <attr name="barBorderColor" />
+        <attr name="barBorderWidth" />
+        <attr name="barSpace" />
+        <attr name="chartColor" />
+        <attr name="highLightColor"/>
+        <attr name="recyclerPaddingLeft" />
+        <attr name="recyclerPaddingRight" />
+        <attr name="contentPaddingBottom" />
+        <attr name="contentPaddingTop" />
+        <attr name="highLightRoundRectRadius" />
+        <attr name="barChartRadius"/>
+
+        <attr name="enableCharValueDisplay" />
+        <attr name="enableYAxisZero" />
+        <attr name="enableYAxisLineDash"/>
+        <attr name="enableYAxisGridLine" />
+        <attr name="enableStartYAxisLabel" />
+        <attr name="enableEndYAxisLabel" />
+        <attr name="enableBarBorder" />
+        <attr name="enableScrollToScale" />
+        <attr name="enableValueMark" />
+        <attr name="enableEndDayXAxis"/>
+        <attr name="enableXAxisLabel" />
+        <attr name="enableXAxisDisplayLabel" />
+        <attr name="enableXAxisGridLine" />
+        <attr name="enableXAxisFirstGridLine" />
+        <attr name="enableXAxisSecondGridLine" />
+        <attr name="enableXAxisThirdGridLine" />
+        <attr name="enableXAxisLineCircle" />
+        <attr name="enableXAxisBg" />
+        <attr name="averageDisplay" />
+
+        <attr name="ratioVelocity" />
+        <attr name="ratioSpeed" />
+
+        <!-- YAxis -->
+        <attr name="yAxisMaximum" />
+        <attr name="yAxisMinimum" />
+        <attr name="yAxisLabelTxtSize" />
+        <attr name="yAxisLabelTxtColor" />
+        <attr name="yAxisLabelSize" />
+        <attr name="yAxisLineColor" />
+        <attr name="yAxisLabelHorizontalPadding" />
+        <attr name="yAxisLabelVerticalPadding" />
+        <attr name="yAxisReverse" />
+        <attr name="yAxisHighStandardLine" />
+        <attr name="yAxisMiddleStandardLine" />
+        <attr name="yAxisLowStandardLine" />
+        <attr name="yAxisZeroLineType" />
+
+        <!-- XAxis -->
+        <attr name="xAxisTxtSize" />
+        <attr name="xAxisTxtColor" />
+        <attr name="xAxisFirstDividerColor" />
+        <attr name="xAxisSecondDividerColor" />
+        <attr name="xAxisThirdDividerColor" />
+        <attr name="xAxisLabelTxtPadding" />
+        <attr name="xAxisScaleDistance" />
+        <attr name="displayNumbers" />
+        <attr name="xAxisBgRadius" />
+        <attr name="xAxisLabelPosition" />
+        <attr name="xFirstLinePosition" />
+        <attr name="xAxisLabelFont" />
+
+        <!--high light-->
+        <attr name="lineHighLightType" />
+        <attr name="linePointRadius" />
+        <attr name="linePointSelectRadius" />
+        <attr name="linePointSelectStrokeWidth" />
+        <attr name="lineSelectCircles" />
+        <attr name="linePointSelectCircleStroke" format="boolean" />
+
+        <!--fill color-->
+        <attr name="lineShaderBeginColor" />
+        <attr name="lineShaderEndColor" />
+        <attr name="enableLineFill" />
+        <attr name="lineColor" />
+        <attr name="fillAlpha" />
+        <attr name="lineMaxColor" />
+        <attr name="lineMinColor" />
+
+        <!--line stroke width-->
+        <attr name="lineStrokeWidth" format="integer"/>
+
+        <!--LinearLayoutManager-->
+        <attr name="layoutManagerOrientation" />
+        <attr name="layoutManagerReverseLayout" />
+        <attr name="txtColor" />
+        <attr name="txtSize" />
+
+        <attr name="isDisplay" />
+        <attr name="dynamicAdjustItemFillWidth"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="SleepChartRecyclerView">
+        <!--LinearLayoutManager-->
+        <attr name="layoutManagerOrientation" />
+        <attr name="layoutManagerReverseLayout" />
+        <attr name="ratioSpeed" />
+        <attr name="highLightRoundRectRadius" />
+        <attr name="barChartRadius"/>
+        <attr name="enableXAxisBg" />
+
+        <attr name="deepSleepColor" format="color" />
+        <attr name="slumberColor" format="color" />
+        <attr name="eyeMoveColor" format="color" />
+        <attr name="weakColor" format="color" />
+        <attr name="otherColor" format="color"/>
+        <attr name="sleepItemHeight" format="dimension" />
+
+        <attr name="txtColor" />
+        <attr name="txtSize" />
+        <attr name="contentPaddingBottom" />
+        <attr name="contentPaddingTop" />
+        <attr name="enableValueMark" />
+        <attr name="enableEndDayXAxis"/>
+        <attr name="xAxisLabelFont" />
+        <attr name="yAxisLineColor" />
+        <attr name="barChartMaxWidth" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="ViewPager2">
+        <attr name="android:orientation" />
+    </declare-styleable>
+
+    <declare-styleable name="XAxisView">
+        <attr name="XAxisTxtColor" format="color" />
+        <attr name="axisTxtSize" format="dimension" />
+    </declare-styleable>
+
+    <!--MPChart 公共属性-->
+    <attr name="minYAxisZero" format="boolean" />
+    <attr name="restrictMax" format="boolean" />
+    <attr name="maxYAxisRatio" format="float" />
+    <attr name="enableTimeXAxisLabel" format="boolean"/>
+    <attr name="enableSportYAxisLabel" format="boolean"/>
+    <attr name="sportYAxisLabelType" format="integer"/>
+    <attr name="sportYAxisReminder" format="integer"/>
+
+    <declare-styleable name="CustomBarChart">
+        <attr name="rect_height" format="dimension" />
+        <attr name="fill_end_color" format="color"/>
+        <attr name="done_color" format="color" />
+        <attr name="rect_bar_radius" format="dimension" />
+        <attr name="done_alpha" format="float" />
+        <attr name="none_done_color" format="color" />
+        <attr name="none_done_alpha" format="float" />
+        <attr name="duty_cycle" format="float" />
+        <attr name="max_points" format="integer" />
+        <attr name="bar_chart_type" format="integer" />
+        <attr name="enableTimeXAxisLabel"/>
+        <attr name="enableSportYAxisLabel"/>
+        <attr name="sportYAxisLabelType"/>
+        <attr name="minYAxisZero" />
+        <attr name="maxYAxisRatio" />
+        <attr name="sportYAxisReminder"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomLineChart">
+        <attr name="minYAxisZero" />
+        <attr name="maxYAxisRatio" />
+        <attr name="restrictMax"/>
+        <attr name="enableYAxisGridLine"/>
+        <attr name="enableXAxisGridLine"/>
+        <attr name="enableLineFill"/>
+        <attr name="enableDrawLine" format="boolean"/>
+        <attr name="lineColor"/>
+        <attr name="fillAlpha"/>
+        <attr name="lineFillColor" format="color" />
+        <attr name="lineFillRes" format="reference"/>
+        <attr name="lineStrokeWidth" />
+        <attr name="pointRadius" format="float"/>
+        <attr name="enableMaxCircle" format="boolean"/>
+        <attr name="enableMinCircle" format="boolean"/>
+        <attr name="enableMaxPoup" format="boolean"/>
+        <attr name="enableCustomerStepped" format="boolean"/>
+        <attr name="limitTextColor" format="color"/>
+        <attr name="enableTimeXAxisLabel"/>
+        <attr name="enableSportYAxisLabel"/>
+        <attr name="sportYAxisLabelType"/>
+        <attr name="enableDrawCircle"/>
+        <attr name="sportYAxisReminder"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomSleepChart">
+        <attr name="sleep_type" format="integer"/>
+        <attr name="minYAxisZero" />
+        <attr name="maxYAxisRatio" />
+    </declare-styleable>
+
+    <declare-styleable name="XBanner">
+        <!--是否支持自动轮播 默认为true-->
+        <attr name="isAutoPlay" format="boolean" />
+        <!--是否支持手动无限循环切换图片,默认为false-->
+        <attr name="isHandLoop" format="boolean" />
+        <!--图片轮播时间间隔 默认为5s-->
+        <attr name="AutoPlayTime" format="integer|reference" />
+        <!--指示器未选中时状态点-->
+        <attr name="pointNormal" format="reference" />
+        <!--指示器选中时状态点-->
+        <attr name="pointSelect" format="reference" />
+        <!--是否显示指示器-->
+        <attr name="pointsVisibility" format="boolean" />
+        <!--是否支持提示性文字跑马灯效果-->
+        <attr name="isTipsMarquee" format="boolean" />
+        <!--指示点显示位置-->
+        <attr name="pointsPosition" format="enum">
+            <enum name="LEFT" value="0" />
+            <enum name="CENTER" value="1" />
+            <enum name="RIGHT" value="2" />
+        </attr>
+        <!--指示器背景-->
+        <attr name="pointsContainerBackground" format="reference|color" />
+        <!--指示器显示位置-->
+        <attr name="pointContainerPosition" format="enum">
+            <enum name="TOP" value="10" />
+            <enum name="BOTTOM" value="12" />
+        </attr>
+        <!-- 指示点容器左右内间距 -->
+        <attr name="pointContainerLeftRightPadding" format="dimension" />
+        <!-- 指示点上下内间距 -->
+        <attr name="pointTopBottomPadding" format="dimension" />
+        <!-- 指示点左右内间距 -->
+        <attr name="pointLeftRightPadding" format="dimension" />
+        <!-- 提示文案的文字颜色 -->
+        <attr name="tipTextColor" format="reference|color" />
+        <!-- 提示文案的文字大小 -->
+        <attr name="tipTextSize" format="dimension" />
+        <!--是否是数字指示器-->
+        <attr name="isShowNumberIndicator" format="boolean" />
+        <!-- 数字指示器背景 -->
+        <attr name="numberIndicatorBacgroud" format="reference" />
+        <!-- 当只有一页数据时是否显示指示器，默认值为false -->
+        <attr name="isShowIndicatorOnlyOne" format="boolean" />
+        <!-- 图片切换速度 -->
+        <attr name="pageChangeDuration" format="integer" />
+        <!--图片轮播框架展占位图-->
+        <attr name="placeholderDrawable" format="reference" />
+        <!--是否开启一屏显示多个模式 默认不开启-->
+        <attr name="isClipChildrenMode" format="boolean" />
+        <!--一屏显示多个左右间距-->
+        <attr name="clipChildrenLeftRightMargin" format="dimension" />
+        <!--一屏显示多个上下间距-->
+        <attr name="clipChildrenTopBottomMargin" format="dimension" />
+        <!--设置viewpager间距-->
+        <attr name="viewpagerMargin" format="dimension" />
+        <!--少于三张是否支持一屏多显模式-->
+        <attr name="isClipChildrenModeLessThree" format="boolean" />
+        <!--是否展示提示文案-->
+        <attr name="isShowTips" format="boolean" />
+        <!--banner轮播区域底部margin-->
+        <attr name="bannerBottomMargin" format="dimension" />
+        <!--设置viewPager ClipChildren-->
+        <attr name="viewPagerClipChildren" format="boolean" />
+        <!-- 占位图缩放模式 -->
+        <attr name="android:scaleType" />
+    </declare-styleable>
+
+
+    <declare-styleable name="SmartRefreshLayout">
+        <attr name="android:clipChildren" />
+        <attr name="android:clipToPadding" />
+        <attr name="srlPrimaryColor" format="color" />
+        <attr name="srlAccentColor" format="color" />
+        <attr name="srlReboundDuration" format="integer" />
+        <attr name="srlHeaderHeight" format="dimension" />
+        <attr name="srlFooterHeight" format="dimension" />
+        <attr name="srlHeaderInsetStart" format="dimension" />
+        <attr name="srlFooterInsetStart" format="dimension" />
+        <attr name="srlDragRate" format="float" />
+        <attr name="srlHeaderMaxDragRate" format="float" />
+        <attr name="srlFooterMaxDragRate" format="float" />
+        <attr name="srlHeaderTriggerRate" format="float" />
+        <attr name="srlFooterTriggerRate" format="float" />
+        <attr name="srlEnableRefresh" format="boolean" />
+        <attr name="srlShowRefreshHeader" format="boolean" />
+        <attr name="srlEnableLoadMore" format="boolean" />
+        <attr name="srlEnableHeaderTranslationContent" format="boolean" />
+        <attr name="srlEnableFooterTranslationContent" format="boolean" />
+        <attr name="srlHeaderTranslationViewId" format="reference" />
+        <attr name="srlFooterTranslationViewId" format="reference" />
+        <attr name="srlEnablePreviewInEditMode" format="boolean" />
+        <attr name="srlEnableAutoLoadMore" format="boolean" />
+        <attr name="srlEnableOverScrollBounce" format="boolean" />
+        <attr name="srlEnablePureScrollMode" format="boolean" />
+        <attr name="srlEnableNestedScrolling" format="boolean" />
+        <attr name="srlEnableScrollContentWhenLoaded" format="boolean" />
+        <attr name="srlEnableScrollContentWhenRefreshed" format="boolean" />
+        <attr name="srlEnableLoadMoreWhenContentNotFull" format="boolean" />
+        <attr name="srlEnableFooterFollowWhenLoadFinished" format="boolean" />
+        <attr name="srlEnableFooterFollowWhenNoMoreData" format="boolean" />
+        <attr name="srlEnableClipHeaderWhenFixedBehind" format="boolean" />
+        <attr name="srlEnableClipFooterWhenFixedBehind" format="boolean" />
+        <attr name="srlEnableOverScrollDrag" format="boolean" />
+        <attr name="srlDisableContentWhenRefresh" format="boolean" />
+        <attr name="srlDisableContentWhenLoading" format="boolean" />
+        <attr name="srlFixedHeaderViewId" format="reference" />
+        <attr name="srlFixedFooterViewId" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SmartRefreshLayout_Layout">
+        <attr name="layout_srlSpinnerStyle" format="integer" />
+        <attr name="layout_srlBackgroundColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomRatioImageView">
+        <attr name="ri_ratio" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CustomRatioLinearView">
+        <attr name="rl_ratio" format="float" />
+    </declare-styleable>
+
+
+    <declare-styleable name="PageIndicatorView">
+        <attr name="piv_orientation">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+
+        <attr name="piv_viewPager" format="reference" />
+        <attr name="piv_select" format="integer" />
+
+        <attr name="piv_count" format="integer" />
+        <attr name="piv_dynamicCount" format="boolean" />
+
+        <attr name="piv_radius" format="dimension" />
+        <attr name="piv_padding" format="dimension" />
+        <attr name="piv_strokeWidth" format="dimension" />
+        <attr name="piv_scaleFactor" format="float" />
+        <attr name="piv_autoVisibility" format="boolean" />
+
+        <attr name="piv_unselectedColor" format="color" />
+        <attr name="piv_selectedColor" format="color" />
+
+        <attr name="piv_fadeOnIdle" format="boolean" />
+        <attr name="piv_idleDuration" format="integer" />
+
+        <attr name="piv_interactiveAnimation" format="boolean" />
+        <attr name="piv_animationDuration" format="integer" />
+        <attr name="piv_animationType">
+            <enum name="none" value="0" />
+            <enum name="color" value="1" />
+            <enum name="scale" value="2" />
+            <enum name="worm" value="3" />
+            <enum name="slide" value="4" />
+            <enum name="fill" value="5" />
+            <enum name="thinWorm" value="6" />
+            <enum name="drop" value="7" />
+            <enum name="swap" value="8" />
+            <enum name="scale_down" value="9" />
+        </attr>
+        <attr name="piv_rtl_mode">
+            <enum name="on" value="0" />
+            <enum name="off" value="1" />
+            <enum name="auto" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

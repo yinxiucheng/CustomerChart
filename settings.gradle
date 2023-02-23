@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://pkgs.d.xiaomi.net/artifactory/public' }
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://pkgs.d.xiaomi.net/artifactory/public' }
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "CustomerChart"
+include ':app'
+include ':ChartLib'

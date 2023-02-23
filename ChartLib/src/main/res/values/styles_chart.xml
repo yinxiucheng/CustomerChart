@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ChartBaseStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">313dp</item>
+        <item name="android:paddingTop">71dp</item>
+        <item name="android:paddingStart">@dimen/chart_common_padding_start</item>
+        <item name="android:paddingEnd">@dimen/chart_common_padding_end</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
+</resources>

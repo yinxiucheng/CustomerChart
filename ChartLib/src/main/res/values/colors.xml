@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="common_white">#FFFFFF</color>
+    <color name="red">#e60000</color>
+    <color name="white_be">#bebebe</color>
+    <color name="common_black">#000000</color>
+    <color name="background">#E5E5E5</color>
+    <color name="common_transparent">@android:color/transparent</color>
+    <color name="green">#49be39</color>
+    <color name="lucensy">#00000001</color>
+    <color name="orange">#ffa500</color>
+    <color name="blue">#0066dd</color>
+    <color name="hintColor">#999999</color>
+    <color name="bar_chart_pink">#FFF76E6E</color>
+
+    <!--weight start-->
+<!--    <color name="weight_shader_end">#36D16F</color>-->
+<!--    <color name="weight_shader_begin">#0036D16F</color>-->
+    <color name="weight_shader_end">#f0fbf6</color>
+    <color name="weight_shader_begin">#f0fbf6</color>
+    <!--weight end-->
+
+    <!--heart rate start-->
+    <color name="rate_shader_end">#FF9494</color>
+    <color name="rate_shader_begin">#F54F66</color>
+    <color name="rate_title_select_txt">#F54F66</color>
+    <color name="rate_chart_color_light">#FFC5CE</color>
+    <color name="rate_fill_end">#80F54F66</color>
+    <!--heart rate end-->
+
+    <!--location start-->
+    <color name="location_wrapper">#FF00B973</color>
+    <color name="location_inner_circle">#FF00D182</color>
+    <color name="location_board_color">#FF008D57</color>
+    <color name="location_bottom_shader">#bebfc1</color>
+    <color name="location_end_board_circle">#FFD71A10</color>
+    <color name="location_end_circle">#FF754C</color>
+    <color name="location_end_wrapper">#FC5220</color>
+    <color name="location_trace_line_color">#00A666</color>
+    <color name="location_end_circleMarker">#FF0000</color>
+    <color name="location_start_circleMarker">#60FF00</color>
+    <!--location end-->
+
+    <!--stress start-->
+    <color name="stress_chart">#00D6BA</color>
+    <color name="stress_chart_10_transparent">#1A00D6BA</color>
+    <color name="press_chart_10_transparent">#1A00BDCC</color>
+    <color name="press_chart">#00BDCC</color>
+    <color name="press_title_text_select">#00A3AA</color>
+    <color name="press_severe">#137BDB</color>
+    <color name="press_moderate">#49ABFF</color>
+    <color name="press_mild">#00CBDC</color>
+    <color name="press_relax">#DCE4E5</color>
+    <!--stress end-->
+
+    <!-- energy start-->
+    <color name="health_energy_recovery">#36D16F</color>
+    <color name="health_energy_press">#00D6BA</color>
+    <color name="health_energy_sport">#FF6E14</color>
+    <color name="data_ecg_low_color">#fec32d</color>
+    <color name="data_ecg_middle_color">#fd8649</color>
+    <color name="data_ecg_high_color">#fd5255</color>
+    <color name="data_ecg_low_fill_color">#fff6db</color>
+    <color name="data_ecg_middle_fill_color">#ffede3</color>
+    <color name="data_ecg_high_fill_color">#ffe5e6</color>
+    <color name="energy_shader_begin">#0036D16F</color>
+    <color name="energy_shader_end">#36D16F</color>
+
+    <!-- energy end-->
+
+    <!-- vo2max start-->
+    <color name="vo2max_chart_color">#4AB6FF</color>
+    <color name="vo2max_chart_color_15">#274AB6FF</color>
+    <color name="vo2max_perfect_fill_color">#fcdcdc</color>
+    <color name="vo2max_excellent_fill_color">#ffe2e1</color>
+    <color name="vo2max_great_fill_color">#ffe6e0</color>
+    <color name="vo2max_good_fill_color">#fff5d6</color>
+    <color name="vo2max_normal_fill_color">#ddf8e7</color>
+    <color name="vo2max_poor_fill_color">#e6f4ff</color>
+    <color name="vo2max_veryPoor_fill_color">#eaedf1</color>
+    <color name="vo2max_perfect_top_color">#f35351</color>
+    <color name="vo2max_excellent_top_color">#fd6f6c</color>
+    <color name="vo2max_great_top_color">#fd8664</color>
+    <color name="vo2max_good_top_color">#fecd42</color>
+    <color name="vo2max_normal_top_color">#58da89</color>
+    <color name="vo2max_poor_top_color">#56bafc</color>
+    <color name="vo2max_veryPoor_top_color">#ccd3db</color>
+    <color name="vo2max_shader_end">#ff45B4FF</color>
+    <color name="vo2max_shader_begin">#0045B4FF</color>
+    <!-- vo2max end-->
+
+    <!-- curse start-->
+    <color name="curse_top_color">#FF5391</color>
+    <color name="curse_fill_forecast">#1AFF5391</color>
+    <color name="curse_color">#FF528C</color>
+    <color name="curse_fill_danger">#9472fc</color>
+    <color name="curse_fill_ovum">#53c6fd</color>
+    <!-- curse end-->
+
+    <!-- step start-->
+    <color name="step_freq_low">#FE5363</color>
+    <color name="step_freq_middle">#FBA315</color>
+    <color name="step_freq_high">#12BE7A</color>
+    <!-- step end-->
+
+    <!-- sleep start-->
+    <color name="sleep_quality_bad">#339273FA</color>
+    <color name="sleep_quality_normal">#669273FA</color>
+    <color name="sleep_quality_better">#999273FA</color>
+    <color name="sleep_quality_best">#CC9273FA</color>
+    <color name="sleep_color">#9273FA</color>
+    <color name="sleep_color_15">#279273FA</color>
+
+    <color name="sleep_deep">#9678FA</color>
+    <color name="sleep_slumber">#B19BFA</color>
+    <color name="sleep_eye_move">#D0C3FA</color>
+    <color name="sleep_wake">#FFD666</color>
+    <color name="sleep_other_color">#45B4FF</color>
+    <!-- sleep end-->
+
+    <!-- hearing start -->
+    <color name="hearing_low">#4cb5fc</color>
+    <color name="hearing_high">#a0d9fd</color>
+    <!-- hearing end -->
+
+    <!--chart start-->
+    <color name="chart_empty_color">@color/black_4</color>
+    <color name="chart_common_txt_color">@color/text_color_30</color>
+    <color name="chart_selected_prompt_bg_color">@color/black_5</color>
+    <color name="chart_bar_border_color">@color/black_10</color>
+    <color name="chart_highlight_line_color">@color/black_10</color>
+    <color name="chart_max_point_boarder">@color/white</color>
+    <color name="chart_axis_text_color">@color/black_30</color>
+    <!--chart end-->
+
+    <color name="chart_training_load_normal_bar">#2645B4FF</color>
+    <color name="chart_training_load_top_bar">#45B4FF</color>
+
+    <color name="running_indicator_semi_transparent_green_yellow">#2636D16F</color>
+
+</resources>

@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+}
+
+android {
+}
+
+dependencies {
+//    api project(":base:ui")
+    api 'androidx.recyclerview:recyclerview:1.2.1'
+    api 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+}

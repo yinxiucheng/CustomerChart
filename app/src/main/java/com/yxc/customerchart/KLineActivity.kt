@@ -40,10 +40,10 @@ class KLineActivity : BaseActivity() {
     private var kLineDatas: ArrayList<KLineBean>? = null
     var xAxisBar: XAxis? = null
     var xAxisK: XAxis? = null
-    var axisLeftBar: MyYAxis? = null
-    var axisLeftK: MyYAxis? = null
-    var axisRightBar: MyYAxis? = null
-    var axisRightK: MyYAxis? = null
+    var axisLeftBar: YAxis? = null
+    var axisLeftK: YAxis? = null
+    var axisRightBar: YAxis? = null
+    var axisRightK: YAxis? = null
     var barDataSet: BarDataSet? = null
     private val mChartTouchListener: BarLineChartTouchListener? = null
     private val coupleChartGestureListener: CoupleChartGestureListener? = null
@@ -63,6 +63,8 @@ class KLineActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kline)
         ButterKnife.bind(this)
+        combinedchart = findViewById(R.id.combinedchart)
+        barChart = findViewById(R.id.barchart)
         initChart()
         offLineData
     }
@@ -106,15 +108,15 @@ class KLineActivity : BaseActivity() {
             setPosition(XAxis.XAxisPosition.BOTTOM)
             setGridColor(resources.getColor(R.color.minute_grayLine))
         }
-        axisLeftBar = barChart!!.axisLeft as MyYAxis
+        axisLeftBar = barChart!!.axisLeft
         axisLeftBar!!.setAxisMinValue(0f)
         axisLeftBar!!.setDrawGridLines(false)
         axisLeftBar!!.setDrawAxisLine(false)
         axisLeftBar!!.textColor = resources.getColor(R.color.minute_zhoutv)
         axisLeftBar!!.setDrawLabels(true)
         axisLeftBar!!.spaceTop = 0f
-        axisLeftBar!!.setShowOnlyMinMax(true)
-        axisRightBar = barChart!!.axisRight as MyYAxis
+//        axisLeftBar!!.setShowOnlyMinMax(true)
+        axisRightBar = barChart!!.axisRight
         axisRightBar!!.setDrawLabels(false)
         axisRightBar!!.setDrawGridLines(false)
         axisRightBar!!.setDrawAxisLine(false)
@@ -137,14 +139,14 @@ class KLineActivity : BaseActivity() {
             setPosition(XAxis.XAxisPosition.BOTTOM)
             setGridColor(resources.getColor(R.color.minute_grayLine))
         }
-        axisLeftK = combinedchart!!.axisLeft as MyYAxis
+        axisLeftK = combinedchart!!.axisLeft
         axisLeftK!!.setDrawGridLines(true)
         axisLeftK!!.setDrawAxisLine(false)
         axisLeftK!!.setDrawLabels(true)
         axisLeftK!!.textColor = resources.getColor(R.color.minute_zhoutv)
         axisLeftK!!.gridColor = resources.getColor(R.color.minute_grayLine)
         axisLeftK!!.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-        axisRightK = combinedchart!!.axisRight as MyYAxis
+        axisRightK = combinedchart!!.axisRight
         axisRightK!!.setDrawLabels(false)
         axisRightK!!.setDrawGridLines(true)
         axisRightK!!.setDrawAxisLine(false)

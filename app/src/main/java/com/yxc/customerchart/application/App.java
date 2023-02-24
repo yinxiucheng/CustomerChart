@@ -2,6 +2,13 @@ package com.yxc.customerchart.application;
 
 import android.app.Application;
 
+//import com.example.yanjiang.stockchart.BuildConfig;
+//import com.example.yanjiang.stockchart.inject.component.AppComponent;
+//import com.example.yanjiang.stockchart.inject.component.DaggerAppComponent;
+//import com.example.yanjiang.stockchart.inject.modules.AppModule;
+//import com.squareup.leakcanary.LeakCanary;
+
+import com.yxc.chartlib.utils.AppUtil;
 import com.yxc.customerchart.inject.component.AppComponent;
 import com.yxc.customerchart.inject.component.DaggerAppComponent;
 import com.yxc.customerchart.inject.modules.AppModule;
@@ -23,6 +30,7 @@ public class App extends Application {
         initComponent();
         mApp=this;
         sBus = EventBus.getDefault();
+        AppUtil.init(this);
     }
     public static App getApp() {
         return mApp;

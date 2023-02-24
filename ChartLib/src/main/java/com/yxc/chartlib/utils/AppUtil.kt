@@ -26,6 +26,7 @@ object AppUtil {
 
     var isDevChannel = false
 
+    @JvmStatic
     fun init(app: Application) {
         if (sApp != null) {
             throw AndroidRuntimeException("App already init")

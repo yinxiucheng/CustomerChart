@@ -5,15 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/minute_black"
-    tools:context="com.example.yanjiang.stockchart.MinutesActivity">
+    tools:context=".MinutesActivity">
 
-    <com.example.yanjiang.stockchart.mychart.MyLineChart
+    <com.yxc.customerchart.mychart.MyLineChart
         android:id="@+id/line_chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
-
-    </com.example.yanjiang.stockchart.mychart.MyLineChart>
+        android:layout_weight="2"/>
 
    <!-- <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/bar_chart"
@@ -23,11 +21,10 @@
 
     </com.github.mikephil.charting.charts.BarChart>-->
 
-    <com.example.yanjiang.stockchart.mychart.MyBarChart
+    <com.yxc.customerchart.mychart.MyBarChart
         android:id="@+id/bar_chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"/>
 
-    </com.example.yanjiang.stockchart.mychart.MyBarChart>
 </LinearLayout>

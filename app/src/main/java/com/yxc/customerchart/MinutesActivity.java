@@ -75,6 +75,8 @@ public class MinutesActivity extends BaseActivity {
         setContentView(R.layout.activity_minutes);
         ButterKnife.bind(this);
         initChart();
+        lineChart = findViewById(R.id.line_chart);
+        barChart = findViewById(R.id.bar_chart);
 
         stringSparseArray = setXLabels();
 

@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.component.DistanceCompare;
+import com.yxc.chartlib.component.DistanceCompare;
 
 
 /**

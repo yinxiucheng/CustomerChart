@@ -1,4 +1,4 @@
-package com.xiaomi.fitness.chart.entrys
+package com.yxc.fitness.chart.entrys
 
 import androidx.annotation.IntDef
 import java.lang.annotation.Retention

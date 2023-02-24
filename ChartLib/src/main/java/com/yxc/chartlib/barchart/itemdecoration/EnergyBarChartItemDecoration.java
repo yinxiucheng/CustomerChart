@@ -4,11 +4,10 @@ import android.graphics.Canvas;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.component.VarietyMaxYAxis;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.render.EnergyBarChartRender;
-import com.xiaomi.fitness.common.utils.AppUtil;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.VarietyMaxYAxis;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.render.EnergyBarChartRender;
 
 /**
  * @author yxc

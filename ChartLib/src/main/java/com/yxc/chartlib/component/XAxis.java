@@ -1,8 +1,8 @@
 package com.yxc.chartlib.component;
 
 import com.github.mikephil.charting.components.AxisBase;
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.formatter.ValueFormatter;
 
 /**
  * @author yxc

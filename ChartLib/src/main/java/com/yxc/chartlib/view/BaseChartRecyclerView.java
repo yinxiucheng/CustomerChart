@@ -1,21 +1,20 @@
 package com.yxc.chartlib.view;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.barchart.itemdecoration.BaseChartItemDecoration;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
-import com.xiaomi.fitness.chart.component.VarietyMaxYAxis;
-import com.xiaomi.fitness.chart.component.YAxis;
-import com.xiaomi.fitness.common.utils.AppUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
-
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.barchart.itemdecoration.BaseChartItemDecoration;
+import com.yxc.chartlib.component.BaseYAxis;
+import com.yxc.chartlib.utils.AppUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
 
 /**
  * @author yxc
@@ -50,6 +49,7 @@ public abstract class BaseChartRecyclerView<T extends BaseChartAttrs, I extends 
 //        setRecyclerViewDefaultPadding();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {

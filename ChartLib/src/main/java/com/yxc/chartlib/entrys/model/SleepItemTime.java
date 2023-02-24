@@ -3,10 +3,9 @@ package com.yxc.chartlib.entrys.model;
 import android.content.Context;
 import android.graphics.Color;
 
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.attrs.SleepChartAttrs;
-import com.xiaomi.fitness.common.utils.ColorUtil;
-
+import com.yxc.chartlib.attrs.SleepChartAttrs;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.ColorUtil;
 
 /**
  * @author yxc

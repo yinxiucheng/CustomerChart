@@ -14,16 +14,20 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.attrs.LineChartAttrs;
-import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
-import com.xiaomi.fitness.chart.barchart.itemdecoration.LineChartDrawable;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.render.BaseChartRender;
-import com.xiaomi.fitness.chart.util.ChartComputeUtil;
-import com.xiaomi.fitness.common.utils.AppUtil;
+//import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
+//import com.xiaomi.fitness.chart.attrs.LineChartAttrs;
+//import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
+//import com.xiaomi.fitness.chart.barchart.itemdecoration.LineChartDrawable;
+//import com.xiaomi.fitness.chart.component.BaseYAxis;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.attrs.LineChartAttrs;
+import com.yxc.chartlib.barchart.BaseBarChartAdapter;
+import com.yxc.chartlib.barchart.itemdecoration.LineChartDrawable;
+import com.yxc.chartlib.component.BaseYAxis;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.util.ChartComputeUtil;
+import com.yxc.chartlib.utils.AppUtil;
 
 import java.util.List;
 
@@ -606,7 +610,7 @@ final public class LineChartRender extends BaseChartRender<RecyclerBarEntry, Lin
     }
 
     private void drawFill(RecyclerView parent, BaseChartAttrs chartAttrs, Canvas canvas,
-            PointF pointF, PointF pointF1, float bottom) {
+                          PointF pointF, PointF pointF1, float bottom) {
         if (chartAttrs.enableLineFill) {
             float yBottom = parent.getBottom() - parent.getPaddingBottom();
             float yTop = parent.getTop() + parent.getPaddingTop();

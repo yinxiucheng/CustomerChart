@@ -1,10 +1,9 @@
 package com.yxc.chartlib.component;
 
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
 
 /**
  * @author yxc

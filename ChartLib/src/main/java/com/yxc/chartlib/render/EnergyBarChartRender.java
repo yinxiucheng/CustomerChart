@@ -1,7 +1,10 @@
 package com.yxc.chartlib.render;
 
-import static com.xiaomi.fitness.chart.entrys.model.EnergyEntry.ENERGY_TYPE_PRESS;
-import static com.xiaomi.fitness.chart.entrys.model.EnergyEntry.ENERGY_TYPE_SPORT;
+//import static com.xiaomi.fitness.chart.entrys.model.EnergyEntry.ENERGY_TYPE_PRESS;
+//import static com.xiaomi.fitness.chart.entrys.model.EnergyEntry.ENERGY_TYPE_SPORT;
+
+import static com.yxc.chartlib.entrys.model.EnergyEntry.ENERGY_TYPE_PRESS;
+import static com.yxc.chartlib.entrys.model.EnergyEntry.ENERGY_TYPE_SPORT;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,15 +15,16 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.component.YAxis;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.entrys.model.EnergyEntry;
-import com.xiaomi.fitness.chart.render.BaseChartRender;
-import com.xiaomi.fitness.chart.util.CanvasUtil;
-import com.xiaomi.fitness.chart.util.ChartComputeUtil;
-import com.xiaomi.fitness.chart.util.RoundRectType;
-import com.xiaomi.fitness.common.utils.DecimalUtil;
+//import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
+//import com.xiaomi.fitness.chart.component.YAxis;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.YAxis;
+import com.yxc.chartlib.entrys.model.EnergyEntry;
+import com.yxc.chartlib.util.CanvasUtil;
+import com.yxc.chartlib.util.ChartComputeUtil;
+import com.yxc.chartlib.util.RoundRectType;
+import com.yxc.chartlib.utils.DecimalUtil;
 
 /**
  * @author yxc

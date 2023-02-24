@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.component.BaseYAxis;
 
 public class RecyclerTransform extends Transformer {
 

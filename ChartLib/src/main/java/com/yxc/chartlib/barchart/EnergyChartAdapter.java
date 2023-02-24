@@ -6,15 +6,20 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.barchart.BarChartViewHolder;
-import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.entrys.model.EnergyEntry;
+//import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
+//import com.xiaomi.fitness.chart.barchart.BarChartViewHolder;
+//import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
+//import com.xiaomi.fitness.chart.component.BaseYAxis;
+//import com.xiaomi.fitness.chart.component.XAxis;
+//import com.xiaomi.fitness.chart.entrys.model.EnergyEntry;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.BaseYAxis;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.entrys.model.EnergyEntry;
 
 
 /**
@@ -24,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class EnergyChartAdapter extends BaseBarChartAdapter<EnergyEntry, BaseYAxis> {
 
     public EnergyChartAdapter(Context context, List<EnergyEntry> entries,
-            RecyclerView recyclerView, XAxis xAxis, BarChartAttrs attrs) {
+                              RecyclerView recyclerView, XAxis xAxis, BarChartAttrs attrs) {
         super(context, entries, recyclerView, xAxis, attrs);
     }
 

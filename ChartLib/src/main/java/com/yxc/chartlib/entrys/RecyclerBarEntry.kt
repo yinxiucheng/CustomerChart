@@ -1,16 +1,17 @@
-package com.xiaomi.fitness.chart.entrys
+package com.yxc.fitness.chart.entrys
 
 import com.github.mikephil.charting.data.BarEntry
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs
-import com.xiaomi.fitness.chart.component.XAxis
-import com.xiaomi.fitness.common.utils.TimeDateUtil
-import com.xiaomi.fitness.common.utils.TimeDateUtil.getFirstDayOfMonth
-import com.xiaomi.fitness.common.utils.TimeDateUtil.getHourOfTheDay
-import com.xiaomi.fitness.common.utils.TimeDateUtil.isEndHourOfTheDay
-import com.xiaomi.fitness.common.utils.TimeDateUtil.isLastDayOfMonth
-import com.xiaomi.fitness.common.utils.TimeDateUtil.isSunday
-import com.xiaomi.fitness.common.utils.TimeDateUtil.timestampToLocalDate
-import org.joda.time.LocalDate
+import com.yxc.chartlib.attrs.BaseChartAttrs
+import com.yxc.chartlib.component.XAxis
+import com.yxc.mylibrary.TimeDateUtil
+import com.yxc.mylibrary.TimeDateUtil.getFirstDayOfMonth
+import com.yxc.mylibrary.TimeDateUtil.getHourOfTheDay
+import com.yxc.mylibrary.TimeDateUtil.isEndHourOfTheDay
+import com.yxc.mylibrary.TimeDateUtil.isLastDayOfMonth
+import com.yxc.mylibrary.TimeDateUtil.isSunday
+import com.yxc.mylibrary.TimeDateUtil.timestampToLocalDate
+
+import org.joda.time.*
 import java.util.*
 
 /**

@@ -6,13 +6,10 @@ package com.yxc.chartlib.mpchart;
  */
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Path;
 import android.graphics.RectF;
-
-import androidx.core.graphics.ColorUtils;
 
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
@@ -20,12 +17,12 @@ import com.github.mikephil.charting.renderer.YAxisRenderer;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.mpchart.linechart.CustomLineChartAttr;
-import com.xiaomi.fitness.common.utils.AppUtil;
-import com.xiaomi.fitness.common.utils.ColorUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
-import com.xiaomi.fitness.common.utils.TextUtil;
+import com.yxc.chartlib.mpchart.linechart.CustomLineChartAttr;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.AppUtil;
+import com.yxc.chartlib.utils.ColorUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
+import com.yxc.chartlib.utils.TextUtil;
 
 import java.util.List;
 

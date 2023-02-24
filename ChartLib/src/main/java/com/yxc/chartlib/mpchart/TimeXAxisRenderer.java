@@ -17,10 +17,10 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.mpchart.linechart.CustomLineChartAttr;
-import com.xiaomi.fitness.common.utils.AppUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
+import com.yxc.chartlib.mpchart.linechart.CustomLineChartAttr;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.AppUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
 
 public class TimeXAxisRenderer extends XAxisRenderer {
 

@@ -1,6 +1,7 @@
 package com.yxc.chartlib.mpchart.linechart;
 
-import com.xiaomi.fitness.chart.mpchart.MPChartAttr;
+
+import com.yxc.chartlib.mpchart.MPChartAttr;
 
 /**
  * @author yxc

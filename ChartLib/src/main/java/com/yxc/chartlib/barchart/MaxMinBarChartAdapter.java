@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.component.VarietyMaxYAxis;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.entrys.MaxMinEntry;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.component.VarietyMaxYAxis;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.entrys.MaxMinEntry;
+import com.yxc.chartlib.formatter.ValueFormatter;
 
 import java.util.List;
 

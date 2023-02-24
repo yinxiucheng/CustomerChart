@@ -1,7 +1,7 @@
 package com.yxc.chartlib.component;
 
 
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
 
 /**
  * @author yxc

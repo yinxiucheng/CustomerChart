@@ -11,9 +11,9 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.EntryXComparator;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.entrys.SleepItemEntry;
-import com.xiaomi.fitness.common.utils.AppUtil;
+import com.yxc.chartlib.entrys.SleepItemEntry;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.AppUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

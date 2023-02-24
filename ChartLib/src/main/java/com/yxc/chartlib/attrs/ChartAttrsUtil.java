@@ -7,12 +7,12 @@ import android.util.AttributeSet;
 
 import androidx.core.content.ContextCompat;
 
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.mpchart.barchart.CustomBarChartAttr;
-import com.xiaomi.fitness.chart.mpchart.linechart.CustomLineChartAttr;
-import com.xiaomi.fitness.common.utils.ColorUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.mpchart.barchart.CustomBarChartAttr;
+import com.yxc.chartlib.mpchart.linechart.CustomLineChartAttr;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.ColorUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
 
 public class ChartAttrsUtil {
 

@@ -1,11 +1,11 @@
-package com.xiaomi.fitness.chart.render
+package com.yxc.fitness.chart.render
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs
-import com.xiaomi.fitness.common.utils.AppUtil
-import com.xiaomi.fitness.common.utils.TimeDateUtil
+import com.yxc.chartlib.attrs.BaseChartAttrs
+import com.yxc.chartlib.utils.AppUtil
+import com.yxc.mylibrary.TimeDateUtil
 
 class SleepDayXAxisRender<V : BaseChartAttrs?>(private val mBarChartAttrs: V) {
 

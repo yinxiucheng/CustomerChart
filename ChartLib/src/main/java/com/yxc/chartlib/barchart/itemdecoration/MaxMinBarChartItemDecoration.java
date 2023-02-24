@@ -4,12 +4,13 @@ import android.graphics.Canvas;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.component.VarietyMaxYAxis;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.formatter.DefaultHighLightMarkValueFormatter;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.render.MaxMinBarChartRender;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.VarietyMaxYAxis;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.formatter.DefaultHighLightMarkValueFormatter;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.render.MaxMinBarChartRender;
+
 
 /**
  * @author yxc

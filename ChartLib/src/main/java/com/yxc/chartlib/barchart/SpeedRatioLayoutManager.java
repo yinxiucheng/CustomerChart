@@ -4,7 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
+
+import com.yxc.chartlib.attrs.BaseChartAttrs;
 
 
 /**

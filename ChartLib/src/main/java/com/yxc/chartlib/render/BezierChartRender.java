@@ -11,14 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
-import com.xiaomi.fitness.chart.attrs.BezierChartAttrs;
-import com.xiaomi.fitness.chart.bezier.ControlPoint;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.util.ChartComputeUtil;
-import com.xiaomi.fitness.common.utils.DecimalUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
+//import com.xiaomi.fitness.chart.attrs.BezierChartAttrs;
+//import com.xiaomi.fitness.chart.bezier.ControlPoint;
+//import com.xiaomi.fitness.chart.component.BaseYAxis;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.BezierChartAttrs;
+import com.yxc.chartlib.bezier.ControlPoint;
+import com.yxc.chartlib.component.BaseYAxis;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.util.ChartComputeUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
+import com.yxc.chartlib.utils.DecimalUtil;
 
 import java.util.ArrayList;
 import java.util.List;

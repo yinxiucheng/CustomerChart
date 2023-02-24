@@ -1,17 +1,23 @@
-package com.xiaomi.fitness.chart.render
+package com.yxc.fitness.chart.render
 
 import android.graphics.*
+import android.os.Build
 import android.text.TextUtils
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.xiaomi.fitness.chart.R
-import com.xiaomi.fitness.chart.attrs.SleepChartAttrs
-import com.xiaomi.fitness.chart.entrys.SleepItemEntry
-import com.xiaomi.fitness.chart.entrys.model.SleepItemTime
-import com.xiaomi.fitness.chart.formatter.DefaultHighLightMarkValueFormatter
-import com.xiaomi.fitness.chart.formatter.ValueFormatter
-import com.xiaomi.fitness.common.utils.*
-import com.xiaomi.fitness.common.utils.DisplayUtil.dip2px
+import com.yxc.chartlib.attrs.SleepChartAttrs
+import com.yxc.chartlib.entrys.SleepItemEntry
+import com.yxc.chartlib.entrys.model.SleepItemTime
+import com.yxc.chartlib.formatter.DefaultHighLightMarkValueFormatter
+import com.yxc.chartlib.formatter.ValueFormatter
+import com.yxc.customerchart.R
+import com.yxc.chartlib.utils.AppUtil
+import com.yxc.chartlib.utils.ColorUtil
+import com.yxc.chartlib.utils.DisplayUtil
+import com.yxc.chartlib.utils.DisplayUtil.dip2px
+import com.yxc.chartlib.utils.TextUtil
+import com.yxc.mylibrary.TimeDateUtil
 
 class SleepChartRender(
     private val mChartAttrs: SleepChartAttrs,
@@ -131,6 +137,7 @@ class SleepChartRender(
     }
 
     //绘制柱状图, mYAxis这个坐标会实时变动，所以通过 BarChartItemDecoration 传过来的精确值。
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     fun drawSleepChart(canvas: Canvas, parent: RecyclerView) {
         val parentEnd = parent.width - parent.paddingEnd.toFloat()
         val parentStart = parent.paddingStart.toFloat()
@@ -170,6 +177,7 @@ class SleepChartRender(
         drawXAxisLabel(parent, longestSleepEntry, canvas, latestSleepEntry)
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun drawXAxisLabel(
         parent: RecyclerView,
         longestSleepEntry: SleepItemEntry?,

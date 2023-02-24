@@ -7,10 +7,17 @@ plugins {
 android {
     namespace 'com.yxc.customerchart'
     compileSdk 33
+    defaultConfig {
+        minSdk 24
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
 }
 
 dependencies {
-//    api project(":base:ui")
     api 'androidx.recyclerview:recyclerview:1.2.1'
     api 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    api 'joda-time:joda-time:2.10.8'
 }

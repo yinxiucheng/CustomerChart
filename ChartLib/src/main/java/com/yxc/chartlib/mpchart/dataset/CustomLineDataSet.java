@@ -2,9 +2,9 @@ package com.yxc.chartlib.mpchart.dataset;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.entrys.SportRecordEntry;
-import com.xiaomi.fitness.common.utils.ColorUtil;
+import com.yxc.chartlib.entrys.SportRecordEntry;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.ColorUtil;
 
 import java.util.ArrayList;
 import java.util.List;

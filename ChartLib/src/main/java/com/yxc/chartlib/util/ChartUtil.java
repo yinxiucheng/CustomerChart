@@ -1,6 +1,6 @@
 package com.yxc.chartlib.util;
 
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 
 import java.util.List;
 

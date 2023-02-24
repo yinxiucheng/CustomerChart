@@ -10,10 +10,11 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.xiaomi.fitness.chart.attrs.ChartAttrsUtil;
-import com.xiaomi.fitness.chart.attrs.SleepChartAttrs;
-import com.xiaomi.fitness.chart.barchart.itemdecoration.BarChartItemDecoration;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
+import com.yxc.chartlib.attrs.ChartAttrsUtil;
+import com.yxc.chartlib.attrs.SleepChartAttrs;
+import com.yxc.chartlib.barchart.itemdecoration.BarChartItemDecoration;
+import com.yxc.chartlib.utils.DisplayUtil;
+
 
 /**
  * @author yxc

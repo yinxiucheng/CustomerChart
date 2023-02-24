@@ -7,11 +7,11 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.attrs.ChartAttrsUtil;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.entrys.SleepEntry;
-import com.xiaomi.fitness.chart.mpchart.dataset.CustomBarDataSet;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.ChartAttrsUtil;
+import com.yxc.chartlib.entrys.SleepEntry;
+import com.yxc.chartlib.mpchart.dataset.CustomBarDataSet;
+import com.yxc.customerchart.R;
 
 import java.util.ArrayList;
 import java.util.List;

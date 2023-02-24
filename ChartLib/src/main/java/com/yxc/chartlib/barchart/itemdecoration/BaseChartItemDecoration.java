@@ -2,12 +2,12 @@ package com.yxc.chartlib.barchart.itemdecoration;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.render.BarBoardRender;
-import com.xiaomi.fitness.chart.render.XAxisRender;
-import com.xiaomi.fitness.chart.render.YAxisRender;
+import com.yxc.fitness.chart.render.YAxisRender;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.component.BaseYAxis;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.render.BarBoardRender;
+import com.yxc.chartlib.render.XAxisRender;
 
 
 /**

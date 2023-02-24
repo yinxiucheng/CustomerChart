@@ -2,10 +2,10 @@ package com.yxc.chartlib.formatter;
 
 import android.content.Context;
 
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.entrys.SportRecordEntry;
-import com.xiaomi.fitness.common.utils.DecimalUtil;
-import com.xiaomi.fitness.common.utils.TimeDateUtil;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.entrys.SportRecordEntry;
+import com.yxc.chartlib.utils.DecimalUtil;
+import com.yxc.mylibrary.TimeDateUtil;
 
 
 /**

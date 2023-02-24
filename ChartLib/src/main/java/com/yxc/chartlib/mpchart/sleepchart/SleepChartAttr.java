@@ -1,7 +1,7 @@
 package com.yxc.chartlib.mpchart.sleepchart;
 
 
-import com.xiaomi.fitness.chart.mpchart.MPChartAttr;
+import com.yxc.chartlib.mpchart.MPChartAttr;
 
 /**
  * @author yxc

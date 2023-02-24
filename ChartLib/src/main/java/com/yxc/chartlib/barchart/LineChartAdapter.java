@@ -6,15 +6,14 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.entrys.MaxMinEntry;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.component.BaseYAxis;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.entrys.MaxMinEntry;
+import com.yxc.chartlib.formatter.ValueFormatter;
 
 public class LineChartAdapter<T extends BaseYAxis> extends BaseBarChartAdapter<MaxMinEntry, T> {
 

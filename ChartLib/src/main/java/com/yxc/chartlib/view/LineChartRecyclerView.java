@@ -6,10 +6,9 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.xiaomi.fitness.chart.attrs.ChartAttrsUtil;
-import com.xiaomi.fitness.chart.attrs.LineChartAttrs;
-import com.xiaomi.fitness.chart.barchart.itemdecoration.LineChartItemDecoration;
-
+import com.yxc.chartlib.attrs.ChartAttrsUtil;
+import com.yxc.chartlib.attrs.LineChartAttrs;
+import com.yxc.chartlib.barchart.itemdecoration.LineChartItemDecoration;
 
 /**
  * @author yxc

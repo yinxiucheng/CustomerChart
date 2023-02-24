@@ -10,7 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.component.DistanceCompare;
+import com.yxc.chartlib.component.DistanceCompare;
+
 
 /**
  * Class intended to support snapping for a {@link RecyclerView}.

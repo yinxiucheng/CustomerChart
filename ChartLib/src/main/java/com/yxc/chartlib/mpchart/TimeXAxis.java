@@ -1,7 +1,7 @@
 package com.yxc.chartlib.mpchart;
 
 import com.github.mikephil.charting.components.XAxis;
-import com.xiaomi.fitness.common.utils.TimeDateUtil;
+import com.yxc.mylibrary.TimeDateUtil;
 
 import java.util.ArrayList;
 import java.util.List;

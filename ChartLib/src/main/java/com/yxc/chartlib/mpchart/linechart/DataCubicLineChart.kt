@@ -1,4 +1,4 @@
-package com.xiaomi.fitness.chart.mpchart.linechart
+package com.yxc.fitness.chart.mpchart.linechart
 
 import android.content.Context
 import android.graphics.Color
@@ -10,8 +10,9 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.github.mikephil.charting.utils.Utils
-import com.xiaomi.fitness.chart.R
-import com.xiaomi.fitness.chart.mpchart.dataset.CustomLineDataSet
+import com.yxc.chartlib.mpchart.dataset.CustomLineDataSet
+import com.yxc.chartlib.mpchart.linechart.LineChartColorAttr
+import com.yxc.customerchart.R
 import java.util.*
 
 /**

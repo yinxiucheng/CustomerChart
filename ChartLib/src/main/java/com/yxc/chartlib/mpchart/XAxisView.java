@@ -9,9 +9,9 @@ import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
-import com.xiaomi.fitness.common.utils.TextUtil;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.DisplayUtil;
+import com.yxc.chartlib.utils.TextUtil;
 
 
 /**

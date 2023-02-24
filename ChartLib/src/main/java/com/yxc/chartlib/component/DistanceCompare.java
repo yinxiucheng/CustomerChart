@@ -2,7 +2,7 @@ package com.yxc.chartlib.component;
 
 import android.view.View;
 
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 
 /**
  * @author yxc

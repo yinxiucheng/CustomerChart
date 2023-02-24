@@ -7,17 +7,16 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.component.BaseYAxis;
-import com.xiaomi.fitness.chart.entrys.MultiBarEntry;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.render.BaseChartRender;
-import com.xiaomi.fitness.chart.util.CanvasUtil;
-import com.xiaomi.fitness.chart.util.ChartComputeUtil;
-import com.xiaomi.fitness.chart.util.RectFWrapper;
-import com.xiaomi.fitness.chart.util.RoundRectType;
-import com.xiaomi.fitness.common.utils.DecimalUtil;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.BaseYAxis;
+import com.yxc.chartlib.entrys.MultiBarEntry;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.util.CanvasUtil;
+import com.yxc.chartlib.util.ChartComputeUtil;
+import com.yxc.chartlib.util.RectFWrapper;
+import com.yxc.chartlib.util.RoundRectType;
+import com.yxc.chartlib.utils.DecimalUtil;
 
 import java.util.List;
 

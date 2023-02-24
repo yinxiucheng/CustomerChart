@@ -12,12 +12,12 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.entrys.SleepItemEntry;
-import com.xiaomi.fitness.chart.entrys.model.SleepItemTime;
-import com.xiaomi.fitness.chart.mpchart.MPChartAttr;
-import com.xiaomi.fitness.common.utils.AppUtil;
-import com.xiaomi.fitness.common.utils.ColorUtil;
+import com.yxc.chartlib.entrys.SleepItemEntry;
+import com.yxc.chartlib.entrys.model.SleepItemTime;
+import com.yxc.chartlib.mpchart.MPChartAttr;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.AppUtil;
+import com.yxc.chartlib.utils.ColorUtil;
 
 /**
  * @author yxc

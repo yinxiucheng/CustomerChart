@@ -4,13 +4,12 @@ import android.util.Log;
 
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.entrys.SportRecordEntry;
-import com.xiaomi.fitness.chart.mpchart.linechart.CustomLineChartAttr;
-import com.xiaomi.fitness.chart.util.ChartUtil;
-import com.xiaomi.fitness.common.log.Logger;
-import com.xiaomi.fitness.common.utils.ColorUtil;
-import com.xiaomi.fitness.common.utils.TimeDateUtil;
+import com.yxc.chartlib.entrys.SportRecordEntry;
+import com.yxc.chartlib.mpchart.linechart.CustomLineChartAttr;
+import com.yxc.chartlib.util.ChartUtil;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.ColorUtil;
+import com.yxc.mylibrary.TimeDateUtil;
 
 import java.util.ArrayList;
 import java.util.List;

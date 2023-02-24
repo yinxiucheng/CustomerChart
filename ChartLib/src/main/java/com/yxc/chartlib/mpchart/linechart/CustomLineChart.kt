@@ -1,4 +1,4 @@
-package com.xiaomi.fitness.chart.mpchart.linechart
+package com.yxc.fitness.chart.mpchart.linechart
 
 import android.content.Context
 import android.graphics.Canvas
@@ -14,16 +14,26 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.EntryXComparator
 import com.github.mikephil.charting.utils.Utils
-import com.xiaomi.fitness.chart.R
-import com.xiaomi.fitness.chart.attrs.ChartAttrsUtil
-import com.xiaomi.fitness.chart.entrys.SportRecordEntry
-import com.xiaomi.fitness.chart.formatter.XAxisSportFormatter
-import com.xiaomi.fitness.chart.mpchart.*
-import com.xiaomi.fitness.chart.mpchart.dataset.CustomLineDataSet
-import com.xiaomi.fitness.common.extensions.application
-import com.xiaomi.fitness.common.utils.AppUtil.isRTLDirection
-import com.xiaomi.fitness.common.utils.ColorUtil
-import com.xiaomi.fitness.common.utils.DecimalUtil
+//import com.xiaomi.fitness.chart.R
+//import com.xiaomi.fitness.chart.attrs.ChartAttrsUtil
+//import com.xiaomi.fitness.chart.entrys.SportRecordEntry
+//import com.xiaomi.fitness.chart.formatter.XAxisSportFormatter
+import com.yxc.chartlib.attrs.ChartAttrsUtil
+import com.yxc.chartlib.entrys.SportRecordEntry
+import com.yxc.chartlib.formatter.XAxisSportFormatter
+import com.yxc.chartlib.mpchart.*
+import com.yxc.chartlib.mpchart.dataset.CustomLineDataSet
+import com.yxc.chartlib.mpchart.linechart.CustomLineChartAttr
+import com.yxc.chartlib.mpchart.linechart.CustomLineChartRenderer
+import com.yxc.customerchart.R
+import com.yxc.chartlib.utils.AppUtil.app
+import com.yxc.chartlib.utils.AppUtil.isRTLDirection
+import com.yxc.chartlib.utils.ColorUtil
+//import com.xiaomi.fitness.chart.mpchart.dataset.CustomLineDataSet
+//import com.xiaomi.fitness.common.extensions.application
+//import com.xiaomi.fitness.common.utils.AppUtil.isRTLDirection
+//import com.xiaomi.fitness.common.utils.ColorUtil
+//import com.xiaomi.fitness.common.utils.DecimalUtil
 import java.util.*
 
 /**
@@ -64,7 +74,7 @@ open class CustomLineChart : LineChart {
 
     override fun init() {
         super.init()
-        val context: Context = application.applicationContext
+        val context: Context = app
         mXAxis = TimeXAxis()
         mAxisRight = SportYAxis(YAxis.AxisDependency.RIGHT)
         mAxisLeft = SportYAxis(YAxis.AxisDependency.LEFT)

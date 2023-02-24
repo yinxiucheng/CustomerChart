@@ -8,9 +8,10 @@ import android.graphics.Path;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.common.utils.AppUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.utils.AppUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
+
 
 /**
  * @author yxc

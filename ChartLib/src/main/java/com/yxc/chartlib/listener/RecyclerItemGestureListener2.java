@@ -1,19 +1,21 @@
 package com.yxc.chartlib.listener;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 
-import com.xiaomi.fitness.chart.barchart.SpeedRatioLayoutManager;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.view.BaseChartRecyclerView;
-import com.xiaomi.fitness.chart.view.BaseChartRecyclerView.OnChartTouchListener;
+//import com.xiaomi.fitness.chart.barchart.SpeedRatioLayoutManager;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.barchart.SpeedRatioLayoutManager;
+import com.yxc.chartlib.view.BaseChartRecyclerView;
 
 /**
  * @author yxc
@@ -33,6 +35,7 @@ public class RecyclerItemGestureListener2<T extends RecyclerBarEntry> implements
 
     private RecyclerView.Adapter mAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public RecyclerItemGestureListener2(Context context, final BaseChartRecyclerView parent, final OnItemGestureListener listener) {
         mListener = listener;
         layoutManager = (SpeedRatioLayoutManager) parent.getLayoutManager();
@@ -117,7 +120,7 @@ public class RecyclerItemGestureListener2<T extends RecyclerBarEntry> implements
             }
         });
 
-        OnChartTouchListener onChartTouchListener = new OnChartTouchListener() {
+        BaseChartRecyclerView.OnChartTouchListener onChartTouchListener = new BaseChartRecyclerView.OnChartTouchListener() {
             @Override
             public void onChartGestureStart(MotionEvent e) {
             }

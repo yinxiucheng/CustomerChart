@@ -1,7 +1,7 @@
 package com.yxc.chartlib.formatter;
 
 
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 
 /**
  * @author yxc

@@ -4,12 +4,12 @@ import android.graphics.Canvas;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BezierChartAttrs;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.component.YAxis;
-import com.xiaomi.fitness.chart.formatter.DefaultBarChartValueFormatter;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.render.BezierChartRender;
+import com.yxc.chartlib.attrs.BezierChartAttrs;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.component.YAxis;
+import com.yxc.chartlib.formatter.DefaultBarChartValueFormatter;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.render.BezierChartRender;
 
 /**
  * @author yxc

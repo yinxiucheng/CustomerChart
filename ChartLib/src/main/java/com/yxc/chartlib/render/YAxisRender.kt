@@ -1,17 +1,16 @@
-package com.xiaomi.fitness.chart.render
+package com.yxc.fitness.chart.render
 
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs
-import com.xiaomi.fitness.chart.component.BaseYAxis
-import com.xiaomi.fitness.chart.component.YAxis
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry
-import com.xiaomi.fitness.chart.util.ChartComputeUtil
-import com.xiaomi.fitness.common.utils.AppUtil.isRTLDirection
-import com.xiaomi.fitness.common.utils.DisplayUtil
-import com.xiaomi.fitness.common.utils.TextUtil
-import android.R.attr.dashWidth
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 import android.graphics.*
+import com.yxc.chartlib.attrs.BaseChartAttrs
+import com.yxc.chartlib.component.BaseYAxis
+import com.yxc.chartlib.component.YAxis
+import com.yxc.chartlib.util.ChartComputeUtil
+import com.yxc.chartlib.utils.AppUtil.isRTLDirection
+import com.yxc.chartlib.utils.DisplayUtil
+import com.yxc.chartlib.utils.TextUtil
 
 
 class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAttrs: V) {
@@ -59,7 +58,8 @@ class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAt
             path.moveTo(left.toFloat(), gridLine)
             path.lineTo(right.toFloat(), gridLine)
             if (enable) {
-                if(mBarChartAttrs!!.enableYAxisLineDash) mLinePaint.pathEffect = DashPathEffect(floatArrayOf(DisplayUtil.dip2pxF(4f), DisplayUtil.dip2pxF(1.5f)), 0f)
+                if(mBarChartAttrs!!.enableYAxisLineDash) mLinePaint.pathEffect = DashPathEffect(floatArrayOf(
+                    DisplayUtil.dip2pxF(4f), DisplayUtil.dip2pxF(1.5f)), 0f)
                 canvas.drawPath(path, mLinePaint)
             }
         }

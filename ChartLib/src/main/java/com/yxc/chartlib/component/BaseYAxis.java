@@ -2,8 +2,8 @@ package com.yxc.chartlib.component;
 
 
 import com.github.mikephil.charting.components.AxisBase;
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

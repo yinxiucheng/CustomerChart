@@ -7,24 +7,23 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.util.CanvasUtil;
-import com.xiaomi.fitness.chart.util.RoundRectType;
-import com.xiaomi.fitness.common.utils.AppUtil;
-import com.xiaomi.fitness.common.utils.ColorUtil;
-import com.xiaomi.fitness.common.utils.DecimalUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
-import com.xiaomi.fitness.common.utils.TextUtil;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.util.CanvasUtil;
+import com.yxc.chartlib.util.RoundRectType;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.AppUtil;
+import com.yxc.chartlib.utils.ColorUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
+import com.yxc.chartlib.utils.TextUtil;
+import com.yxc.chartlib.utils.DecimalUtil;
 
 final public class XAxisRender<V extends BaseChartAttrs> {
 

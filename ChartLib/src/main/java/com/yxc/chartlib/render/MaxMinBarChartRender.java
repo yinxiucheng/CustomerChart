@@ -1,30 +1,22 @@
 package com.yxc.chartlib.render;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.component.VarietyMaxYAxis;
-import com.xiaomi.fitness.chart.component.YAxis;
-import com.xiaomi.fitness.chart.entrys.MaxMinEntry;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.formatter.DefaultHighLightMarkValueFormatter;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.render.BaseChartRender;
-import com.xiaomi.fitness.chart.util.CanvasUtil;
-import com.xiaomi.fitness.chart.util.ChartComputeUtil;
-import com.xiaomi.fitness.chart.util.RoundRectType;
-import com.xiaomi.fitness.common.utils.DecimalUtil;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
-import com.xiaomi.fitness.common.utils.TextUtil;
-
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.YAxis;
+import com.yxc.chartlib.entrys.MaxMinEntry;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.util.CanvasUtil;
+import com.yxc.chartlib.util.ChartComputeUtil;
+import com.yxc.chartlib.util.RoundRectType;
+import com.yxc.chartlib.utils.DisplayUtil;
+import com.yxc.chartlib.utils.DecimalUtil;
 
 /**
  * @author yxc

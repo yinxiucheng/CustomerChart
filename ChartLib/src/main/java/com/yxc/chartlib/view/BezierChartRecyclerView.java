@@ -6,9 +6,9 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.xiaomi.fitness.chart.attrs.BezierChartAttrs;
-import com.xiaomi.fitness.chart.attrs.ChartAttrsUtil;
-import com.xiaomi.fitness.chart.barchart.itemdecoration.BezierChartItemDecoration;
+import com.yxc.chartlib.attrs.BezierChartAttrs;
+import com.yxc.chartlib.attrs.ChartAttrsUtil;
+import com.yxc.chartlib.barchart.itemdecoration.BezierChartItemDecoration;
 
 /**
  * @author yxc

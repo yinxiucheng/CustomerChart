@@ -3,10 +3,11 @@ package com.yxc.chartlib.mpchart.barchart;
 import com.github.mikephil.charting.buffer.BarBuffer;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.xiaomi.fitness.chart.entrys.SegmentBarEntry;
-import com.xiaomi.fitness.chart.entrys.model.SegmentRectModel;
+import com.yxc.fitness.chart.entrys.SegmentBarEntry;
+import com.yxc.chartlib.entrys.model.SegmentRectModel;
 
 import java.util.List;
+
 
 public class SegmentBarChartBuffer extends BarBuffer {
 

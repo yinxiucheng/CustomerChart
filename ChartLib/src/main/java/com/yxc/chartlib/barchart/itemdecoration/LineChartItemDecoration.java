@@ -5,12 +5,13 @@ import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.LineChartAttrs;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.component.YAxis;
-import com.xiaomi.fitness.chart.formatter.DefaultHighLightMarkValueFormatter;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.render.LineChartRender;
+import com.yxc.chartlib.attrs.LineChartAttrs;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.component.YAxis;
+import com.yxc.chartlib.formatter.DefaultHighLightMarkValueFormatter;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.render.LineChartRender;
+
 
 /**
  * @author yxc

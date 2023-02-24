@@ -3,8 +3,8 @@ package com.yxc.chartlib.mpchart.sleepchart;
 import com.github.mikephil.charting.buffer.BarBuffer;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.xiaomi.fitness.chart.entrys.SleepItemEntry;
-import com.xiaomi.fitness.chart.entrys.model.SleepItemTime;
+import com.yxc.chartlib.entrys.SleepItemEntry;
+import com.yxc.chartlib.entrys.model.SleepItemTime;
 
 /**
  * @author yxc

@@ -1,7 +1,7 @@
 package com.yxc.chartlib.entrys;
 
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.entrys.model.SleepItemTime;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.entrys.model.SleepItemTime;
 
 public class SleepItemEntry extends RecyclerBarEntry {
 

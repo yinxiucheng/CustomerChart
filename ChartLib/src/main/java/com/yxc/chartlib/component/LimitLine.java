@@ -6,7 +6,7 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 
 import com.github.mikephil.charting.components.ComponentBase;
-import com.xiaomi.fitness.common.utils.DisplayUtil;
+import com.yxc.chartlib.utils.DisplayUtil;
 
 
 /**

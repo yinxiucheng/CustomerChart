@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
-import com.xiaomi.fitness.chart.component.DistanceCompare;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.barchart.BaseBarChartAdapter;
+import com.yxc.chartlib.component.DistanceCompare;
 
 import java.util.List;
 

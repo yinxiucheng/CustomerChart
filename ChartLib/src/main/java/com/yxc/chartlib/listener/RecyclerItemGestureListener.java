@@ -1,19 +1,20 @@
 package com.yxc.chartlib.listener;
 
 import android.content.Context;
+import android.os.Build;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 
-import com.xiaomi.fitness.chart.barchart.SpeedRatioLayoutManager;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.view.BaseChartRecyclerView;
-import com.xiaomi.fitness.chart.view.BaseChartRecyclerView.OnChartTouchListener;
-import com.xiaomi.fitness.common.log.Logger;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.barchart.SpeedRatioLayoutManager;
+import com.yxc.chartlib.view.BaseChartRecyclerView;
 
 /**
  * @author yxc
@@ -35,6 +36,7 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
 
     private int lastPosition;
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public RecyclerItemGestureListener(Context context, final BaseChartRecyclerView recyclerView, final OnItemGestureListener listener) {
         mListener = listener;
         layoutManager = (SpeedRatioLayoutManager) recyclerView.getLayoutManager();
@@ -55,13 +57,13 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
                     final int position = recyclerView.getChildAdapterPosition(child);
                     if (position != RecyclerView.NO_POSITION) {
                         T barEntry = (T) child.getTag();
-                        Logger.d("BarChart Render notify change + SingleTapUp"+barEntry);
+                        Log.d("MPChart", "BarChart Render notify change + SingleTapUp"+barEntry);
                         if (barEntry.getY() <= 0) {
                             if (null != selectBarEntry) {
                                 selectBarEntry.setSelected(RecyclerBarEntry.TYPE_UNSELECTED);
                             }
                             selectBarEntry = null;
-                            Logger.i("BarChart Render notify change + SingleTapUp null "+barEntry);
+                            Log.i("MPChart","BarChart Render notify change + SingleTapUp null "+barEntry);
                             mListener.onItemSelected(null, position);
                             if (null != mAdapter) {
 //                                Logger.d("BarChart Render notify change time1111:" + System.currentTimeMillis());
@@ -110,7 +112,7 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
                     final int position = recyclerView.getChildAdapterPosition(child);
                     if (position != RecyclerView.NO_POSITION) {
                         T barEntry = (T) child.getTag();
-                        Logger.i("BarChart Render notify change + LongPress" + barEntry);
+                        Log.i("MPChart","BarChart Render notify change + LongPress" + barEntry);
                         if (barEntry.getY() <= 0) {
                             return;
                         } else if (!barEntry.equals(selectBarEntry)) {
@@ -142,7 +144,7 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
             }
         });
 
-        OnChartTouchListener onChartTouchListener = new OnChartTouchListener() {
+        BaseChartRecyclerView.OnChartTouchListener onChartTouchListener = new BaseChartRecyclerView.OnChartTouchListener() {
             @Override
             public void onChartGestureStart(MotionEvent e) {
             }
@@ -200,7 +202,7 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
                         if (child == null) {
                             mAdapter.notifyItemChanged(lastPosition, 0);
                         }
-                        Logger.i("BarChart Render notify change lastPosition" + lastPosition + "child" + child + "isLongPressing" + isLongPressing);
+                        Log.i("MPChart","BarChart Render notify change lastPosition" + lastPosition + "child" + child + "isLongPressing" + isLongPressing);
 //                        Log.d("OnItemTouch", " onItemSelected 释放 在 onChartGestureMovingOn： " + System.currentTimeMillis() / 1000);
                         mListener.onItemSelected(null, -1);
                     }

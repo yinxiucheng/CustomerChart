@@ -1,7 +1,7 @@
-package com.xiaomi.fitness.chart.barchart.diff
+package com.yxc.fitness.chart.barchart.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 
 class BarChartDiffCallback<T: RecyclerBarEntry> (private val oldList:List<T>, private val newList:List<T>):DiffUtil.Callback() {
 

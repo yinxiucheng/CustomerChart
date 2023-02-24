@@ -1,7 +1,7 @@
 package com.yxc.chartlib.entrys;
 
-import com.xiaomi.fitness.chart.entrys.SegmentBarEntry;
-import com.xiaomi.fitness.chart.entrys.model.SegmentRectModel;
+import com.yxc.fitness.chart.entrys.SegmentBarEntry;
+import com.yxc.chartlib.entrys.model.SegmentRectModel;
 
 import java.util.List;
 

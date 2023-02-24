@@ -3,11 +3,11 @@ package com.yxc.chartlib.formatter;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.xiaomi.fitness.chart.entrys.BubbleEntry;
-import com.xiaomi.fitness.chart.entrys.CandleEntry;
-import com.xiaomi.fitness.chart.entrys.PieEntry;
-import com.xiaomi.fitness.chart.entrys.RadarEntry;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.entrys.BubbleEntry;
+import com.yxc.chartlib.entrys.CandleEntry;
+import com.yxc.chartlib.entrys.PieEntry;
+import com.yxc.chartlib.entrys.RadarEntry;
 
 /**
  * Class to format all values before they are drawn as labels.

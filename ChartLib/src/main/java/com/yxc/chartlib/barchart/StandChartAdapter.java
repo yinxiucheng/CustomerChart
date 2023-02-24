@@ -5,11 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.component.YAxis;
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.component.YAxis;
+import com.yxc.chartlib.formatter.ValueFormatter;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package com.yxc.chartlib.entrys;
 
-import com.xiaomi.fitness.chart.R;
-import com.xiaomi.fitness.chart.entrys.MaxMinEntry;
-import com.xiaomi.fitness.common.utils.ColorUtil;
+import com.yxc.customerchart.R;
+import com.yxc.chartlib.utils.ColorUtil;
 
 /**
  * @author yxc

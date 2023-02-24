@@ -2,7 +2,7 @@ package com.yxc.chartlib.render;
 
 import android.graphics.PointF;
 
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry;
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 
 /**
  * @author yxc

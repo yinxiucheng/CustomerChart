@@ -1,16 +1,16 @@
-package com.xiaomi.fitness.chart.barchart
+package com.yxc.fitness.chart.barchart
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.xiaomi.fitness.chart.component.BaseYAxis
-import com.xiaomi.fitness.chart.entrys.RecyclerBarEntry
-import com.xiaomi.fitness.chart.attrs.BaseChartAttrs
-import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter
-import com.xiaomi.fitness.chart.barchart.BarChartViewHolder
-import com.xiaomi.fitness.chart.component.XAxis
-import com.xiaomi.fitness.chart.formatter.ValueFormatter
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry
+import com.yxc.chartlib.attrs.BaseChartAttrs
+import com.yxc.chartlib.barchart.BarChartViewHolder
+import com.yxc.chartlib.barchart.BaseBarChartAdapter
+import com.yxc.chartlib.component.BaseYAxis
+import com.yxc.chartlib.component.XAxis
+import com.yxc.chartlib.formatter.ValueFormatter
 
 /**
  * @author yxc

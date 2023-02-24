@@ -123,6 +123,47 @@
     <color name="hearing_high">#a0d9fd</color>
     <!-- hearing end -->
 
+    <color name="transparent">#00000000</color>
+
+    <color name="white_black">@color/white</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_90">#E6FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_45">#73FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_75">#C0FFFFFF</color>
+    <color name="white_25">#40FFFFFF</color>
+    <color name="white_15">#26FFFFFF</color>
+    <color name="white_12">#1EFFFFFF</color>
+    <color name="white_8">#14FFFFFF</color>
+    <color name="white_4">#0AFFFFFF</color>
+
+    <color name="black">#000000</color>
+    <color name="black_90">#E6000000</color>
+    <color name="black_80">#CC000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="black_60">#99000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="black_45">#73000000</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_30">#4D000000</color>
+    <color name="black_20">#33000000</color>
+    <color name="black_15">#27000000</color>
+    <color name="black_10">#1A000000</color>
+    <color name="black_07">#12000000</color>
+    <color name="black_6">#10000000</color>
+    <color name="black_5">#0D000000</color>
+    <color name="black_4">#0A000000</color>
+    <color name="black_3">#07000000</color>
+    <color name="black_2">#05000000</color>
+
     <!--chart start-->
     <color name="chart_empty_color">@color/black_4</color>
     <color name="chart_common_txt_color">@color/text_color_30</color>
@@ -131,10 +172,21 @@
     <color name="chart_highlight_line_color">@color/black_10</color>
     <color name="chart_max_point_boarder">@color/white</color>
     <color name="chart_axis_text_color">@color/black_30</color>
+
+    <color name="text_color">@color/black</color>
+    <color name="text_color_80">@color/black_80</color>
+    <color name="text_color_60">@color/black_60</color>
+    <color name="text_color_50">@color/black_50</color>
+    <color name="text_color_40">@color/black_40</color>
+    <color name="text_color_30">@color/black_30</color>
+    <color name="text_color_20">@color/black_20</color>
+    <color name="text_color_10">@color/black_10</color>
+    <color name="text_color_4">@color/black_4</color>
     <!--chart end-->
 
     <color name="chart_training_load_normal_bar">#2645B4FF</color>
     <color name="chart_training_load_top_bar">#45B4FF</color>
+    <color name="green_yellow">#36D16F</color>
 
     <color name="running_indicator_semi_transparent_green_yellow">#2636D16F</color>
 

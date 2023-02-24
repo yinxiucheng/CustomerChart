@@ -1,17 +1,18 @@
 package com.yxc.chartlib.barchart.itemdecoration;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-import com.xiaomi.fitness.chart.component.XAxis;
-import com.xiaomi.fitness.chart.component.YAxis;
-import com.xiaomi.fitness.chart.formatter.DefaultBarChartValueFormatter;
-import com.xiaomi.fitness.chart.formatter.DefaultHighLightMarkValueFormatter;
-import com.xiaomi.fitness.chart.formatter.ValueFormatter;
-import com.xiaomi.fitness.chart.render.BarChartRender;
-import com.xiaomi.fitness.common.log.Logger;
+import com.yxc.chartlib.attrs.BarChartAttrs;
+import com.yxc.chartlib.component.XAxis;
+import com.yxc.chartlib.component.YAxis;
+import com.yxc.chartlib.formatter.DefaultBarChartValueFormatter;
+import com.yxc.chartlib.formatter.DefaultHighLightMarkValueFormatter;
+import com.yxc.chartlib.formatter.ValueFormatter;
+import com.yxc.chartlib.render.BarChartRender;
+
 
 /**
  * @author yxc
@@ -52,7 +53,7 @@ public class BarChartItemDecoration extends BaseChartItemDecoration<BarChartAttr
         mBarBoardRender.drawBarBorder(canvas, parent);//绘制边框
 
         mBarChartRender.drawHighLight(canvas, parent, mYAxis);
-        Logger.d("BarChart Render click draw off time:" + System.currentTimeMillis());
+        Log.d("MPChart", "BarChart Render click draw off time:" + System.currentTimeMillis());
         mBarChartRender.drawBarChart(canvas, parent, mYAxis);//draw BarChart
         mBarChartRender.drawBarChartValue(canvas, parent, mYAxis);//draw BarChart value
     }

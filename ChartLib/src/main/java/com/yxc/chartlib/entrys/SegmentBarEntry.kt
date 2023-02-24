@@ -1,7 +1,6 @@
-package com.xiaomi.fitness.chart.entrys
+package com.yxc.fitness.chart.entrys
 
-import com.xiaomi.fitness.chart.entrys.model.SegmentRectModel
-import com.xiaomi.fitness.common.utils.ArrayUtils.isEmpty
+import com.yxc.chartlib.entrys.model.SegmentRectModel
 import java.util.*
 
 open class SegmentBarEntry : RecyclerBarEntry {
@@ -86,7 +85,7 @@ open class SegmentBarEntry : RecyclerBarEntry {
             boardColor: Int
         ): MutableList<SegmentRectModel> {
             val models: MutableList<SegmentRectModel> = mutableListOf()
-            if (isEmpty(values)) {
+            if (values.isEmpty()) {
                 return models
             }
             if (values.size > 1) {

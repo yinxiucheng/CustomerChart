@@ -125,8 +125,6 @@ public class CustomBarChartRenderer extends BarChartRenderer {
             drawVO2MaxEntryChart(canvas, buffer, dataSet, attr);
         } else if (attr.barChartType == CustomBarChartAttr.TYPE_BAR_CHART_FOUR) {
             drawCurseEntryChart(canvas, buffer, dataSet, attr);
-        } else if (attr.barChartType == CustomBarChartAttr.TYPE_BAR_CHART_FIVE) {
-            drawEcgEntryChart(canvas, buffer, dataSet, attr);
         } else if (attr.barChartType == CustomBarChartAttr.TYPE_BAR_CHART_SIX) {
             drawSleepEntryChart(canvas, buffer, dataSet, attr);
         } else if (attr.barChartType == CustomBarChartAttr.TYPE_BAR_CHART_SEVEN) {
@@ -355,34 +353,6 @@ public class CustomBarChartRenderer extends BarChartRenderer {
                 }
             }
             c.drawRoundRect(rectF, attr.mRectRadius, attr.mRectRadius, mRenderPaint);
-        }
-    }
-
-    private void drawEcgEntryChart(Canvas c, BarBuffer buffer, IBarDataSet dataSet, CustomBarChartAttr attr) {
-        final boolean isSingleColor = dataSet.getColors().size() == 1;
-        if (isSingleColor) {
-            mRenderPaint.setColor(dataSet.getColor());
-        }
-        int entrySize = dataSet.getEntryCount();
-        for (int j = 0, i = 0; j < buffer.size() && i < entrySize; j += 4, i++) {
-            if (!mViewPortHandler.isInBoundsLeft(buffer.buffer[j + 2]))
-                continue;
-            if (!mViewPortHandler.isInBoundsRight(buffer.buffer[j]))
-                break;
-            BarEntry entry = dataSet.getEntryForIndex(i);
-            if (entry != null && entry instanceof EcgEntry) {
-                EcgEntry ecgEntry = (EcgEntry) entry;
-                float startX = AppUtil.isRTLDirection() ? mViewPortHandler.contentRight() + mViewPortHandler.offsetLeft() - buffer.buffer[j] : buffer.buffer[j];
-                float endX = AppUtil.isRTLDirection() ? mViewPortHandler.contentRight() + mViewPortHandler.offsetLeft() - buffer.buffer[j + 2] : buffer.buffer[j + 2];
-                RectF rectFBackground = new RectF(startX, 0, endX, mViewPortHandler.contentBottom());
-                if (ecgEntry.getY() > 0) {
-                    mRenderPaint.setColor(ecgEntry.ecgColor);
-                    mRenderPaint.setAlpha((int) (255 * ecgEntry.colorTransport));
-                } else {
-                    mRenderPaint.setColor(ColorUtil.getResourcesColor(R.color.chart_empty_color));
-                }
-                c.drawRoundRect(rectFBackground, attr.mRectRadius, attr.mRectRadius, mRenderPaint);
-            }
         }
     }
 

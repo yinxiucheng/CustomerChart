@@ -2,6 +2,7 @@ package com.yxc.chartlib.formatter;
 
 import android.content.Context;
 
+import com.yxc.chartlib.entrys.BarEntry;
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 import com.yxc.chartlib.entrys.SportRecordEntry;
 import com.yxc.chartlib.utils.DecimalUtil;

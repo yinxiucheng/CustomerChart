@@ -296,6 +296,18 @@ public class YAxis extends BaseYAxis {
         return axis;
     }
 
+    public YAxis resetEcgYAxis(YAxis axis) {
+        float axisMaximum = 4f;
+        float axisMinimum = 0f;
+        int layoutCount = 8;
+        if (axisMaximum != mAxisMaximum) {
+            axis.setAxisMaximum(axisMaximum);
+            axis.setAxisMinimum(axisMinimum);
+            axis.setLabelCount(layoutCount);
+            return axis;
+        }
+        return null;
+    }
 
     @Override
     public int getLabelCount() {

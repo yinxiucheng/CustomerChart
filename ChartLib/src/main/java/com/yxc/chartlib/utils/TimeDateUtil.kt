@@ -31,6 +31,10 @@ object TimeDateUtil {
     //    private static final int SUNDAY = 300;//周的第一天 周日
     private const val MONDAY = 301 //周的第一天 周一
 
+    @JvmStatic
+    fun isLastMonthOfTheYear(localDate: LocalDate): Boolean {
+        return localDate.monthOfYear == 12
+    }
 
     @JvmStatic
     fun secToDateForFiveDay(time: Long): String? {

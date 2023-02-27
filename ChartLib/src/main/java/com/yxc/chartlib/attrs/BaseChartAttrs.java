@@ -66,6 +66,7 @@ public class BaseChartAttrs {
     public boolean xAxisForbidDealEndBoundary;
 
     public int barBorderColor;//边框颜色
+    public int barBorderBgColor;//背景颜色
     public float barBorderWidth;//边框的宽度
     public float barSpace;//chart item中 space 占比，能够控制barchart的宽度
     public float barChartMaxWidth;

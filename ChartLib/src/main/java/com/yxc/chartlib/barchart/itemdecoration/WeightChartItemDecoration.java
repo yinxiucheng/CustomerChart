@@ -27,11 +27,6 @@ public class WeightChartItemDecoration extends BaseChartItemDecoration<LineChart
         this.mLineChartRender = new LineChartRender(mBarChartAttrs, mHighLightValueFormatter);
     }
 
-    public void setHighLightValueFormatter(ValueFormatter highLightValueFormatter){
-        this.mHighLightValueFormatter = highLightValueFormatter;
-        this.mLineChartRender.setHighLightValueFormatter(mHighLightValueFormatter);
-    }
-
     @Override
     public void onDrawOver(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
         super.onDraw(canvas, parent, state);

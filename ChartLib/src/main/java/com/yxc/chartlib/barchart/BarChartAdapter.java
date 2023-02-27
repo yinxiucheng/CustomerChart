@@ -9,15 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-//import com.xiaomi.fitness.chart.component.BaseYAxis;
-//import com.xiaomi.fitness.chart.component.XAxis;
+import com.yxc.chartlib.attrs.BaseChartAttrs;
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 import com.yxc.chartlib.attrs.BarChartAttrs;
 import com.yxc.chartlib.component.BaseYAxis;
 import com.yxc.chartlib.component.XAxis;
 import com.yxc.chartlib.formatter.ValueFormatter;
-//import com.xiaomi.fitness.chart.formatter.ValueFormatter;
 
 import java.util.List;
 
@@ -26,13 +23,18 @@ import java.util.List;
  * @author yxc
  * @since 2019/4/6
  */
-public class BarChartAdapter extends BaseBarChartAdapter<RecyclerBarEntry, BaseYAxis> {
+public class BarChartAdapter<T extends RecyclerBarEntry> extends BaseBarChartAdapter<T, BaseYAxis> {
 
     protected ValueFormatter valueFormatter;
 
-    public BarChartAdapter(Context context, List<RecyclerBarEntry> entries,
+    public BarChartAdapter(Context context, List<T> entries,
                            RecyclerView recyclerView, XAxis xAxis, BarChartAttrs attrs, ValueFormatter valueFormatter) {
         super(context, entries, recyclerView, xAxis, attrs, valueFormatter);
+    }
+
+    public BarChartAdapter(Context context, List<T> entries,
+                           RecyclerView recyclerView, XAxis xAxis, BaseChartAttrs attrs) {
+        super(context, entries, recyclerView, xAxis, attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

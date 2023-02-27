@@ -26,4 +26,17 @@ public class LineChartRecyclerView extends BaseChartRecyclerView<LineChartAttrs,
         return ChartAttrsUtil.getLineChartRecyclerAttrs(context, attrs);
     }
 
+    public float contentHeight(){
+        int top = getPaddingTop();
+        int bottom = getMeasuredHeight() - getPaddingBottom();
+        float topLocation = top + mAttrs.contentPaddingTop;
+        float containerHeight = bottom - mAttrs.contentPaddingBottom - topLocation;
+        return containerHeight;
+    }
+
+    public float contentWidth(){
+        float contentWidth = getMeasuredWidth() - getPaddingStart() - getPaddingEnd();
+        return contentWidth;
+    }
+
 }

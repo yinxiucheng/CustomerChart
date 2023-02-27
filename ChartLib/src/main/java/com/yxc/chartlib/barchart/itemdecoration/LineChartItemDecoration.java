@@ -47,10 +47,4 @@ public class LineChartItemDecoration extends BaseChartItemDecoration<LineChartAt
         mLineChartRender.drawHighLight(canvas, parent, mYAxis);//绘制选中高亮
     }
 
-
-    public void setHighLightValueFormatter(ValueFormatter highLightValueFormatter){
-        this.mHighLightValueFormatter = highLightValueFormatter;
-        this.mLineChartRender.setHighLightValueFormatter(mHighLightValueFormatter);
-    }
-
 }

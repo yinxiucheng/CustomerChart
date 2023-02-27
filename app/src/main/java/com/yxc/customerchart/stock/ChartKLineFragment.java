@@ -38,12 +38,14 @@ public class ChartKLineFragment extends BaseFragment {
     }
 
     @Override
-    protected int setLayoutId() {
-        return R.layout.fragment_kline;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = FragmentKlineBinding.inflate(getLayoutInflater());
+        combinedchart = mBinding.combinedChart;
+        initBase();
+        return mBinding.getRoot();
     }
 
-    @Override
-    protected void initBase(View view) {
+    private void initBase() {
         kLineData = new KLineDataManage(getActivity());
         combinedchart.initChart(land);
         try {
@@ -118,10 +120,5 @@ public class ChartKLineFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBinding = FragmentKlineBinding.inflate(getLayoutInflater());
-        combinedchart = mBinding.combinedChart;
-        return mBinding.getRoot();
-    }
+
 }

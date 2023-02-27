@@ -13,7 +13,7 @@ import com.yxc.chartlib.utils.DisplayUtil
 import com.yxc.chartlib.utils.TextUtil
 
 
-class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAttrs: V) {
+open class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAttrs: V) {
     private lateinit var mLinePaint: Paint
     private lateinit var mTextPaint: Paint
     private fun initTextPaint() {
@@ -35,7 +35,7 @@ class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAt
     }
 
     //绘制 Y轴刻度线 横的网格线
-    fun drawHorizontalLine(canvas: Canvas, parent: RecyclerView, yAxis: T) {
+    open fun drawHorizontalLine(canvas: Canvas, parent: RecyclerView, yAxis: T) {
         if (yAxis==null)return
         val left = parent.paddingLeft
         val right = parent.width - parent.paddingRight
@@ -111,7 +111,7 @@ class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAt
     }
 
     @JvmOverloads
-    fun drawRightYAxisLabel(canvas: Canvas, parent: RecyclerView, yAxis: T, drawText: Boolean = true) {
+    open fun drawRightYAxisLabel(canvas: Canvas, parent: RecyclerView, yAxis: T, drawText: Boolean = true) {
         val right = parent.width
         val top = parent.paddingTop
         val bottom = parent.height - parent.paddingBottom
@@ -180,7 +180,7 @@ class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAt
         canvas.drawPath(path, mLinePaint)
     }
 
-    private fun computeYAxisWidth(originPadding: Int, yAxisWidth: Float): Int {
+    protected fun computeYAxisWidth(originPadding: Int, yAxisWidth: Float): Int {
         val resultPadding: Float
         Log.d("YAxis1", "originPadding:$originPadding yAxisWidth:$yAxisWidth")
         resultPadding = if (originPadding > yAxisWidth) {

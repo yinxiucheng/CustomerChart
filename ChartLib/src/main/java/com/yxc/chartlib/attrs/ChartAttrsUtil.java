@@ -157,7 +157,8 @@ public class ChartAttrsUtil {
         LineChartAttrs attrs = new LineChartAttrs();
         TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.LineChartRecyclerView);
 
-        attrs.barBorderColor = ta.getColor(R.styleable.BarChartRecyclerView_barBorderColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
+        attrs.barBorderColor = ta.getColor(R.styleable.LineChartRecyclerView_barBorderColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
+        attrs.barBorderBgColor = ta.getColor(R.styleable.LineChartRecyclerView_barBorderBgColor, ColorUtil.getResourcesColor(R.color.rate_chart_bg));
         attrs.recyclerPaddingLeft = ta.getDimension(R.styleable.LineChartRecyclerView_recyclerPaddingLeft, DisplayUtil.dip2px(2));
         attrs.recyclerPaddingRight = ta.getDimension(R.styleable.LineChartRecyclerView_recyclerPaddingRight, DisplayUtil.dip2px(3));
         attrs.chartColor = ta.getColor(R.styleable.LineChartRecyclerView_chartColor, ColorUtil.getResourcesColor(R.color.bar_chart_pink));

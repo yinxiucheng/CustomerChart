@@ -214,4 +214,6 @@
     <color name="highLight_Color">#aa424242</color>
     <color name="fill_Color">#D0F1FF</color>
 
+    <color name="rate_chart_bg">#66FFC5CE</color>
+
 </resources>

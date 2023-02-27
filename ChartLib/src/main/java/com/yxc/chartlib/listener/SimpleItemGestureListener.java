@@ -4,13 +4,14 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.mikephil.charting.data.BarEntry;
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 
 /**
  * @author yxc
  * @since  2019/4/24
  */
-public class SimpleItemGestureListener implements OnItemGestureListener<RecyclerBarEntry> {
+public abstract class SimpleItemGestureListener implements OnItemGestureListener<RecyclerBarEntry> {
     @Override
     public void onItemClick(View view, int position) {
 
@@ -26,6 +27,8 @@ public class SimpleItemGestureListener implements OnItemGestureListener<Recycler
 
     }
 
+
+    public abstract void onItemSelected(BarEntry barEntry, int position);
 
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

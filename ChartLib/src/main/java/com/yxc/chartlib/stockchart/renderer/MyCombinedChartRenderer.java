@@ -2,7 +2,6 @@ package com.yxc.chartlib.stockchart.renderer;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.renderer.BubbleChartRenderer;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.renderer.LineChartRenderer;
@@ -37,7 +36,7 @@ public class MyCombinedChartRenderer extends CombinedChartRenderer {
                 case BAR:
                     if (chart.getBarData() != null) {
                         //todo 这里直接用的 BarChartRenderer, 不是TimeBarchartRenderer
-                        mRenderers.add(new BarChartRenderer(chart, mAnimator, mViewPortHandler));
+                        mRenderers.add(new TimeBarChartRenderer(chart, mAnimator, mViewPortHandler));
                     }
                     break;
                 case BUBBLE:

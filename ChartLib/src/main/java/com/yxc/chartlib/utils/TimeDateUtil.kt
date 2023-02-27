@@ -31,6 +31,28 @@ object TimeDateUtil {
     //    private static final int SUNDAY = 300;//周的第一天 周日
     private const val MONDAY = 301 //周的第一天 周一
 
+
+    @JvmStatic
+    fun secToDateForFiveDay(time: Long): String? {
+        var timeStr: String? = null
+        timeStr = SimpleDateFormat("MM-dd").format(Date(time))
+        return timeStr
+    }
+
+    @JvmStatic
+    fun secToTime(time: Long): String? {
+        var timeStr: String? = null
+        timeStr = SimpleDateFormat("HH:mm").format(Date(time))
+        return timeStr
+    }
+
+    @JvmStatic
+    fun secToDate(time: Long): String? {
+        var timeStr: String? = null
+        timeStr = SimpleDateFormat("yyyy/MM/dd").format(Date(time))
+        return timeStr
+    }
+
     fun getDurationStr(mills: Long): String {
         val second = mills / 1000 % 60
         val minute = mills / (1000 * 60) % 60

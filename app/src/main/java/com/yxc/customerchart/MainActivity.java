@@ -3,40 +3,34 @@ package com.yxc.customerchart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import com.yxc.customerchart.stock.KLineLandActivity;
+import com.yxc.customerchart.ui.EcgLandScapeActivity;
+
 public class MainActivity extends BaseActivity {
-    @Bind(R.id.btn)
-    Button btn;
-    @Bind(R.id.btn_k)
-    Button btnK;
-    @Bind(R.id.btn_fix)
-    Button btnFix;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+//        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        btn = findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.kline_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MinutesActivity.class);
-                startActivity(intent);
+//                Toast.makeText(MainActivity.this, "KLine Chart Click", Toast.LENGTH_SHORT).show();
+                Intent intentK = new Intent(MainActivity.this, KLineLandActivity.class);
+                startActivity(intentK);
             }
         });
 
-        btnK = findViewById(R.id.btn_k);
-        btnK.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.hrm_chart_landscape).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentK = new Intent(MainActivity.this, KLineActivity.class);
-                startActivity(intentK);
+//                Toast.makeText(MainActivity.this, "心电图 Click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, EcgLandScapeActivity.class);
+                startActivity(intent);
             }
         });
     }

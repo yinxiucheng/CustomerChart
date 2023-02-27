@@ -39,7 +39,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CustomerChart"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -53,13 +53,21 @@
         <activity
             android:name=".MinutesActivity"
             android:screenOrientation="landscape">
-
         </activity>
+
+        <activity android:name=".stock.KLineLandActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme"/>
+
+        <activity android:name=".ui.EcgLandScapeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme"/>
+
         <activity
             android:name=".KLineActivity"
             android:screenOrientation="landscape">
-
         </activity>
+
     </application>
 
 </manifest>

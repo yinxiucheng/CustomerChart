@@ -1,4 +1,4 @@
-package com.yxc.customerchart.ui;
+package com.yxc.customerchart.stock;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.yxc.customerchart.R;
-import com.yxc.customerchart.base.BaseChartFragment;
+import com.yxc.customerchart.base.BaseFragment;
 import com.yxc.mylibrary.TimeDateUtil;
 
 import org.joda.time.LocalDate;
@@ -19,23 +19,23 @@ import org.joda.time.LocalDate;
 /**
  * 心电图
  */
-public class EcgLandScapeActivity extends AppCompatActivity {
+public class KLineLandActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     FrameLayout container;
-    private BaseChartFragment currentFragment;
+    private BaseFragment currentFragment;
     private TextView txtTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hrm);
+        setContentView(R.layout.activity_kline_land);
         initView();
     }
 
     private void initView() {
         container = findViewById(R.id.container);
-        switchTab(EcgDayFragment.class, "EcgDayFragment");
+        switchTab(ChartKLineFragment.class, "ChartKLineFragment");
     }
 
     @Override
@@ -50,32 +50,17 @@ public class EcgLandScapeActivity extends AppCompatActivity {
 
     public void switchTab(Class clz, String tag) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        BaseChartFragment fragment = (BaseChartFragment) getSupportFragmentManager().findFragmentByTag(tag);
+        ChartKLineFragment fragment = (ChartKLineFragment) getSupportFragmentManager().findFragmentByTag(tag);
         if (currentFragment != null) {
-            currentFragment.resetSelectedEntry();
             ft.hide(currentFragment);
         }
         if (fragment == null) {
-            try {
-                fragment = (BaseChartFragment) clz.newInstance();
-                ft.add(R.id.container, fragment, tag);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            }
+            fragment = ChartKLineFragment.newInstance(1, true);
+            ft.add(R.id.container, fragment, tag);
         } else {
             ft.show(fragment);
         }
         ft.commitAllowingStateLoss();
         currentFragment = fragment;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (currentFragment != null) {
-            currentFragment.resetSelectedEntry();
-        }
     }
 }

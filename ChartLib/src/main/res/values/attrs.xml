@@ -663,4 +663,101 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="StockChartRecyclerView">
+        <attr name="barBorderColor" />
+        <attr name="barBorderBgColor" format="color"/>
+        <attr name="barBorderWidth" />
+        <attr name="barSpace" />
+        <attr name="chartColor" />
+        <attr name="highLightColor"/>
+        <attr name="recyclerPaddingLeft" />
+        <attr name="recyclerPaddingRight" />
+        <attr name="contentPaddingBottom" />
+        <attr name="contentPaddingTop" />
+        <attr name="highLightRoundRectRadius" />
+        <attr name="barChartRadius"/>
+
+        <attr name="enableCharValueDisplay" />
+        <attr name="enableYAxisZero" />
+        <attr name="enableYAxisLineDash"/>
+        <attr name="enableYAxisGridLine" />
+        <attr name="enableStartYAxisLabel" />
+        <attr name="enableEndYAxisLabel" />
+        <attr name="enableBarBorder" />
+        <attr name="enableScrollToScale" />
+        <attr name="enableValueMark" />
+        <attr name="enableEndDayXAxis"/>
+        <attr name="enableXAxisLabel" />
+        <attr name="enableXAxisDisplayLabel" />
+        <attr name="enableXAxisGridLine" />
+        <attr name="enableXAxisFirstGridLine" />
+        <attr name="enableXAxisSecondGridLine" />
+        <attr name="enableXAxisThirdGridLine" />
+        <attr name="enableXAxisLineCircle" />
+        <attr name="enableXAxisBg" />
+        <attr name="averageDisplay" />
+
+        <attr name="ratioVelocity" />
+        <attr name="ratioSpeed" />
+
+        <!-- YAxis -->
+        <attr name="yAxisMaximum" />
+        <attr name="yAxisMinimum" />
+        <attr name="yAxisLabelTxtSize" />
+        <attr name="yAxisLabelTxtColor" />
+        <attr name="yAxisLabelSize" />
+        <attr name="yAxisLineColor" />
+        <attr name="yAxisLabelHorizontalPadding" />
+        <attr name="yAxisLabelVerticalPadding" />
+        <attr name="yAxisReverse" />
+        <attr name="yAxisHighStandardLine" />
+        <attr name="yAxisMiddleStandardLine" />
+        <attr name="yAxisLowStandardLine" />
+        <attr name="yAxisZeroLineType" />
+
+        <!-- XAxis -->
+        <attr name="xAxisTxtSize" />
+        <attr name="xAxisTxtColor" />
+        <attr name="xAxisFirstDividerColor" />
+        <attr name="xAxisSecondDividerColor" />
+        <attr name="xAxisThirdDividerColor" />
+        <attr name="xAxisLabelTxtPadding" />
+        <attr name="xAxisScaleDistance" />
+        <attr name="displayNumbers" />
+        <attr name="xAxisBgRadius" />
+        <attr name="xAxisLabelPosition" />
+        <attr name="xFirstLinePosition" />
+        <attr name="xAxisLabelFont" />
+
+        <!--high light-->
+        <attr name="lineHighLightType" />
+        <attr name="linePointRadius" />
+        <attr name="linePointSelectRadius" />
+        <attr name="linePointSelectStrokeWidth" />
+        <attr name="lineSelectCircles" />
+        <attr name="linePointSelectCircleStroke" format="boolean" />
+
+        <!--fill color-->
+        <attr name="lineShaderBeginColor" />
+        <attr name="lineShaderEndColor" />
+        <attr name="enableLineFill" />
+        <attr name="lineColor" />
+        <attr name="fillAlpha" />
+        <attr name="lineMaxColor" />
+        <attr name="lineMinColor" />
+
+        <!--line stroke width-->
+        <attr name="lineStrokeWidth" format="integer"/>
+
+        <!--LinearLayoutManager-->
+        <attr name="layoutManagerOrientation" />
+        <attr name="layoutManagerReverseLayout" />
+        <attr name="txtColor" />
+        <attr name="txtSize" />
+
+        <attr name="isDisplay" />
+        <attr name="dynamicAdjustItemFillWidth"/>
+
+    </declare-styleable>
+
 </resources>

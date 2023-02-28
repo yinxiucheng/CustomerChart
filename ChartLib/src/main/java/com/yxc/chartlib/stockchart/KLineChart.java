@@ -7,7 +7,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -28,6 +30,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ICandleDataSet;
+import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
@@ -203,8 +206,71 @@ public class KLineChart extends BaseChart {
         axisRightBar.enableGridDashedLine(DisplayUtil.dip2px(4), DisplayUtil.dip2px( 3), 0);
 
         //手势联动监听
-        gestureListenerCandle = new CoupleChartGestureListener(candleChart, new Chart[]{barChart});
-        gestureListenerBar = new CoupleChartGestureListener(barChart, new Chart[]{candleChart});
+        gestureListenerCandle = new CoupleChartGestureListener(candleChart, new Chart[]{barChart}){
+            boolean mIsCanLoad = false;
+            @Override
+            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                super.onChartGestureEnd(me, lastPerformedGesture);
+                int rightXIndex = Math.round(barChart.getHighestVisibleX());    //获取可视区域中，显示在x轴最右边的index
+                int size = barChart.getBarData().getEntryCount();
+                Log.d("KLine", "rightXIndex: " + rightXIndex + " size:" + size);
+                if(lastPerformedGesture == ChartTouchListener.ChartGesture.DRAG){
+                    mIsCanLoad = true;
+                    if(rightXIndex == size-1 || rightXIndex == size){
+                        mIsCanLoad = false;
+                        //加载更多数据的操作
+                        for (int i = 0; i<10; i++){
+                            dynamicsAddOne(kLineData);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                super.onChartGestureStart(me, lastPerformedGesture);
+                mIsCanLoad = false;
+            }
+
+            @Override
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+                super.onChartTranslate(me, dX, dY);
+            }
+        };
+
+        gestureListenerBar = new CoupleChartGestureListener(barChart, new Chart[]{candleChart}){
+            boolean mIsCanLoad = false;
+            @Override
+            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                super.onChartGestureEnd(me, lastPerformedGesture);
+                int rightXIndex = Math.round(barChart.getHighestVisibleX());    //获取可视区域中，显示在x轴最右边的index
+                int size = barChart.getBarData().getEntryCount();
+                Log.d("KLine", "rightXIndex: " + rightXIndex + " size:" + size);
+                if(lastPerformedGesture == ChartTouchListener.ChartGesture.DRAG){
+                    mIsCanLoad = true;
+                    if(rightXIndex == size-1 || rightXIndex == size){
+                        mIsCanLoad = false;
+                        //加载更多数据的操作
+                        for (int i = 0; i<10; i++){
+                            dynamicsAddOne(kLineData);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                super.onChartGestureStart(me, lastPerformedGesture);
+                mIsCanLoad = false;
+            }
+
+            @Override
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+                super.onChartTranslate(me, dX, dY);
+            }
+        };
+
+
         candleChart.setOnChartGestureListener(gestureListenerCandle);
         barChart.setOnChartGestureListener(gestureListenerBar);
 
@@ -250,8 +316,6 @@ public class KLineChart extends BaseChart {
                 updateText(kLineData.getKLineDatas().size() - 1, false);
             }
         });
-
-
     }
 
     /**

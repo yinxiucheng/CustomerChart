@@ -13,16 +13,21 @@ import com.yxc.chartlib.utils.TextUtil
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 
 
-open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarChartAttrs: V) {
-    private lateinit var mLinePaint: Paint
-    private lateinit var mTextPaint: Paint
+open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs>(var mBarChartAttrs: V) {
+
+    protected lateinit var mLinePaint: Paint
+    protected lateinit var mTextPaint: Paint
+    init {
+        initPaint()
+        initTextPaint()
+    }
     private fun initTextPaint() {
         mTextPaint = Paint()
         mTextPaint.reset()
         mTextPaint.isAntiAlias = true
         mTextPaint.style = Paint.Style.FILL
-        mTextPaint.color = mBarChartAttrs!!.yAxisLabelTxtColor
-        mTextPaint.textSize = mBarChartAttrs!!.yAxisLabelTxtSize
+        mTextPaint.color = mBarChartAttrs.yAxisLabelTxtColor
+        mTextPaint.textSize = mBarChartAttrs.yAxisLabelTxtSize
     }
 
     private fun initPaint() {
@@ -31,7 +36,7 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
         mLinePaint.isAntiAlias = true
         mLinePaint.style = Paint.Style.STROKE
         mLinePaint.strokeWidth = 0.75f
-        mLinePaint.color = mBarChartAttrs!!.yAxisLineColor
+        mLinePaint.color = mBarChartAttrs.yAxisLineColor
     }
 
     //绘制 Y轴刻度线 横的网格线
@@ -41,24 +46,24 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
         val right = parent.width - parent.paddingRight
         val top = parent.paddingTop
         val bottom = parent.height - parent.paddingBottom
-        val distance = bottom - mBarChartAttrs!!.contentPaddingBottom - mBarChartAttrs!!.contentPaddingTop - top
+        val distance = bottom - mBarChartAttrs.contentPaddingBottom - mBarChartAttrs.contentPaddingTop - top
         val lineNums = yAxis.labelCount
         val lineDistance = distance / lineNums
-        var gridLine = top + mBarChartAttrs!!.contentPaddingTop
+        var gridLine = top + mBarChartAttrs.contentPaddingTop
         for (i in 0..lineNums) {
             if (i > 0) {
                 gridLine += lineDistance
             }
             val path = Path()
             var enable = if (i == lineNums) {
-                mBarChartAttrs!!.enableYAxisZero
+                mBarChartAttrs.enableYAxisZero
             } else {
-                mBarChartAttrs!!.enableYAxisGridLine //允许画 Y轴刻度
+                mBarChartAttrs.enableYAxisGridLine //允许画 Y轴刻度
             }
             path.moveTo(left.toFloat(), gridLine)
             path.lineTo(right.toFloat(), gridLine)
             if (enable) {
-                if(mBarChartAttrs!!.enableYAxisLineDash) mLinePaint.pathEffect = DashPathEffect(floatArrayOf(
+                if(mBarChartAttrs.enableYAxisLineDash) mLinePaint.pathEffect = DashPathEffect(floatArrayOf(
                     DisplayUtil.dip2pxF(4f), DisplayUtil.dip2pxF(1.5f)), 0f)
                 canvas.drawPath(path, mLinePaint)
             }
@@ -67,17 +72,17 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
 
     fun drawYAxisLabel(canvas: Canvas, parent: RecyclerView, yAxis: T) {
         if (isRTLDirection()) {
-            if (mBarChartAttrs!!.enableStartYAxisLabel) {
+            if (mBarChartAttrs.enableStartYAxisLabel) {
                 drawRightYAxisLabel(canvas, parent, yAxis)
             }
-            if (mBarChartAttrs!!.enableEndYAxisLabel) {
+            if (mBarChartAttrs.enableEndYAxisLabel) {
                 drawLeftYAxisLabel(canvas, parent, yAxis)
             }
         } else {
-            if (mBarChartAttrs!!.enableStartYAxisLabel) {
+            if (mBarChartAttrs.enableStartYAxisLabel) {
                 drawLeftYAxisLabel(canvas, parent, yAxis)
             }
-            if (mBarChartAttrs!!.enableEndYAxisLabel) {
+            if (mBarChartAttrs.enableEndYAxisLabel) {
                 drawRightYAxisLabel(canvas, parent, yAxis)
             }
         }
@@ -85,7 +90,7 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
 
     //绘制左边的刻度
     @JvmOverloads
-    fun drawLeftYAxisLabel(canvas: Canvas, parent: RecyclerView, yAxis: T, drawText: Boolean = true) {
+    open fun drawLeftYAxisLabel(canvas: Canvas, parent: RecyclerView, yAxis: T, drawText: Boolean = true) {
         val top = parent.paddingTop
         val bottom = parent.height - parent.paddingBottom
         //            String longestStr = yAxis.getLongestLabel();
@@ -94,16 +99,13 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
         val paddingLeft = parent.paddingLeft
 //        //设置 recyclerView的 BarChart 内容区域
 //        parent.setPadding(paddingLeft, parent.paddingTop, parent.paddingRight, parent.paddingBottom)
-        val topLocation = top + mBarChartAttrs!!.contentPaddingTop
-        val containerHeight = bottom - mBarChartAttrs!!.contentPaddingBottom - topLocation
+        val topLocation = top + mBarChartAttrs.contentPaddingTop
+        val containerHeight = bottom - mBarChartAttrs.contentPaddingBottom - topLocation
         val itemHeight = containerHeight / yAxis.labelCount
-        Log.d("KLine", "getYAxisScaleMap drawLeftYAxisLabel invoke: $yAxis")
         val yAxisScaleMap = yAxis.getYAxisScaleMap(topLocation, itemHeight, yAxis.labelCount)
-        Log.d("KLine", "yAxisScaleMap $yAxisScaleMap")
         var i = 0
         for ((yAxisScaleLocation, yAxisScaleValue) in yAxisScaleMap) {
             i++
-            Log.d("KLine", "location:$yAxisScaleLocation  value:$yAxisScaleValue")
             val labelStr = yAxis.valueFormatter.getFormattedValue(yAxisScaleValue, yAxis)
             val txtY = yAxisScaleLocation + yAxis.labelVerticalPadding
             val txtX = paddingLeft - mTextPaint.measureText(labelStr) - yAxis.labelHorizontalPadding
@@ -118,13 +120,9 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
         val right = parent.width
         val top = parent.paddingTop
         val bottom = parent.height - parent.paddingBottom
-//        val paddingRight = DisplayUtil.dip2px(40f)
-//        val paddingLeft = DisplayUtil.dip2px(30f)
-        //设置 recyclerView的 BarChart 内容区域
-//        parent.setPadding(parent.paddingLeft, parent.paddingTop, paddingRight, parent.paddingBottom)
-        val topLocation = top + mBarChartAttrs!!.contentPaddingTop
-        val containerHeight = bottom - mBarChartAttrs!!.contentPaddingBottom - topLocation
-        val itemHeight = containerHeight / yAxis!!.labelCount
+        val topLocation = top + mBarChartAttrs.contentPaddingTop
+        val containerHeight = bottom - mBarChartAttrs.contentPaddingBottom - topLocation
+        val itemHeight = containerHeight / yAxis.labelCount
         val yAxisScaleMap = yAxis.getYAxisScaleMap(topLocation, itemHeight, yAxis.labelCount)
         val txtX = right - parent.paddingRight + yAxis.labelHorizontalPadding
         var i = 0
@@ -141,9 +139,9 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
     fun drawStandardLines(canvas: Canvas, parent: RecyclerView, yAxis: YAxis) {
         val left = parent.paddingLeft
         val right = parent.width - parent.paddingRight
-        val highStandardLine = mBarChartAttrs!!.yAxisHighStandardLine
-        val middleStandardLine = mBarChartAttrs!!.yAxisMiddleStandardLine
-        val lowStandardLine = mBarChartAttrs!!.yAxisLowStandardLine
+        val highStandardLine = mBarChartAttrs.yAxisHighStandardLine
+        val middleStandardLine = mBarChartAttrs.yAxisMiddleStandardLine
+        val lowStandardLine = mBarChartAttrs.yAxisLowStandardLine
         val rightRectF = right - DisplayUtil.dip2px(8f).toFloat()
         if (highStandardLine != -1f) {
             val highPosition = ChartComputeUtil.getYPosition<RecyclerBarEntry>(highStandardLine, parent, yAxis, mBarChartAttrs)
@@ -202,8 +200,5 @@ open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarCha
         return resultPadding.toInt()
     }
 
-    init {
-        initPaint()
-        initTextPaint()
-    }
+
 }

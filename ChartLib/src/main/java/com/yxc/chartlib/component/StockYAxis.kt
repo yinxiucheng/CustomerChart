@@ -9,8 +9,6 @@ import com.yxc.chartlib.attrs.StockChartAttrs
  *
  */
 class StockYAxis(val mAttrs: StockChartAttrs) : YAxis(mAttrs) {
-
-
     companion object {
         fun createYAxisWithLabelCount(attrs: StockChartAttrs,  max:Float, min:Float, labelCount:Int):StockYAxis{
             val axis = StockYAxis(attrs)

@@ -2,12 +2,15 @@ package com.yxc.chartlib.barchart.itemdecoration
 
 import android.graphics.Canvas
 import androidx.recyclerview.widget.RecyclerView
+import com.yxc.chartlib.attrs.LineChartAttrs
 import com.yxc.chartlib.attrs.StockChartAttrs
 import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.formatter.StockValueFormatter
 import com.yxc.chartlib.formatter.ValueFormatter
+import com.yxc.chartlib.render.HrmYAxisRender
 import com.yxc.chartlib.render.StockChartRenderer
+import com.yxc.chartlib.render.StockYAxisRender
 
 /**
  * @author xiuchengyin
@@ -24,8 +27,8 @@ class StockChartItemDecoration : BaseChartItemDecoration<StockChartAttrs, YAxis>
             :super(yAxis, xAxis, stockChartAttrs){
           mHighLightValueFormatter =  StockValueFormatter()
           mChartRender = StockChartRenderer(stockChartAttrs, mHighLightValueFormatter as StockValueFormatter)
+         yAxisRenderer = StockYAxisRender(stockChartAttrs)
     }
-
 
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(canvas, parent, state)

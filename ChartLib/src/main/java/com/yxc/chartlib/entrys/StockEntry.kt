@@ -35,4 +35,7 @@ class StockEntry : RecyclerBarEntry {
      */
     var mOpen = 0f
 
+    //
+    var isRise: Boolean = true
+
 }

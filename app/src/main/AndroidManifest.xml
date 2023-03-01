@@ -59,7 +59,9 @@
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme"/>
 
-        <activity android:name=".ui.EcgLandScapeActivity"
+        <<activity android:name=".ui.kline.KLineDayActivity"/>
+
+        <activity android:name=".ui.ecg.EcgLandScapeActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme"/>
 

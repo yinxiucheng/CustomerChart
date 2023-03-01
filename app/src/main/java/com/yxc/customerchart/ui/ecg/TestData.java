@@ -1,4 +1,4 @@
-package com.yxc.customerchart.ui;
+package com.yxc.customerchart.ui.ecg;
 
 import android.util.Log;
 

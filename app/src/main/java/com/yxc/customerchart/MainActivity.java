@@ -3,10 +3,9 @@ package com.yxc.customerchart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.yxc.customerchart.stock.KLineLandActivity;
-import com.yxc.customerchart.ui.EcgLandScapeActivity;
+import com.yxc.customerchart.ui.ecg.EcgLandScapeActivity;
 
 public class MainActivity extends BaseActivity {
 

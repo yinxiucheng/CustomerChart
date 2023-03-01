@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- chartBorder -->
     <attr name="barBorderColor" format="color" />
+    <attr name="barBorderBgColor" format="color"/>
     <attr name="barBorderWidth" format="dimension" />
     <attr name="barSpace" format="float" />
     <attr name="barChartMaxWidth" format="dimension" />
@@ -80,6 +81,7 @@
     <attr name="lineShaderEndColor" format="color" />
     <attr name="enableLineFill" format="boolean" />
     <attr name="lineColor" format="color" />
+    <attr name="lineStrokeWidth" format="integer"/>
     <attr name="fillAlpha" format="integer" />
     <attr name="recyclerPaddingLeft" format="dimension" />
     <attr name="recyclerPaddingRight" format="dimension" />
@@ -302,7 +304,7 @@
 
     <declare-styleable name="LineChartRecyclerView">
         <attr name="barBorderColor" />
-        <attr name="barBorderBgColor" format="color"/>
+        <attr name="barBorderBgColor"/>
         <attr name="barBorderWidth" />
         <attr name="barSpace" />
         <attr name="chartColor" />
@@ -384,7 +386,7 @@
         <attr name="lineMinColor" />
 
         <!--line stroke width-->
-        <attr name="lineStrokeWidth" format="integer"/>
+        <attr name="lineStrokeWidth"/>
 
         <!--LinearLayoutManager-->
         <attr name="layoutManagerOrientation" />
@@ -666,7 +668,7 @@
     <declare-styleable name="StockChartRecyclerView">
 
         <attr name="barBorderColor" />
-        <attr name="barBorderBgColor" format="color"/>
+        <attr name="barBorderBgColor"/>
         <attr name="barBorderWidth" />
         <attr name="barSpace" />
         <attr name="chartColor" />
@@ -748,7 +750,7 @@
 <!--        <attr name="lineMinColor" />-->
 
         <!--line stroke width-->
-        <attr name="lineStrokeWidth" format="integer"/>
+        <attr name="lineStrokeWidth"/>
 
         <!--LinearLayoutManager-->
         <attr name="layoutManagerOrientation" />

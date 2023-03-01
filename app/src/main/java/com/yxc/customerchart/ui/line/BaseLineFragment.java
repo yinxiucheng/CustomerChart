@@ -65,8 +65,4 @@ public abstract class BaseLineFragment extends BaseChartFragment {
     public abstract void displayDateAndRate();
 
     public abstract void scrollToCurrentCycle();//回到当前周期
-
-
-
-
 }

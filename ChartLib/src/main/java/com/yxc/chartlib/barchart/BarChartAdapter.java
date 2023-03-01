@@ -41,8 +41,7 @@ public class BarChartAdapter<T extends RecyclerBarEntry> extends BaseBarChartAda
     @Override
     public void onBindViewHolder(@NonNull BarChartViewHolder viewHolder, int position) {
         super.onBindViewHolder(viewHolder, position);
-        float contentWidth = mRecyclerView.getWidth() - mRecyclerView.getPaddingEnd()
-                - mRecyclerView.getPaddingStart();
+        float contentWidth = mRecyclerView.getWidth() - mRecyclerView.getPaddingEnd() - mRecyclerView.getPaddingStart();
         int itemWidth;
         if (mBarChartAttrs.dynamicAdjustItemFillWidth) {
             //需要-动态调整以fill width 最小误差

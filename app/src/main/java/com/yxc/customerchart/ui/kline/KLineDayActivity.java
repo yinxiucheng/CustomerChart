@@ -1,4 +1,4 @@
-package com.yxc.customerchart.ui;
+package com.yxc.customerchart.ui.kline;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,15 +11,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.yxc.customerchart.R;
 import com.yxc.customerchart.base.BaseChartFragment;
-import com.yxc.mylibrary.TimeDateUtil;
-
-import org.joda.time.LocalDate;
+import com.yxc.customerchart.ui.ecg.EcgDayFragment;
 
 
 /**
  * 心电图
  */
-public class EcgLandScapeActivity extends AppCompatActivity {
+public class KLineDayActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     FrameLayout container;
@@ -29,13 +27,13 @@ public class EcgLandScapeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hrm);
+        setContentView(R.layout.activity_kline_day);
         initView();
     }
 
     private void initView() {
         container = findViewById(R.id.container);
-        switchTab(EcgDayFragment.class, "EcgDayFragment");
+        switchTab(KLineDayFragment.class, "KLineDayFragment");
     }
 
     @Override

@@ -40,8 +40,12 @@ class  StockChartRender<T:ValueFormatter> constructor(var mStockAttrs: StockChar
             val color = if (stockEntry.isRise) mStockAttrs.riseColor else mStockAttrs.downColor
             mBarChartPaint.color = color
             drawChart(canvas, rectMain, parentLeft, parentRight, radius)
-            drawTopAndDownLine(stockEntry.mShadowHigh, canvas, rectMain, yAxis, parent)
-            drawTopAndDownLine(stockEntry.mShadowLow, canvas, rectMain, yAxis, parent)
+            if (stockEntry.mShadowHigh > Math.max(stockEntry.mClose, stockEntry.mOpen)){
+                drawTopAndDownLine(stockEntry.mShadowHigh, canvas, rectMain, yAxis, parent)
+            }
+            if (stockEntry.mShadowLow < Math.min(stockEntry.mClose, stockEntry.mOpen)){
+                drawTopAndDownLine(stockEntry.mShadowLow, canvas, rectMain, yAxis, parent)
+            }
         }
     }
 

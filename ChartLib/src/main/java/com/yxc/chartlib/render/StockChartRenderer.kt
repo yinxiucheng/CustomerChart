@@ -15,6 +15,7 @@ import com.yxc.chartlib.util.RoundRectType
 import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.chartlib.utils.DisplayUtil.dip2px
 import com.yxc.chartlib.utils.TextUtil
+import com.yxc.customercomposeview.utils.dpf
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 
 /**
@@ -146,6 +147,7 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
         val left = child.left + barSpaceWidth / 2
         val right = left + barChartWidth
         val top = Math.max(rectFTop, contentTop)
+        if ((rectFBottom - top) < 1f.dpf) rectFBottom = top + 1f.dpf
         rectF[left, top, right] = rectFBottom
         return rectF
     }
@@ -167,7 +169,7 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
                 val valueStr = mHighLightValueFormatter.getBarLabel(barEntry)
                 val points = floatArrayOf(childCenter, contentBottom, childCenter, parentTop)
                 if (barEntry.isSelected() && !TextUtils.isEmpty(valueStr)) {
-                    val chartColor: Int = mStockAttrs.chartColor
+                    val chartColor: Int = mStockAttrs.highLightColor
                     drawHighLightLine(canvas, points, barChartColor = chartColor)
                     drawHighLightValue(canvas, valueStr, childCenter, contentLeft, contentRight, parentTop, chartColor)
                 }
@@ -212,8 +214,8 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
             rectF.left + leftPadding + txtWidth, rectTop + txtTopPadding + rectFHeight
         )
         mHighLightDescPaint.setTextAlign(Paint.Align.LEFT)
-        val fontMetrics: Paint.FontMetrics =
-            mHighLightDescPaint.getFontMetrics()
+        val fontMetrics: Paint.FontMetrics = mHighLightDescPaint.getFontMetrics()
+        mHighLightDescPaint.color = mStockAttrs.highLightColor
         val top = fontMetrics.top //为基线到字体上边框的距离,即上图中的top
         val bottom = fontMetrics.bottom //为基线到字体下边框的距离,即上图中的bottom
         val baseLineY = (leftRectF.centerY() + (top + bottom) / 2).toInt() //基线中间点的y轴计算公式

@@ -106,7 +106,6 @@ final public class XAxisRender<V extends BaseChartAttrs> {
             final float xStart = AppUtil.isRTLDirection() ? child.getRight() : child.getLeft();
             //todo 大周期的线靠右画了，因为用的item的endTime 来计算的。
             final float xEnd = AppUtil.isRTLDirection() ? child.getLeft() : child.getRight();
-
 //            Log.d("XAxisRender", " xStart:" + xStart + " parentEnd:" + parentEnd + " parentStart:" + parentStart);
             if (AppUtil.isRTLDirection()) {
                 if (xStart > parentStart || xStart < parentEnd) {//超出的时候就不要画了

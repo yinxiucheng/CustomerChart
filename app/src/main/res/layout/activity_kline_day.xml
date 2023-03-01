@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/page_bg">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="KLine Day"
-            android:textColor="@color/black"
+            android:textColor="@color/white_90"
             android:textStyle="bold"
             android:textSize="18sp" />
 
@@ -30,7 +31,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/black_40" />
+        android:background="@color/white_50" />
 
     <FrameLayout
         android:id="@+id/container"

@@ -2,11 +2,10 @@ package com.yxc.chartlib.render
 
 import android.graphics.*
 import androidx.recyclerview.widget.RecyclerView
-import com.yxc.chartlib.attrs.BaseChartAttrs
 import com.yxc.chartlib.attrs.StockChartAttrs
-import com.yxc.chartlib.component.BaseYAxis
 import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.utils.DecimalUtil
+import com.yxc.chartlib.utils.DisplayUtil
 import com.yxc.fitness.chart.render.YAxisRender
 
 class StockYAxisRender: YAxisRender<StockYAxis, StockChartAttrs>{
@@ -33,33 +32,26 @@ class StockYAxisRender: YAxisRender<StockYAxis, StockChartAttrs>{
     override fun drawHorizontalLine(canvas: Canvas, parent: RecyclerView, yAxis: StockYAxis) {
         val left = parent.left
         val right = parent.right
-        mLinePaint.color = yAxis.gridColor
         val top = parent.paddingTop
         val bottom = parent.height - parent.paddingBottom
         val distance = bottom - mBarChartAttrs.contentPaddingBottom - mBarChartAttrs.contentPaddingTop - top
         val lineNums = yAxis.labelCount
         val lineDistance = distance / lineNums
-        val itemLineDistance = lineDistance / 5.0f
         var gridLine = top + mBarChartAttrs.contentPaddingTop
         for (i in 0..lineNums) {
             if (i > 0) {
                 gridLine += lineDistance
             }
             val path = Path()
+            var enable = if (i == lineNums) {
+                mBarChartAttrs.enableYAxisZero
+            } else {
+                mBarChartAttrs.enableYAxisGridLine //允许画 Y轴刻度
+            }
             path.moveTo(left.toFloat(), gridLine)
             path.lineTo(right.toFloat(), gridLine)
-            val enable = if (i == lineNums && mBarChartAttrs.enableYAxisZero) true else mBarChartAttrs.enableYAxisGridLine //允许画 Y轴刻度
             if (enable) {
-                if (i < lineNums) {
-                    var baseYItem = gridLine
-                    for (j in 0..3) {
-                        baseYItem += itemLineDistance
-                        val itemPath = Path()
-                        itemPath.moveTo(left.toFloat(), baseYItem)
-                        itemPath.lineTo(right.toFloat(), baseYItem)
-                        canvas.drawPath(itemPath, mDashPaint)
-                    }
-                }
+                if(mBarChartAttrs.enableYAxisLineDash) mLinePaint.pathEffect = DashPathEffect(floatArrayOf(DisplayUtil.dip2pxF(4f), DisplayUtil.dip2pxF(1.5f)), 0f)
                 canvas.drawPath(path, mLinePaint)
             }
         }

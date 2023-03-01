@@ -20,4 +20,9 @@
     <color name="minute_yellow">#E7B448</color>
     <color name="minute_jizhun">#7F9976</color>
     <color name="minute_zhoutv">#858D93</color>
+
+
+    <color name="rise_chart_color">#00CD00</color>
+    <color name="down_chart_color">#CD3700</color>
+
 </resources>

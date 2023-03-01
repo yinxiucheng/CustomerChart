@@ -16,12 +16,13 @@
         <com.yxc.chartlib.view.StockChartRecyclerView
             android:id="@+id/kline_day_chart"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="270dp"
+            android:background="@color/stock_chart_bg"
             android:layout_alignParentTop="true"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
             android:paddingTop="38dp"
-            android:paddingBottom="30dp"
+            android:paddingBottom="10dp"
             app:contentPaddingTop="30dp"
             app:displayNumbers="60"
             app:enableXAxisLineCircle="false"
@@ -30,9 +31,15 @@
             app:enableEndYAxisLabel="false"
             app:enableScrollToScale="true"
             app:recyclerPaddingRight="3dp"
+            app:yAxisLabelTxtColor="@color/white_50"
+            app:yAxisLineColor="@color/white_20"
+            app:xAxisTxtColor="@color/white_50"
+            app:highLightColor="@color/white_70"
+            app:riseColor="@color/rise_chart_color"
+            app:downColor="@color/down_chart_color"
+            app:barBorderColor="@color/white_20"
             app:barSpace="0.3"
             app:xAxisScaleDistance="6" />
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

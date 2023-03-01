@@ -216,4 +216,7 @@
 
     <color name="rate_chart_bg">#66FFC5CE</color>
 
+    <color name="page_bg">#212121</color>
+    <color name="stock_chart_bg">#262626</color>
+
 </resources>

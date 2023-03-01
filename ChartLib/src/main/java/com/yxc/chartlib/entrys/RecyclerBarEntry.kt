@@ -49,7 +49,7 @@ open class RecyclerBarEntry : BarEntry, Comparable<RecyclerBarEntry> {
         this.timestamp = timestamp
         this.type = type
         validType = TYPE_VALID
-        localDate = TimeDateUtil.timestampToLocalDate(timestamp)
+        localDate = timestampToLocalDate(timestamp)
     }
 
     constructor(x: Float, vals: FloatArray?) : super(x, vals) {}

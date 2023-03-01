@@ -396,8 +396,6 @@ public class ChartAttrsUtil {
         return mAttribute;
     }
 
-
-
     public static StockChartAttrs getStockChartAttrs(Context context, AttributeSet attributeSet) {
         TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.StockChartRecyclerView);
         StockChartAttrs mAttribute = new StockChartAttrs();

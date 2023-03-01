@@ -110,4 +110,30 @@ final public class BarBoardRender<V extends BaseChartAttrs> {
             canvas.drawPath(path, mBarBorderPaint);
         }
     }
+
+    public void drawBarBorder3(@NonNull Canvas canvas, @NonNull RecyclerView parent) {
+        if (mBarChartAttrs.enableBarBorder) {
+            float top = parent.getPaddingTop();
+            float bottom = parent.getHeight() - parent.getPaddingBottom() - mBarChartAttrs.contentPaddingBottom;
+            float start = parent.getLeft();
+            float end = parent.getRight();
+            //底部有0的刻度是不是不用画，就画折线了。
+            Path startPath = new Path();
+            startPath.moveTo(start, bottom);
+            startPath.lineTo(start, top);
+            canvas.drawPath(startPath, mBarBorderPaint);
+            Path endPath = new Path();
+            endPath.moveTo(end, bottom);
+            endPath.lineTo(end, top);
+            canvas.drawPath(endPath, mBarBorderPaint);
+
+            Path topPath = new Path();
+            topPath.moveTo(start, top);
+            topPath.lineTo(end, top);
+            if (mBarChartAttrs.enableYAxisLineDash){
+                mTopBarBorderPaint.setPathEffect(new DashPathEffect(new float[] { DisplayUtil.dip2px(4), DisplayUtil.dip2px(1.5f) }, 0));
+            }
+            canvas.drawPath(topPath, mTopBarBorderPaint);
+        }
+    }
 }

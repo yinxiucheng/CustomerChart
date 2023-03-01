@@ -27,7 +27,9 @@ import com.yxc.customerchart.R
 import com.yxc.customerchart.mock.DataMock
 import com.yxc.customerchart.ui.ecg.TestData
 import com.yxc.customerchart.ui.line.BaseLineFragment
+import com.yxc.customerchart.ui.valueformatter.StockKLineXAxisFormatter
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
+import com.yxc.mylibrary.TimeDateUtil
 
 class KLineDayFragment : BaseLineFragment() {
     val TAG = "KLineDayFragment"
@@ -65,7 +67,7 @@ class KLineDayFragment : BaseLineFragment() {
     private fun initData() {
         displayNumber = mBarChartAttrs.displayNumbers
         mType = TestData.VIEW_DAY
-        valueFormatter = StockValueFormatter()
+        valueFormatter = StockKLineXAxisFormatter()
         val layoutManager = SpeedRatioLayoutManager(activity, mBarChartAttrs)
         mYAxis = StockYAxis(mBarChartAttrs)
         mXAxis = XAxis(mBarChartAttrs, displayNumber, valueFormatter)
@@ -112,19 +114,15 @@ class KLineDayFragment : BaseLineFragment() {
         var preEntry = if (mEntries.isNotEmpty()) mEntries[mEntries.size - 1] else null
         kEntityList.map { entity ->
 //          (x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float)
-            val top = (Math.random() * 100).toFloat()
-            val topAdd = top + (Math.random() * 20).toFloat()
-            val down = top - (Math.random() * 30).toFloat()
-            var downMin = down - (Math.random() * 20).toFloat()
-            downMin = if (downMin > 0) downMin else 0f
-            val isRise = (Math.random() * 10).toInt() % 2 == 0
-            val open = if (isRise) top else down
-            val close = if (isRise) down else top
-
-//            val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000, topAdd, downMin, open, close)
-            val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000, entity.getHighPrice(), entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice())
+            val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000, entity.getHighPrice(),
+                entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice())
             preEntry?.let {
                 stockEntry.isRise = it.mClose < stockEntry.mClose
+                val lastDate = TimeDateUtil.timestampToLocalDate(it.timestamp)
+                val thisDate = TimeDateUtil.timestampToLocalDate(stockEntry.timestamp)
+                if (!TimeDateUtil.isSameMonth(lastDate, thisDate)){
+                    stockEntry.type = RecyclerBarEntry.TYPE_XAXIS_FIRST
+                }
             }
             preEntry = stockEntry
             stockEntryList.add(stockEntry)

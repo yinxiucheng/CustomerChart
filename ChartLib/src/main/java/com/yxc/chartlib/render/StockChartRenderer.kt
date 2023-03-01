@@ -11,8 +11,8 @@ import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.entrys.StockEntry
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.util.CanvasUtil
-import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.util.RoundRectType
+import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.chartlib.utils.DisplayUtil.dip2px
 import com.yxc.chartlib.utils.TextUtil
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
@@ -27,7 +27,6 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
     :BaseChartRender<StockEntry, StockChartAttrs>(mStockAttrs, valueFormatter) {
 
     private lateinit var  mLineChartPaint: Paint
-
     init {
         initLinePaint()
     }
@@ -56,7 +55,8 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
             val radius = 1f
             val color = if (stockEntry.isRise) mStockAttrs.riseColor else mStockAttrs.downColor
             mBarChartPaint.color = color
-            drawChart(canvas, rectMain, parentLeft, parentRight, radius)
+            //todo 注意RTL
+            drawChart(canvas, rectMain, parent.left.toFloat(), parent.right.toFloat(), radius)
             mHighLightLinePaint.color = color
             if (stockEntry.mShadowHigh > Math.max(stockEntry.mClose, stockEntry.mOpen)){
                 drawTopLine(stockEntry.mShadowHigh, canvas, rectMain, yAxis, parent)
@@ -72,28 +72,45 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
         canvas.save()
         val y = getYPosition(value, parent, yAxis, mStockAttrs)
         val x = (rectF.left + rectF.right)/2
-        canvas.drawLine(x, rectF.top, x, y, mHighLightLinePaint)
-        canvas.restore()
+        if (DecimalUtil.bigOrEquals(x, parent.left.toFloat()) && DecimalUtil.smallOrEquals(x, parent.right.toFloat())){
+            canvas.drawLine(x, rectF.top, x, y, mHighLightLinePaint)
+            canvas.restore()
+        }
     }
 
     private fun drawDownLine(value:Float, canvas: Canvas, rectF: RectF, yAxis: YAxis,  parent: RecyclerView){
         canvas.save()
         val y = getYPosition(value, parent, yAxis, mStockAttrs)
         val x = (rectF.left + rectF.right)/2
-        canvas.drawLine(x, rectF.bottom, x, y, mHighLightLinePaint)
-        canvas.restore()
+        if (DecimalUtil.bigOrEquals(x, parent.left.toFloat()) && DecimalUtil.smallOrEquals(x, parent.right.toFloat())){
+            canvas.drawLine(x, rectF.bottom, x, y, mHighLightLinePaint)
+            canvas.restore()
+        }
     }
 
     private fun drawChart(canvas: Canvas, rectF: RectF, parentLeft: Float, parentRight: Float, radius: Float) {
-//        if (DecimalUtil.bigOrEquals(rectF.left, parentLeft) && DecimalUtil.smallOrEquals(rectF.right, parentRight)) {
-//            //中间的; 浮点数的 == 比较需要注意
-//
-//        } else {
-//            //continue 会闪，原因是end == parentLeft 没有过滤掉，显示出来柱状图了。
-//        }
-
-        val path = CanvasUtil.createRectRoundPath(rectF, radius, RoundRectType.TYPE_ALL)
-        canvas.drawPath(path, mBarChartPaint)
+        // 浮点数的 == 比较需要注意
+        if (DecimalUtil.smallOrEquals(rectF.right, parentLeft)) {
+            //continue 会闪，原因是end == parentLeft 没有过滤掉，显示出来柱状图了。
+        } else if (rectF.left < parentLeft && rectF.right > parentLeft) {
+            //左边部分滑入的时候，处理柱状图的显示
+            rectF.left = parentLeft
+            val path = CanvasUtil.createRectRoundPath(rectF, radius, RoundRectType.TYPE_RIGHT_TOP)
+            mBarChartPaint.color = mBarChartAttrs.chartEdgeColor
+            canvas.drawPath(path, mBarChartPaint)
+        } else if (DecimalUtil.bigOrEquals(rectF.left, parentLeft) && DecimalUtil.smallOrEquals(rectF.right, parentRight)) {
+            // 中间部分的Item
+            val path = CanvasUtil.createRectRoundPath(rectF, radius, RoundRectType.TYPE_ALL)
+            canvas.drawPath(path, mBarChartPaint)
+            //            canvas.drawRoundRect(rectF, radius, radius, mBarChartPaint);
+        } else if (DecimalUtil.smallOrEquals(rectF.left, parentRight) && rectF.right > parentRight) {
+            //右边部分滑出的时候，处理柱状图，文字的显示
+            val distance = parentRight - rectF.left
+            rectF.right = rectF.left + distance
+            val path = CanvasUtil.createRectRoundPath(rectF, radius, RoundRectType.TYPE_LEFT_TOP)
+            mBarChartPaint.color = mBarChartAttrs.chartEdgeColor
+            canvas.drawPath(path, mBarChartPaint)
+        }
     }
 
     private fun <E : YAxis> getYPosition(yValue:Float, parent: RecyclerView,yAxis: E, mAttrs: StockChartAttrs):Float{

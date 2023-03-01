@@ -24,8 +24,8 @@ class StockChartItemDecoration : BaseChartItemDecoration<StockChartAttrs, YAxis>
             :super(yAxis, xAxis, stockChartAttrs){
           mHighLightValueFormatter =  StockValueFormatter()
           mChartRender = StockChartRenderer(stockChartAttrs, mHighLightValueFormatter as StockValueFormatter)
-
     }
+
 
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(canvas, parent, state)
@@ -35,8 +35,7 @@ class StockChartItemDecoration : BaseChartItemDecoration<StockChartAttrs, YAxis>
         xAxisRenderer.drawVerticalLine(canvas, parent, mXAxis);
         mChartRender.drawStockChart(canvas, parent, mYAxis) //draw LineChart
         mChartRender.drawHighLight(canvas, parent, mYAxis)// highLight
-        mBarBoardRender.drawBarBorder1(canvas, parent);
+        mBarBoardRender.drawBarBorder3(canvas, parent)
     }
-
 
 }

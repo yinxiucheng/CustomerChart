@@ -202,6 +202,16 @@ object TimeDateUtil {
     }
 
     @JvmStatic
+    fun getDateYYYYMM(millis: Long): String {
+        return getDateYYYYMMdd(millis, "yyyy/MM")
+    }
+
+    @JvmStatic
+    fun getDateYYYYMMddSimple(millis: Long): String {
+        return getDateYYYYMMdd(millis, "yyyy/MM/dd")
+    }
+
+    @JvmStatic
     fun getDateYYYYMMdd(millis: Long, format: String = "yyyy-MM-dd"): String {
         val format = SimpleDateFormat(format, Locale.US)
         return format.format(Date(millis))

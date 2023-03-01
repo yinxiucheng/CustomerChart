@@ -1,9 +1,8 @@
 package com.yxc.fitness.chart.render
 
+import android.graphics.*
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import com.yxc.fitness.chart.entrys.RecyclerBarEntry
-import android.graphics.*
 import com.yxc.chartlib.attrs.BaseChartAttrs
 import com.yxc.chartlib.component.BaseYAxis
 import com.yxc.chartlib.component.YAxis
@@ -11,9 +10,10 @@ import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.utils.AppUtil.isRTLDirection
 import com.yxc.chartlib.utils.DisplayUtil
 import com.yxc.chartlib.utils.TextUtil
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 
 
-open class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarChartAttrs: V) {
+open class YAxisRender<T : BaseYAxis, V : BaseChartAttrs?>(protected var mBarChartAttrs: V) {
     private lateinit var mLinePaint: Paint
     private lateinit var mTextPaint: Paint
     private fun initTextPaint() {
@@ -96,11 +96,14 @@ open class YAxisRender<T : BaseYAxis?, V : BaseChartAttrs?>(protected var mBarCh
 //        parent.setPadding(paddingLeft, parent.paddingTop, parent.paddingRight, parent.paddingBottom)
         val topLocation = top + mBarChartAttrs!!.contentPaddingTop
         val containerHeight = bottom - mBarChartAttrs!!.contentPaddingBottom - topLocation
-        val itemHeight = containerHeight / yAxis!!.labelCount
+        val itemHeight = containerHeight / yAxis.labelCount
+        Log.d("KLine", "getYAxisScaleMap drawLeftYAxisLabel invoke: $yAxis")
         val yAxisScaleMap = yAxis.getYAxisScaleMap(topLocation, itemHeight, yAxis.labelCount)
+        Log.d("KLine", "yAxisScaleMap $yAxisScaleMap")
         var i = 0
         for ((yAxisScaleLocation, yAxisScaleValue) in yAxisScaleMap) {
             i++
+            Log.d("KLine", "location:$yAxisScaleLocation  value:$yAxisScaleValue")
             val labelStr = yAxis.valueFormatter.getFormattedValue(yAxisScaleValue, yAxis)
             val txtY = yAxisScaleLocation + yAxis.labelVerticalPadding
             val txtX = paddingLeft - mTextPaint.measureText(labelStr) - yAxis.labelHorizontalPadding

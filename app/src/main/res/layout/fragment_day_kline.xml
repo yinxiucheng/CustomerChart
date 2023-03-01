@@ -18,18 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_alignParentTop="true"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
             android:paddingTop="38dp"
-            app:contentPaddingTop="0dp"
+            android:paddingLeft="30dp"
+            android:paddingBottom="30dp"
+            app:contentPaddingTop="30dp"
             app:displayNumbers="60"
             app:enableXAxisLineCircle="false"
             app:enableLineFill="false"
-            app:enableStartYAxisLabel="false"
+            app:enableStartYAxisLabel="true"
             app:enableEndYAxisLabel="false"
             app:enableScrollToScale="true"
             app:recyclerPaddingRight="3dp"
-            app:barSpace="0.95"
+            app:barSpace="0.3"
             app:xAxisScaleDistance="6" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

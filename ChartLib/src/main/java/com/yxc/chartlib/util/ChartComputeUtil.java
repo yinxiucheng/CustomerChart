@@ -52,6 +52,32 @@ public class ChartComputeUtil {
     private static final int VIEW_MONTH = 2;
     public static final int VIEW_YEAR = 3;
 
+    public static <T extends RecyclerBarEntry> List<T> getVisibleEntriesJust(RecyclerView recyclerView, int displayNumbers) {
+        LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        BaseBarChartAdapter adapter = (BaseBarChartAdapter) recyclerView.getAdapter();
+        List<T> mEntries = adapter.getEntries();
+
+        //获取最后一个完全显示的ItemPosition
+        int lastVisibleItemPosition = manager.findLastCompletelyVisibleItemPosition();
+        int firstVisibleItemPosition = manager.findFirstCompletelyVisibleItemPosition();
+
+        if (lastVisibleItemPosition == RecyclerView.NO_POSITION) {
+            lastVisibleItemPosition = manager.findLastVisibleItemPosition();
+        }
+
+        if (firstVisibleItemPosition == RecyclerView.NO_POSITION) {
+            firstVisibleItemPosition = manager.findFirstVisibleItemPosition();
+        }
+
+        List<T> visibleEntries = new ArrayList<>();
+        if (firstVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition != RecyclerView.NO_POSITION) {
+//            visibleEntries = mEntries.subList(firstVisibleItemPosition, lastVisibleItemPosition + 1);
+            if (lastVisibleItemPosition < mEntries.size()) {
+                visibleEntries = mEntries.subList(firstVisibleItemPosition, lastVisibleItemPosition + 1);
+            }
+        }
+        return visibleEntries;
+    }
     //位置进行微调
     public static <T extends RecyclerBarEntry> YAxisMaxEntries getVisibleEntries(RecyclerView recyclerView, int displayNumbers) {
         LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();

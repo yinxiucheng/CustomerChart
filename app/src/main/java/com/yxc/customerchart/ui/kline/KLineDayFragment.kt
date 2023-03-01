@@ -13,10 +13,9 @@ import com.yxc.chartlib.attrs.StockChartAttrs
 import com.yxc.chartlib.barchart.BarChartAdapter
 import com.yxc.chartlib.barchart.SpeedRatioLayoutManager
 import com.yxc.chartlib.barchart.itemdecoration.StockChartItemDecoration
+import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.component.XAxis
-import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.entrys.StockEntry
-import com.yxc.chartlib.entrys.YAxisMaxEntries
 import com.yxc.chartlib.formatter.StockValueFormatter
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.listener.RecyclerItemGestureListener
@@ -37,7 +36,7 @@ class KLineDayFragment : BaseLineFragment() {
     val mEntries: MutableList<StockEntry> = mutableListOf()
     lateinit var mItemDecoration: StockChartItemDecoration
     lateinit var mItemGestureListener: RecyclerItemGestureListener<StockEntry>
-    lateinit var mYAxis: YAxis
+    lateinit var mYAxis: StockYAxis
     lateinit var mXAxis: XAxis
     lateinit var valueFormatter: ValueFormatter
     var mType = 0
@@ -68,10 +67,10 @@ class KLineDayFragment : BaseLineFragment() {
         mType = TestData.VIEW_DAY
         valueFormatter = StockValueFormatter()
         val layoutManager = SpeedRatioLayoutManager(activity, mBarChartAttrs)
-        mYAxis = YAxis(mBarChartAttrs)
+        mYAxis = StockYAxis(mBarChartAttrs)
         mXAxis = XAxis(mBarChartAttrs, displayNumber, valueFormatter)
         mItemDecoration = StockChartItemDecoration(mYAxis, mXAxis, mBarChartAttrs)
-        recyclerView.addItemDecoration(mItemDecoration!!)
+        recyclerView.addItemDecoration(mItemDecoration)
         mBarChartAdapter = BarChartAdapter(activity, mEntries, recyclerView, mXAxis, mBarChartAttrs)
         recyclerView.adapter = mBarChartAdapter
         recyclerView.layoutManager = layoutManager
@@ -92,21 +91,18 @@ class KLineDayFragment : BaseLineFragment() {
         val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
 
         val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
-        val yAxis: YAxis = mYAxis.resetYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
+        mYAxis = StockYAxis.createYAxisWithLabelCount(mBarChartAttrs, maxMinModel.max, maxMinModel.min, 4)
+        mItemDecoration.setYAxis(mYAxis)
+        mBarChartAdapter.setYAxis(mYAxis)
         mBarChartAdapter.notifyDataSetChanged()
-        if (yAxis != null) {
-            mYAxis = yAxis
-            mItemDecoration.setYAxis(mYAxis)
-            mBarChartAdapter.setYAxis(mYAxis)
-        }
         setVisibleEntries(visibleEntries)
     }
 
     protected fun resetYAxis(recyclerView: RecyclerView) {
-        val yAxisMaxEntries = ChartComputeUtil.getVisibleEntries<StockEntry>(recyclerView, displayNumber)
-        val visibleEntries: List<StockEntry> = yAxisMaxEntries.visibleEntries as List<StockEntry>
+        val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, displayNumber)
+        val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
         setVisibleEntries(visibleEntries)
-        mYAxis = YAxis.getYAxisChild(mBarChartAttrs, yAxisMaxEntries.yAxisMaximum)
+        mYAxis = StockYAxis.resetStockYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
         mItemDecoration.setYAxis(mYAxis)
     }
 
@@ -116,8 +112,17 @@ class KLineDayFragment : BaseLineFragment() {
         var preEntry = if (mEntries.isNotEmpty()) mEntries[mEntries.size - 1] else null
         kEntityList.map { entity ->
 //          (x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float)
-            val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000,
-                entity.getHighPrice(), entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice())
+            val top = (Math.random() * 100).toFloat()
+            val topAdd = top + (Math.random() * 20).toFloat()
+            val down = top - (Math.random() * 30).toFloat()
+            var downMin = down - (Math.random() * 20).toFloat()
+            downMin = if (downMin > 0) downMin else 0f
+            val isRise = (Math.random() * 10).toInt() % 2 == 0
+            val open = if (isRise) top else down
+            val close = if (isRise) down else top
+
+//            val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000, topAdd, downMin, open, close)
+            val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000, entity.getHighPrice(), entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice())
             preEntry?.let {
                 stockEntry.isRise = it.mClose < stockEntry.mClose
             }
@@ -145,21 +150,14 @@ class KLineDayFragment : BaseLineFragment() {
                                 mBarChartAdapter.notifyDataSetChanged()
                             }
                         } else if (!recyclerView.canScrollHorizontally(1)) {
-//                                List<StockEntry> barEntries = EcgTestData.createEcgEntries(
-//                                        currentTimestamp,
-//                                        displayNumber,
-//                                        mEntries.size(),
-//                                        EcgTestData.testDoubleArray
-//                                );
-                            // mEntries.addAll(barEntries);
-
                         }
-                        resetYAxis(recyclerView)
                     }
+                    resetYAxis(recyclerView)
                 }
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     isRightScrollInner = dx < 0
+                    resetYAxis(recyclerView)
                 }
             })
         recyclerView.addOnItemTouchListener(mItemGestureListener)

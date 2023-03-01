@@ -122,7 +122,7 @@ public class BaseYAxis extends AxisBase {
                     yAxisScaleMap.put(location, mEntries[i]);
                 } else {
                     //这里其实已经出错了，值的个数跟位置不匹配
-                    yAxisScaleMap.put(location, 0f);
+                    yAxisScaleMap.put(location, mAxisMinimum);
                 }
             }
         } else {//倒序
@@ -134,7 +134,7 @@ public class BaseYAxis extends AxisBase {
                     yAxisScaleMap.put(location, mEntries[i]);
                 } else {
                     //这里其实已经出错了，值的个数跟位置不匹配
-                    yAxisScaleMap.put(location, 0f);
+                    yAxisScaleMap.put(location, mAxisMinimum);
                 }
             }
         }

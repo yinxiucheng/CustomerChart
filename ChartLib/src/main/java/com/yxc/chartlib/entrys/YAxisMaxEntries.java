@@ -40,4 +40,11 @@ public class YAxisMaxEntries<T extends RecyclerBarEntry> {
     public float yAxisMinimum;
     public List<T> visibleEntries;
 
+    @Override
+    public String toString() {
+        return "YAxisMaxEntries{" +
+                "yAxisMaximum=" + yAxisMaximum +
+                ", yAxisMinimum=" + yAxisMinimum +
+                '}';
+    }
 }

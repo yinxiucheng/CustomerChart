@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.yxc.customerchart.stock.KLineLandActivity;
 import com.yxc.customerchart.ui.ecg.EcgLandScapeActivity;
+import com.yxc.customerchart.ui.kline.KLineDayActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -19,7 +20,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(MainActivity.this, "KLine Chart Click", Toast.LENGTH_SHORT).show();
-                Intent intentK = new Intent(MainActivity.this, KLineLandActivity.class);
+                Intent intentK = new Intent(MainActivity.this, KLineDayActivity.class);
                 startActivity(intentK);
             }
         });

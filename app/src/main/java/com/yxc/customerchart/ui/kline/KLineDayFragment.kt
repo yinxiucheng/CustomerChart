@@ -16,10 +16,12 @@ import com.yxc.chartlib.barchart.itemdecoration.StockChartItemDecoration
 import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.entrys.StockEntry
+import com.yxc.chartlib.entrys.YAxisMaxEntries
 import com.yxc.chartlib.formatter.StockValueFormatter
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.listener.RecyclerItemGestureListener
 import com.yxc.chartlib.listener.SimpleItemGestureListener
+import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.utils.AppUtil
 import com.yxc.chartlib.view.StockChartRecyclerView
 import com.yxc.customerchart.R
@@ -33,7 +35,7 @@ class KLineDayFragment : BaseLineFragment() {
     lateinit var recyclerView: StockChartRecyclerView
     lateinit var mBarChartAdapter: BarChartAdapter<StockEntry>
     val mEntries: MutableList<StockEntry> = mutableListOf()
-    var mItemDecoration: StockChartItemDecoration? = null
+    lateinit var mItemDecoration: StockChartItemDecoration
     lateinit var mItemGestureListener: RecyclerItemGestureListener<StockEntry>
     lateinit var mYAxis: YAxis
     lateinit var mXAxis: XAxis
@@ -57,7 +59,7 @@ class KLineDayFragment : BaseLineFragment() {
     }
 
     private fun initView(view: View) {
-        recyclerView = view.findViewById(R.id.line_chart)
+        recyclerView = view.findViewById(R.id.kline_day_chart)
         mBarChartAttrs = recyclerView.mAttrs
     }
 
@@ -76,34 +78,55 @@ class KLineDayFragment : BaseLineFragment() {
 
         DataMock.loadDayData(mContext, currentPage) { entityList ->
             bindBarChartList(createStockEntryList(entityList))
+            setXAxis(displayNumber)
+            reSizeYAxis()
         }
-        setXAxis(displayNumber)
-        reSizeYAxis()
+    }
+
+    protected fun reSizeYAxis() {
+        if (mEntries.size == 0) {
+            return
+        }
+        val visibleSize = Math.min(displayNumber, mEntries.size)
+        recyclerView.scrollToPosition(0)
+        val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
+
+        val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
+        val yAxis: YAxis = mYAxis.resetYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
+        mBarChartAdapter.notifyDataSetChanged()
+        if (yAxis != null) {
+            mYAxis = yAxis
+            mItemDecoration.setYAxis(mYAxis)
+            mBarChartAdapter.setYAxis(mYAxis)
+        }
+        setVisibleEntries(visibleEntries)
+    }
+
+    protected fun resetYAxis(recyclerView: RecyclerView) {
+        val yAxisMaxEntries = ChartComputeUtil.getVisibleEntries<StockEntry>(recyclerView, displayNumber)
+        val visibleEntries: List<StockEntry> = yAxisMaxEntries.visibleEntries as List<StockEntry>
+        setVisibleEntries(visibleEntries)
+        mYAxis = YAxis.getYAxisChild(mBarChartAttrs, yAxisMaxEntries.yAxisMaximum)
+        mItemDecoration.setYAxis(mYAxis)
     }
 
     private fun createStockEntryList(kEntityList:List<IKEntity>): List<StockEntry>{
         val stockEntryList = mutableListOf<StockEntry>()
         var index = mEntries.size
+        var preEntry = if (mEntries.isNotEmpty()) mEntries[mEntries.size - 1] else null
         kEntityList.map { entity ->
 //          (x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float)
             val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000,
                 entity.getHighPrice(), entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice())
+            preEntry?.let {
+                stockEntry.isRise = it.mClose < stockEntry.mClose
+            }
+            preEntry = stockEntry
             stockEntryList.add(stockEntry)
         }
         return stockEntryList
     }
 
-    private fun reSizeYAxis() {
-        recyclerView.scrollToPosition(0)
-        val yAxis = mYAxis.resetEcgYAxis(mYAxis)
-        mBarChartAdapter.notifyDataSetChanged()
-        if (yAxis != null) {
-            mYAxis = yAxis
-            mItemDecoration!!.setYAxis(mYAxis)
-            mBarChartAdapter.setYAxis(mYAxis)
-        }
-        mBarChartAdapter.setYAxis(mYAxis)
-    }
 
     //滑动监听
     private fun setListener() {
@@ -131,6 +154,7 @@ class KLineDayFragment : BaseLineFragment() {
                             // mEntries.addAll(barEntries);
 
                         }
+                        resetYAxis(recyclerView)
                     }
                 }
 

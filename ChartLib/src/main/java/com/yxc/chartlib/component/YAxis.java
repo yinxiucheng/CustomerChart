@@ -27,9 +27,10 @@ public class YAxis extends BaseYAxis {
     }
 
     //获取Y轴刻度值, 当上一次 跟 这一次 对应的 刻度一样的时候，
-    public YAxis resetYAxis(YAxis axis, float axisMaximum, int layoutCount) {
+    public YAxis resetYAxis(YAxis axis, float axisMaximum, float axisMinimum, int layoutCount) {
         axisMaximum = Math.max(axisMaximum, 4);
         axis.setAxisMaximum(axisMaximum);
+        axis.setAxisMinimum(axisMinimum);
         axis.setLabelCount(layoutCount);
         this.labelCount = layoutCount;
         return axis;

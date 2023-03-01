@@ -7,6 +7,8 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.yxc.chartlib.listener.RecyclerItemGestureListener;
 import com.yxc.customerchart.base.BaseChartFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public abstract class BaseLineFragment extends BaseChartFragment {
         }
     }
 
-    protected void setVisibleEntries(List<BarEntry> barEntries) {
+    protected void setVisibleEntries(@NotNull List<BarEntry> barEntries) {
         if (null == visibleEntries) {
             visibleEntries = new ArrayList<>();
         } else {

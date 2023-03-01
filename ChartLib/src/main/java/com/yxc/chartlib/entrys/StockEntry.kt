@@ -1,5 +1,6 @@
 package com.yxc.chartlib.entrys
 
+import com.yxc.chartlib.entrys.model.MaxMinModel
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 /**
  * @author xiuchengyin
@@ -38,4 +39,26 @@ class StockEntry : RecyclerBarEntry {
     //
     var isRise: Boolean = true
 
+    companion object{
+        fun getTheMaxMinModel(entries: List<StockEntry>): MaxMinModel {
+            if (entries == null || entries.isEmpty()) {
+                return MaxMinModel(100f, 0f)
+            }
+            val maxMinEntry = entries[0]
+            var max = maxMinEntry.mShadowHigh
+            var min = maxMinEntry.mShadowLow
+            for (i in entries.indices) {
+                val entryTemp = entries[i]
+                max = Math.max(max, entryTemp.mShadowHigh)
+                min = Math.min(min, entryTemp.mShadowLow)
+            }
+            return MaxMinModel(max, min)
+        }
+    }
+
 }
+
+//获取最大值
+
+//获取最大值
+

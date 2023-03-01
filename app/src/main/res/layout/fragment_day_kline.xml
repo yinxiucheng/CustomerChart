@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <com.yxc.chartlib.view.StockChartRecyclerView
-            android:id="@+id/line_chart"
+            android:id="@+id/kline_day_chart"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
             app:enableEndYAxisLabel="false"
             app:enableScrollToScale="true"
             app:recyclerPaddingRight="3dp"
-            app:barSpace="0.75"
+            app:barSpace="0.95"
             app:xAxisScaleDistance="6" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -664,6 +664,7 @@
     </declare-styleable>
 
     <declare-styleable name="StockChartRecyclerView">
+
         <attr name="barBorderColor" />
         <attr name="barBorderBgColor" format="color"/>
         <attr name="barBorderWidth" />
@@ -729,22 +730,22 @@
         <attr name="xFirstLinePosition" />
         <attr name="xAxisLabelFont" />
 
-        <!--high light-->
-        <attr name="lineHighLightType" />
-        <attr name="linePointRadius" />
-        <attr name="linePointSelectRadius" />
-        <attr name="linePointSelectStrokeWidth" />
-        <attr name="lineSelectCircles" />
-        <attr name="linePointSelectCircleStroke" format="boolean" />
+<!--        &lt;!&ndash;high light&ndash;&gt;-->
+<!--        <attr name="lineHighLightType" />-->
+<!--        <attr name="linePointRadius" />-->
+<!--        <attr name="linePointSelectRadius" />-->
+<!--        <attr name="linePointSelectStrokeWidth" />-->
+<!--        <attr name="lineSelectCircles" />-->
+<!--        <attr name="linePointSelectCircleStroke" format="boolean" />-->
 
-        <!--fill color-->
-        <attr name="lineShaderBeginColor" />
-        <attr name="lineShaderEndColor" />
-        <attr name="enableLineFill" />
-        <attr name="lineColor" />
-        <attr name="fillAlpha" />
-        <attr name="lineMaxColor" />
-        <attr name="lineMinColor" />
+<!--        &lt;!&ndash;fill color&ndash;&gt;-->
+<!--        <attr name="lineShaderBeginColor" />-->
+<!--        <attr name="lineShaderEndColor" />-->
+<!--        <attr name="enableLineFill" />-->
+<!--        <attr name="lineColor" />-->
+<!--        <attr name="fillAlpha" />-->
+<!--        <attr name="lineMaxColor" />-->
+<!--        <attr name="lineMinColor" />-->
 
         <!--line stroke width-->
         <attr name="lineStrokeWidth" format="integer"/>
@@ -757,6 +758,10 @@
 
         <attr name="isDisplay" />
         <attr name="dynamicAdjustItemFillWidth"/>
+
+        <attr name="riseColor" format="color"/>
+        <attr name="downColor" format="color"/>
+        <attr name="isChartItemFill" format="boolean"/>
 
     </declare-styleable>
 

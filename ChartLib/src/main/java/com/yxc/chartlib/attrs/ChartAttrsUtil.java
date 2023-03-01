@@ -398,11 +398,86 @@ public class ChartAttrsUtil {
 
     public static StockChartAttrs getStockChartAttrs(Context context, AttributeSet attributeSet) {
         TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.StockChartRecyclerView);
-        StockChartAttrs mAttribute = new StockChartAttrs();
-        //todo 添加自定义属性。
+        StockChartAttrs attrs = new StockChartAttrs();
+        //StockChartAttrs special
+        attrs.setRiseColor(ta.getColor(R.styleable.StockChartRecyclerView_riseColor, Color.parseColor("#E36245")));
+        attrs.setDownColor(ta.getColor(R.styleable.StockChartRecyclerView_downColor, Color.parseColor("#3FC08E")));
+        attrs.setChartItemFill(ta.getBoolean(R.styleable.StockChartRecyclerView_isChartItemFill, true));
 
+        attrs.barBorderColor = ta.getColor(R.styleable.StockChartRecyclerView_barBorderColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
+        attrs.barBorderBgColor = ta.getColor(R.styleable.StockChartRecyclerView_barBorderBgColor, ColorUtil.getResourcesColor(R.color.rate_chart_bg));
+        attrs.recyclerPaddingLeft = ta.getDimension(R.styleable.StockChartRecyclerView_recyclerPaddingLeft, DisplayUtil.dip2px(2));
+        attrs.recyclerPaddingRight = ta.getDimension(R.styleable.StockChartRecyclerView_recyclerPaddingRight, DisplayUtil.dip2px(3));
+        attrs.chartColor = ta.getColor(R.styleable.StockChartRecyclerView_chartColor, ColorUtil.getResourcesColor(R.color.bar_chart_pink));
+        attrs.highLightColor = ta.getColor(R.styleable.StockChartRecyclerView_highLightColor, ColorUtil.getResourcesColor(R.color.chart_highlight_line_color));
+
+        attrs.barSpace = ta.getFloat(R.styleable.StockChartRecyclerView_barSpace, 0.5f);
+        attrs.highLightRoundRectRadius = ta.getDimension(R.styleable.StockChartRecyclerView_highLightRoundRectRadius, DisplayUtil.dip2px(14));
+        attrs.barChartRadius = ta.getDimension(R.styleable.StockChartRecyclerView_barChartRadius, DisplayUtil.dip2px(12));
+
+        //BarChart Value
+        attrs.barBorderWidth = ta.getDimension(R.styleable.StockChartRecyclerView_barBorderWidth, 0.75f);
+        attrs.contentPaddingBottom = ta.getDimension(R.styleable.StockChartRecyclerView_contentPaddingBottom, DisplayUtil.dip2px(41));
+        attrs.contentPaddingTop = ta.getDimension(R.styleable.StockChartRecyclerView_contentPaddingTop, 0f);
+        attrs.displayNumbers = ta.getInteger(R.styleable.StockChartRecyclerView_displayNumbers, 12);
+
+        //Switch Button
+        attrs.enableBarBorder = ta.getBoolean(R.styleable.StockChartRecyclerView_enableBarBorder, true);
+        attrs.enableCharValueDisplay = ta.getBoolean(R.styleable.StockChartRecyclerView_enableCharValueDisplay, true);
+        attrs.enableEndYAxisLabel = ta.getBoolean(R.styleable.StockChartRecyclerView_enableEndYAxisLabel, true);
+        attrs.enableStartYAxisLabel = ta.getBoolean(R.styleable.StockChartRecyclerView_enableStartYAxisLabel, true);
+        attrs.enableYAxisGridLine = ta.getBoolean(R.styleable.StockChartRecyclerView_enableYAxisGridLine, true);
+        attrs.enableYAxisZero = ta.getBoolean(R.styleable.StockChartRecyclerView_enableYAxisZero, true);
+        attrs.enableYAxisLineDash = ta.getBoolean(R.styleable.BarChartRecyclerView_enableYAxisLineDash, true);
+        attrs.enableScrollToScale = ta.getBoolean(R.styleable.StockChartRecyclerView_enableScrollToScale, true);
+        attrs.enableValueMark = ta.getBoolean(R.styleable.StockChartRecyclerView_enableValueMark, true);
+        attrs.enableEndDayXAxis = ta.getBoolean(R.styleable.StockChartRecyclerView_enableEndDayXAxis, false);
+        attrs.enableXAxisDisplayLabel = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisDisplayLabel, false);
+        attrs.enableXAxisLabel = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisLabel, true);
+        attrs.enableXAxisGridLine = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisGridLine, true);
+        attrs.enableXAxisFirstGridLine = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisFirstGridLine, false);
+        attrs.enableXAxisSecondGridLine = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisSecondGridLine, false);
+        attrs.enableXAxisThirdGridLine = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisThirdGridLine, false);
+        attrs.enableXAxisLineCircle = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisLineCircle, true);
+        attrs.enableXAxisBg = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisBg, true);
+        attrs.averageDisplay = ta.getBoolean(R.styleable.StockChartRecyclerView_enableXAxisLabel, false);
+
+        attrs.ratioVelocity = ta.getFloat(R.styleable.StockChartRecyclerView_ratioVelocity, 0.5f);
+        attrs.ratioSpeed = ta.getFloat(R.styleable.StockChartRecyclerView_ratioSpeed, 1f);
+        //default is horizontal
+        attrs.layoutManagerOrientation = ta.getInteger(R.styleable.StockChartRecyclerView_layoutManagerOrientation, 0);
+        attrs.layoutManagerReverseLayout = ta.getBoolean(R.styleable.StockChartRecyclerView_layoutManagerReverseLayout, true);
+
+        //YAxis
+        attrs.yAxisMaximum = ta.getFloat(R.styleable.StockChartRecyclerView_yAxisMaximum, 30000);
+        attrs.yAxisMinimum = ta.getFloat(R.styleable.StockChartRecyclerView_yAxisMinimum, 0);
+        attrs.yAxisHighStandardLine = ta.getFloat(R.styleable.StockChartRecyclerView_yAxisHighStandardLine, -1);
+        attrs.yAxisMiddleStandardLine = ta.getFloat(R.styleable.StockChartRecyclerView_yAxisMiddleStandardLine, -1);
+        attrs.yAxisLowStandardLine = ta.getFloat(R.styleable.StockChartRecyclerView_yAxisLowStandardLine, -1);
+        attrs.yAxisLabelTxtColor = ta.getColor(R.styleable.StockChartRecyclerView_yAxisLabelTxtColor, ColorUtil.getResourcesColor(R.color.chart_axis_text_color));
+        attrs.yAxisLabelTxtSize = ta.getDimension(R.styleable.StockChartRecyclerView_yAxisLabelTxtSize, DisplayUtil.sp2px(10));
+        attrs.yAxisLabelSize = ta.getInteger(R.styleable.StockChartRecyclerView_yAxisLabelSize, 5);
+        attrs.yAxisLineColor = ta.getColor(R.styleable.StockChartRecyclerView_yAxisLineColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
+        attrs.yAxisLabelHorizontalPadding = ta.getDimension(R.styleable.StockChartRecyclerView_yAxisLabelHorizontalPadding, DisplayUtil.dip2px(5));
+        attrs.yAxisLabelVerticalPadding = ta.getDimension(R.styleable.StockChartRecyclerView_yAxisLabelVerticalPadding, DisplayUtil.dip2px(3));
+        attrs.yAxisReverse = ta.getBoolean(R.styleable.StockChartRecyclerView_yAxisReverse, false);
+
+        //XAxis
+        attrs.xAxisFirstDividerColor = ta.getColor(R.styleable.StockChartRecyclerView_xAxisFirstDividerColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
+        attrs.xAxisSecondDividerColor = ta.getColor(R.styleable.StockChartRecyclerView_xAxisSecondDividerColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
+        attrs.xAxisThirdDividerColor = ta.getColor(R.styleable.StockChartRecyclerView_xAxisThirdDividerColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
+        attrs.xAxisTxtColor = ta.getColor(R.styleable.StockChartRecyclerView_xAxisTxtColor, ColorUtil.getResourcesColor(R.color.chart_axis_text_color));
+        attrs.xAxisTxtSize = ta.getDimension(R.styleable.StockChartRecyclerView_xAxisTxtSize, DisplayUtil.sp2px(context, 10));
+        attrs.xAxisLabelTxtPadding = ta.getDimension(R.styleable.StockChartRecyclerView_xAxisLabelTxtPadding, DisplayUtil.dip2px(2));
+        attrs.xAxisLabelPosition = ta.getInteger(R.styleable.StockChartRecyclerView_xAxisLabelPosition, XAxis.POSITION_CENTER);
+        attrs.xFirstLinePosition = ta.getInteger(R.styleable.StockChartRecyclerView_xFirstLinePosition, XAxis.POSITION_LEFT);
+        attrs.xAxisScaleDistance = ta.getInteger(R.styleable.StockChartRecyclerView_xAxisScaleDistance, 6);
+        attrs.xAxisBgRadius = ta.getDimension(R.styleable.StockChartRecyclerView_xAxisBgRadius, DisplayUtil.dip2px(14));
+        attrs.xAxisLabelFont = ta.getResourceId(R.styleable.StockChartRecyclerView_xAxisLabelFont, -1);
+        //highLight
+        attrs.isDisplay = ta.getBoolean(R.styleable.StockChartRecyclerView_isDisplay, false);
         ta.recycle();
-        return mAttribute;
+        return attrs;
     }
 
 }

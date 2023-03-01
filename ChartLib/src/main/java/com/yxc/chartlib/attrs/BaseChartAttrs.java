@@ -5,17 +5,14 @@ package com.yxc.chartlib.attrs;
  * @date 2019-05-10
  */
 public class BaseChartAttrs {
-
     public float contentPaddingBottom;//底部内容绘制高度
     public float contentPaddingTop;//顶部内容绘制
     public int displayNumbers;//一屏显示多少个 chart
     public boolean averageDisplay;//画柱子时剩余的宽度分给部分柱子
     public float highLightRoundRectRadius;
-
     public float barChartRadius;
     public double ratioVelocity;//recyclerView 惯性滑动的 加速度 比率。
     public double ratioSpeed;//LinearLayoutManager 速度的 比率。
-
     public int layoutManagerOrientation;//layout  orientation
     public boolean layoutManagerReverseLayout;//layout horizontal layout from right to left, default is true;
 

@@ -10,10 +10,14 @@ import com.yxc.chartlib.barchart.BaseBarChartAdapter
 import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.entrys.StockEntry
+import com.yxc.chartlib.entrys.model.AvgType
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.util.CanvasUtil
 import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.util.RoundRectType
+import com.yxc.chartlib.util.StockDrawHelper.getAvgColor
+import com.yxc.chartlib.util.StockDrawHelper.getAvgValue
+import com.yxc.chartlib.util.StockDrawHelper.getYPosition
 import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.chartlib.utils.DisplayUtil.dip2px
 import com.yxc.chartlib.utils.TextUtil
@@ -69,14 +73,9 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
             if (stockEntry.mShadowLow < Math.min(stockEntry.mClose, stockEntry.mOpen)){
                 drawDownLine(stockEntry.mShadowLow, canvas, rectMain, yAxis, parent)
             }
-            Log.d("KLine", "StockChartRenderer:" + stockEntry.toString())
-            drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, 5)
-            drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, 10)
-            drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, 20)
-//            if (!DecimalUtil.equals(stockEntry.ma5, 0f)){
-//                mHighLightBigPaint.color = Color.WHITE
-//                canvas.drawCircle(rectMain.centerX(), getYPosition(stockEntry.ma5,parent, yAxis, mStockAttrs), 1.0.dpf,  mHighLightBigPaint)
-//            }
+            drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, AvgType.Avg5Type)
+            drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, AvgType.Avg10Type)
+            drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, AvgType.Avg20Type)
         }
     }
 
@@ -90,12 +89,11 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
         rectF:RectF,
         entryList: List<StockEntry>,
         stockEntry:StockEntry,
-        childCount: Int, avgType: Int) {
+        childCount: Int, avgType: AvgType) {
         val child = parent.getChildAt(i)
         val adapterPosition = parent.getChildAdapterPosition(child)
         val viewWidth = child.width
         val avgValue = getAvgValue(avgType, stockEntry)
-
         if (DecimalUtil.smallOrEquals(avgValue, 0f)){
             return
         }
@@ -141,10 +139,9 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
         }
     }
 
-
     private fun drawLineLeftBoundary(
         parent: RecyclerView, canvas: Canvas, pointLeft: PointF,
-        pointRight: PointF, crossX: Float, avgType: Int
+        pointRight: PointF, crossX: Float, avgType: AvgType
     ) {
         val pointF = ChartComputeUtil.getInterceptPointF(pointLeft, pointRight, crossX)
         val points = floatArrayOf(pointF.x, pointF.y, pointRight.x, pointRight.y)
@@ -154,7 +151,7 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
 
     private fun drawLineRightBoundary(
         parent: RecyclerView, canvas: Canvas, pointLeft: PointF,
-        pointRight: PointF, parentEnd: Float, avgType: Int
+        pointRight: PointF, parentEnd: Float, avgType: AvgType
     ) {
         val pointFInterceptInner = ChartComputeUtil.getInterceptPointF(pointLeft, pointRight, parentEnd)
         val pointsInner = floatArrayOf(
@@ -165,37 +162,22 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
 //        drawFill(parent, mLineChartAttrs, canvas, pointLeft, pointFInterceptInner, yZeroLine)
     }
 
-    private fun drawChartLine(canvas: Canvas, points: FloatArray, avgType: Int) {
+    private fun drawChartLine(canvas: Canvas, points: FloatArray, avgType: AvgType) {
         val color: Int = mLineChartPaint.color
-        mLineChartPaint.color = getAvgColor(avgType)
+        mLineChartPaint.color = getAvgColor(avgType, mStockAttrs)
         Log.d("KLine", "drawChartLine: invoke $points")
         canvas.drawLines(points, mLineChartPaint)
         mLineChartPaint.color = color
     }
 
-    private fun createNearPoint(avgType:Int, parent: RecyclerView, barEntryNear: StockEntry, currentPoint: PointF, viewWidth: Int, yAxis: YAxis, leftOrRight: Boolean): PointF {
+    private fun createNearPoint(avgType:AvgType, parent: RecyclerView, barEntryNear: StockEntry, currentPoint: PointF, viewWidth: Int, yAxis: YAxis, leftOrRight: Boolean): PointF {
         val xNear = if (leftOrRight) currentPoint.x - viewWidth else currentPoint.x + viewWidth
         val yNear = getYPosition(getAvgValue(avgType, barEntryNear), parent, yAxis, mStockAttrs)
         return PointF(xNear, yNear)
     }
 
     //todo 待完善
-    private fun getAvgValue(avgType:Int, entry:StockEntry):Float{
-        when(avgType){
-            5 -> return entry.ma5
-            10 -> return entry.ma10
-            else -> return entry.ma20
-        }
 
-    }
-
-    private fun getAvgColor(avgType: Int): Int {
-        when (avgType) {
-            5 -> return mStockAttrs.avg5Color
-            10 -> return mStockAttrs.avg10Color
-            else -> return mStockAttrs.avg20Color
-        }
-    }
 
 
     //绘制上引线、下引线
@@ -242,15 +224,6 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
             mBarChartPaint.color = mBarChartAttrs.chartEdgeColor
             canvas.drawPath(path, mBarChartPaint)
         }
-    }
-
-    private fun <E : YAxis> getYPosition(yValue:Float, parent: RecyclerView,yAxis: E, mAttrs: StockChartAttrs):Float{
-        val contentBottom = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom
-        val contentTop = parent.paddingTop + mAttrs.contentPaddingTop
-        val realYAxisLabelHeight = contentBottom - contentTop
-        val yMin = yAxis.axisMinimum
-        val height: Float = (yValue - yMin) / (yAxis.axisMaximum - yMin) * realYAxisLabelHeight
-        return contentBottom - height
     }
 
     private fun <E : YAxis> getStockRectF(
@@ -335,7 +308,6 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
             val radius = dip2px(8f).toFloat()
             canvas.drawRoundRect(rectF, radius, radius, mHighLightLinePaint)
         }
-
         //绘文字
         val leftRectF = RectF(rectF.left + leftPadding, rectTop + txtTopPadding,
             rectF.left + leftPadding + txtWidth, rectTop + txtTopPadding + rectFHeight

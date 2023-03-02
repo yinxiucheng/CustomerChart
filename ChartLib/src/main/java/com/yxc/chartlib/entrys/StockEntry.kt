@@ -63,10 +63,5 @@ class StockEntry : RecyclerBarEntry {
     override fun toString(): String {
         return "StockEntry(mClose=$mClose, mOpen=$mOpen, ma5=$ma5, ma10=$ma10, ma20=$ma20)"
     }
-
 }
-
-//获取最大值
-
-//获取最大值
 

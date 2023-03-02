@@ -220,7 +220,7 @@
     <color name="stock_chart_bg">#262626</color>
 
     <color name="color_avg5">#ffff33</color>
-    <color name="color_avg10">#6633ff</color>
-    <color name="color_avg20">#0033ff</color>
+    <color name="color_avg10">#ff33ff</color>
+    <color name="color_avg20">#0000FF</color>
 
 </resources>

@@ -319,57 +319,61 @@ public class LineChartRender {
         BaseBarChartAdapter adapter = (BaseBarChartAdapter) parent.getAdapter();
         List<T> entryList = adapter.getEntries();
         final int childCount = parent.getChildCount();
-        int adapterPosition;
         for (int i = 0; i < childCount; i++) {
-            View child = parent.getChildAt(i);
-            T barEntry = (T) child.getTag();
-            adapterPosition = parent.getChildAdapterPosition(child);
-            int viewWidth = child.getWidth();
-            RectF rectF = ChartComputeUtil
-                    .getChartRectF(child, parent, mYAxis, mLineChartAttrs, barEntry);
-            float yZeroLine = rectF.bottom;
-            PointF pointF2 = new PointF((rectF.left + rectF.right) / 2, rectF.top);
-            //pointF2 即为当前for 循环到的点，从左往右一共涉及到4个点 pointF0, pointF1, pointF2, pointF3; 其中 pointF1、pointF2为显示的。
-            if (i < childCount - 1) {
-                View pointF1Child = parent.getChildAt(i + 1);
-                T barEntryLeft = (T) pointF1Child.getTag();
-                RectF rectFLeft = ChartComputeUtil
-                        .getChartRectF(pointF1Child, parent, mYAxis, mLineChartAttrs, barEntryLeft);
-                PointF pointF1 = new PointF((rectFLeft.left + rectFLeft.right) / 2, rectFLeft.top);
-                if (pointF1.x >= parentEnd && pointF2.x <= parentStart) {
-                    float[] pointsOut = new float[]{pointF1.x, pointF1.y, pointF2.x, pointF2.y};
-                    drawChartLine(canvas, pointsOut, yZeroLine);
-                    drawFill(parent, mLineChartAttrs, canvas, pointF1, pointF2, rectF.bottom);
-                    if (pointF1Child.getLeft() < parentEnd) {//左边界，处理pointF1值显示出来了的情况。
-                        if (adapterPosition + 2 < entryList.size()) {
-                            PointF pointF0 = createNearPoint(parent, entryList, pointF1,
-                                    adapterPosition + 2, viewWidth, mYAxis, true);
-                            drawLineLeftBoundary(parent, canvas, pointF0, pointF1, parentEnd,
+            drawLineChartInner(canvas, parent, mYAxis, i, parentStart, parentEnd, entryList, childCount);
+        }
+    }
+
+    private <T extends RecyclerBarEntry, E extends BaseYAxis>
+    void drawLineChartInner(Canvas canvas, RecyclerView parent, E mYAxis, int i, float parentStart, float parentEnd, List<T> entryList, int childCount){
+        View child = parent.getChildAt(i);
+        T barEntry = (T) child.getTag();
+        int adapterPosition = parent.getChildAdapterPosition(child);
+        int viewWidth = child.getWidth();
+        RectF rectF = ChartComputeUtil
+                .getChartRectF(child, parent, mYAxis, mLineChartAttrs, barEntry);
+        float yZeroLine = rectF.bottom;
+        PointF pointF2 = new PointF((rectF.left + rectF.right) / 2, rectF.top);
+        //pointF2 即为当前for 循环到的点，从左往右一共涉及到4个点 pointF0, pointF1, pointF2, pointF3; 其中 pointF1、pointF2为显示的。
+        if (i < childCount - 1) {
+            View pointF1Child = parent.getChildAt(i + 1);
+            T barEntryLeft = (T) pointF1Child.getTag();
+            RectF rectFLeft = ChartComputeUtil
+                    .getChartRectF(pointF1Child, parent, mYAxis, mLineChartAttrs, barEntryLeft);
+            PointF pointF1 = new PointF((rectFLeft.left + rectFLeft.right) / 2, rectFLeft.top);
+            if (pointF1.x >= parentEnd && pointF2.x <= parentStart) {
+                float[] pointsOut = new float[]{pointF1.x, pointF1.y, pointF2.x, pointF2.y};
+                drawChartLine(canvas, pointsOut, yZeroLine);
+                drawFill(parent, mLineChartAttrs, canvas, pointF1, pointF2, rectF.bottom);
+                if (pointF1Child.getLeft() < parentEnd) {//左边界，处理pointF1值显示出来了的情况。
+                    if (adapterPosition + 2 < entryList.size()) {
+                        PointF pointF0 = createNearPoint(parent, entryList, pointF1,
+                                adapterPosition + 2, viewWidth, mYAxis, true);
+                        drawLineLeftBoundary(parent, canvas, pointF0, pointF1, parentEnd,
+                                yZeroLine);
+                    }
+                } else if (child.getRight() < parentStart
+                        && parentStart - child.getRight() <= child.getWidth()) {
+                    //右边界处理情况，pointF3显示出来跟没有显示出来。
+                    if (adapterPosition - 1 > 0) {
+                        PointF pointF3 = createNearPoint(parent, entryList, pointF2,
+                                adapterPosition - 1, viewWidth, mYAxis, false);
+                        if (pointF3.x > parentStart) {
+                            drawLineRightBoundary(parent, canvas, pointF2, pointF3, parentStart,
                                     yZeroLine);
-                        }
-                    } else if (child.getRight() < parentStart
-                            && parentStart - child.getRight() <= child.getWidth()) {
-                        //右边界处理情况，pointF3显示出来跟没有显示出来。
-                        if (adapterPosition - 1 > 0) {
-                            PointF pointF3 = createNearPoint(parent, entryList, pointF2,
-                                    adapterPosition - 1, viewWidth, mYAxis, false);
-                            if (pointF3.x > parentStart) {
-                                drawLineRightBoundary(parent, canvas, pointF2, pointF3, parentStart,
-                                        yZeroLine);
-                            } else if (pointF3.x < parentStart) {
-                                if (adapterPosition - 2 > 0) {
-                                    PointF pointF4 = createNearPoint(parent, entryList, pointF3,
-                                            adapterPosition - 2, viewWidth, mYAxis, false);
-                                    drawLineRightBoundary(parent, canvas, pointF3, pointF4,
-                                            parentStart, yZeroLine);
-                                }
+                        } else if (pointF3.x < parentStart) {
+                            if (adapterPosition - 2 > 0) {
+                                PointF pointF4 = createNearPoint(parent, entryList, pointF3,
+                                        adapterPosition - 2, viewWidth, mYAxis, false);
+                                drawLineRightBoundary(parent, canvas, pointF3, pointF4,
+                                        parentStart, yZeroLine);
                             }
                         }
                     }
-                } else if (pointF1.x < parentEnd
-                        && pointF1Child.getRight() >= parentEnd) {//左边界，处理pointF1值没有显示出来
-                    drawLineLeftBoundary(parent, canvas, pointF1, pointF2, parentEnd, yZeroLine);
                 }
+            } else if (pointF1.x < parentEnd
+                    && pointF1Child.getRight() >= parentEnd) {//左边界，处理pointF1值没有显示出来
+                drawLineLeftBoundary(parent, canvas, pointF1, pointF2, parentEnd, yZeroLine);
             }
         }
     }

@@ -763,6 +763,9 @@
 
         <attr name="riseColor" format="color"/>
         <attr name="downColor" format="color"/>
+        <attr name="avg5Color" format="color"/>
+        <attr name="avg10Color" format="color"/>
+        <attr name="avg20Color" format="color"/>
         <attr name="isChartItemFill" format="boolean"/>
 
     </declare-styleable>

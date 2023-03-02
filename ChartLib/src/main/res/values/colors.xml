@@ -219,4 +219,8 @@
     <color name="page_bg">#212121</color>
     <color name="stock_chart_bg">#262626</color>
 
+    <color name="color_avg5">#ffff33</color>
+    <color name="color_avg10">#6633ff</color>
+    <color name="color_avg20">#0033ff</color>
+
 </resources>

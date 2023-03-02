@@ -39,6 +39,10 @@ class StockEntry : RecyclerBarEntry {
     //
     var isRise: Boolean = true
 
+    var ma5 = 0f
+    var ma10 = 0f
+    var ma20 = 0f
+
     companion object{
         fun getTheMaxMinModel(entries: List<StockEntry>): MaxMinModel {
             if (entries == null || entries.isEmpty()) {
@@ -54,6 +58,10 @@ class StockEntry : RecyclerBarEntry {
             }
             return MaxMinModel(max, min)
         }
+    }
+
+    override fun toString(): String {
+        return "StockEntry(mClose=$mClose, mOpen=$mOpen, ma5=$ma5, ma10=$ma10, ma20=$ma20)"
     }
 
 }

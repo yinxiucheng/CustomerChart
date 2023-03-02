@@ -104,6 +104,7 @@ public abstract class BaseChartRender<T extends RecyclerBarEntry, E extends Base
         mHighLightBigPaint.reset();
         mHighLightBigPaint.setAntiAlias(true);
         mHighLightBigPaint.setColor(ColorUtil.getResourcesColor(R.color.text_color));
+
         if (mBarChartAttrs.highLightBigTextSize > 0) {
             mHighLightBigPaint.setTextSize(mBarChartAttrs.highLightBigTextSize);
         }else {

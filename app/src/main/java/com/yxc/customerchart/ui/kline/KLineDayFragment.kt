@@ -22,6 +22,7 @@ import com.yxc.chartlib.listener.RecyclerItemGestureListener
 import com.yxc.chartlib.listener.SimpleItemGestureListener
 import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.utils.AppUtil
+import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.chartlib.view.StockChartRecyclerView
 import com.yxc.customerchart.R
 import com.yxc.customerchart.mock.DataMock
@@ -78,7 +79,8 @@ class KLineDayFragment : BaseLineFragment() {
         recyclerView.layoutManager = layoutManager
 
         DataMock.loadDayData(mContext, currentPage) { entityList ->
-            bindBarChartList(createStockEntryList(entityList))
+            val windowCountManager = createStockEntryList(entityList)
+            bindBarChartList(windowCountManager.stockEntryList, true)
             setXAxis(displayNumber)
             reSizeYAxis()
         }
@@ -108,13 +110,17 @@ class KLineDayFragment : BaseLineFragment() {
         mItemDecoration.setYAxis(mYAxis)
     }
 
-    private fun createStockEntryList(kEntityList:List<IKEntity>): List<StockEntry>{
+    private fun createStockEntryList(kEntityList:List<IKEntity>): WindowCountManager{
         val stockEntryList = mutableListOf<StockEntry>()
-        var index = mEntries.size
-        var preEntry = if (mEntries.isNotEmpty()) mEntries[mEntries.size - 1] else null
-        kEntityList.map { entity ->
-//          (x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float)
-            val stockEntry = StockEntry((index++).toFloat(), entity.getTime()/1000, entity.getHighPrice(),
+        var x = mEntries.size
+        var preEntry:StockEntry? = null
+        val size = kEntityList.size
+        val windowCount5 = WindowCount()
+        val windowCount10 = WindowCount()
+        val windowCount20 = WindowCount()
+        for (i in size - 1 downTo 0){
+            val entity = kEntityList[i]
+            val stockEntry = StockEntry((x++).toFloat(), entity.getTime()/1000, entity.getHighPrice(),
                 entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice())
             preEntry?.let {
                 stockEntry.isRise = it.mClose < stockEntry.mClose
@@ -124,10 +130,22 @@ class KLineDayFragment : BaseLineFragment() {
                     stockEntry.type = RecyclerBarEntry.TYPE_XAXIS_FIRST
                 }
             }
+            val avg5 = windowCount5.getAvg(5, stockEntry.mClose)
+            if (!DecimalUtil.equals(avg5, -1f)){
+                stockEntry.ma5 = avg5
+            }
+            val avg10 = windowCount10.getAvg(10, stockEntry.mClose)
+            if (!DecimalUtil.equals(avg10, -1f)){
+                stockEntry.ma10 = avg10
+            }
+            val avg20 = windowCount20.getAvg(20, stockEntry.mClose)
+            if (!DecimalUtil.equals(avg20, -1f)){
+                stockEntry.ma20 = avg20
+            }
             preEntry = stockEntry
-            stockEntryList.add(stockEntry)
+            stockEntryList.add(0, stockEntry)
         }
-        return stockEntryList
+        return WindowCountManager(windowCount5, windowCount10, windowCount20, stockEntryList)
     }
 
 
@@ -144,7 +162,11 @@ class KLineDayFragment : BaseLineFragment() {
                         if (!recyclerView.canScrollHorizontally(-1) && isRightScrollInner) {
                             Log.d(TAG, " can't Scroll left ! entry size:" + mEntries.size)
                             DataMock.loadDayData(mContext, currentPage++){ entityList ->
-                                mEntries.addAll(createStockEntryList(entityList))
+                                val windowCountManager = createStockEntryList(entityList)
+                                bindBarChartList(windowCountManager.stockEntryList, false,
+                                    windowCountManager.windowCount5,
+                                    windowCountManager.windowCount10,
+                                    windowCountManager.windowCount20)
                                 mBarChartAdapter.notifyDataSetChanged()
                             }
                         } else if (!recyclerView.canScrollHorizontally(1)) {
@@ -161,9 +183,36 @@ class KLineDayFragment : BaseLineFragment() {
         recyclerView.addOnItemTouchListener(mItemGestureListener)
     }
 
-    private fun bindBarChartList(entries: List<StockEntry>) {
-        mEntries.clear()
-        mEntries.addAll(entries)
+    private fun bindBarChartList(entries: List<StockEntry>, isFirst: Boolean,
+                                 windowCount5:WindowCount? = null,
+                                 windowCount10: WindowCount? = null,
+    windowCount20:WindowCount? = null) {
+        if (isFirst){
+            mEntries.clear()
+            mEntries.addAll(entries)
+        }else{
+            val size = mEntries.size
+            mEntries.addAll(entries)
+            if (size == 0) return
+            for (i in size -1 downTo 0){
+                val entry = mEntries[i]
+                if (!DecimalUtil.equals(entry.ma20, -1f)){
+                    break
+                }
+                windowCount5?.apply { val avg = getAvg(5, entry.mClose)
+                if (!DecimalUtil.equals(avg, -1f)){
+                    entry.ma5 = avg
+                }}
+                windowCount10?.apply { val avg = getAvg(10, entry.mClose)
+                    if (!DecimalUtil.equals(avg, -1f)){
+                        entry.ma10 = avg
+                    }}
+                windowCount20?.apply { val avg = getAvg(20, entry.mClose)
+                    if (!DecimalUtil.equals(avg, -1f)){
+                        entry.ma20 = avg
+                    }}
+            }
+        }
     }
 
     private fun setXAxis(displayNumber: Int) {

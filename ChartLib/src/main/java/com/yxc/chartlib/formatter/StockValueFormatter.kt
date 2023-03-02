@@ -20,7 +20,7 @@ class StockValueFormatter : ValueFormatter() {
 //                    ", " + DecimalUtil.getDecimalFloatStr(DecimalUtil.TWO_LENGTH_DECIMAL, barEntry.mShadowLow) +
 //                    ", " + DecimalUtil.getDecimalFloatStr(DecimalUtil.TWO_LENGTH_DECIMAL, barEntry.mShadowHigh)
             return DecimalUtil.getDecimalFloatStr(DecimalUtil.TWO_LENGTH_DECIMAL, barEntry.mOpen) +
-                    ", " + DecimalUtil.getDecimalFloatStr(DecimalUtil.TWO_LENGTH_DECIMAL, barEntry.mClose) +
+                    ", " + DecimalUtil.getDecimalFloatStr(DecimalUtil.TWO_LENGTH_DECIMAL, barEntry.ma5) +
                     ", " + TimeDateUtil.getDateYYYYMMddSimple(barEntry.timestamp * 1000)
         }
         return ""

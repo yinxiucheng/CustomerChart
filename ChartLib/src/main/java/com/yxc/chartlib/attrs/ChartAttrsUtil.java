@@ -400,9 +400,12 @@ public class ChartAttrsUtil {
         TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.StockChartRecyclerView);
         StockChartAttrs attrs = new StockChartAttrs();
         //StockChartAttrs special
-        attrs.setRiseColor(ta.getColor(R.styleable.StockChartRecyclerView_riseColor, Color.parseColor("#E36245")));
-        attrs.setDownColor(ta.getColor(R.styleable.StockChartRecyclerView_downColor, Color.parseColor("#3FC08E")));
+        attrs.setRiseColor(ta.getColor(R.styleable.StockChartRecyclerView_riseColor, ColorUtil.getResourcesColor(R.color.up_color)));
+        attrs.setDownColor(ta.getColor(R.styleable.StockChartRecyclerView_downColor, ColorUtil.getResourcesColor(R.color.down_color)));
         attrs.setChartItemFill(ta.getBoolean(R.styleable.StockChartRecyclerView_isChartItemFill, true));
+        attrs.setAvg5Color(ta.getColor(R.styleable.StockChartRecyclerView_avg5Color, ColorUtil.getResourcesColor(R.color.color_avg5)));
+        attrs.setAvg10Color(ta.getColor(R.styleable.StockChartRecyclerView_avg10Color, ColorUtil.getResourcesColor(R.color.color_avg10)));
+        attrs.setAvg20Color(ta.getColor(R.styleable.StockChartRecyclerView_avg20Color, ColorUtil.getResourcesColor(R.color.color_avg20)));
 
         attrs.barBorderColor = ta.getColor(R.styleable.StockChartRecyclerView_barBorderColor, ColorUtil.getResourcesColor(R.color.chart_bar_border_color));
         attrs.barBorderBgColor = ta.getColor(R.styleable.StockChartRecyclerView_barBorderBgColor, ColorUtil.getResourcesColor(R.color.rate_chart_bg));

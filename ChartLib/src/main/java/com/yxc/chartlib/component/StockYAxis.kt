@@ -23,8 +23,7 @@ class StockYAxis(val mAttrs: StockChartAttrs) : YAxis(mAttrs) {
             axis: StockYAxis,
             max: Float,
             min: Float,
-            labelCount: Int
-        ): StockYAxis {
+            labelCount: Int): StockYAxis {
             axis.axisMaximum = max
             axis.axisMinimum = min
             axis.setLabelCount(labelCount)

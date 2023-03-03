@@ -30,11 +30,15 @@ import com.yxc.fitness.chart.entrys.RecyclerBarEntry
  * @date 2023/2/28
  *
  */
-class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockChartAttrs, var valueFormatter:T)
-    :BaseChartRender<StockEntry, StockChartAttrs>(mStockAttrs, valueFormatter) {
-
+class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockChartAttrs> {
+    private val mStockAttrs: StockChartAttrs
+    val valueFormatter: T
+    private val attacheYAxis: StockYAxis
     private lateinit var  mLineChartPaint: Paint
-    init {
+    constructor( mStockAttrs: StockChartAttrs, valueFormatter:T, attacheYAxis:StockYAxis):super(mStockAttrs, valueFormatter){
+        this.mStockAttrs = mStockAttrs
+        this.valueFormatter = valueFormatter
+        this.attacheYAxis = attacheYAxis
         initLinePaint()
     }
 
@@ -67,17 +71,23 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
             //todo 注意RTL
             drawChart(canvas, rectMain, parentLeft, parentRight, 1f)
             mHighLightLinePaint.color = color
-            if (stockEntry.mShadowHigh > Math.max(stockEntry.mClose, stockEntry.mOpen)){
-                drawTopLine(stockEntry.mShadowHigh, canvas, rectMain, yAxis, parent)
+            if (stockEntry.mHigh > Math.max(stockEntry.mClose, stockEntry.mOpen)){
+                drawTopLine(stockEntry.mHigh, canvas, rectMain, yAxis, parent)
             }
-            if (stockEntry.mShadowLow < Math.min(stockEntry.mClose, stockEntry.mOpen)){
-                drawDownLine(stockEntry.mShadowLow, canvas, rectMain, yAxis, parent)
+            if (stockEntry.mLow < Math.min(stockEntry.mClose, stockEntry.mOpen)){
+                drawDownLine(stockEntry.mLow, canvas, rectMain, yAxis, parent)
             }
             drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, AvgType.Avg5Type)
             drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, AvgType.Avg10Type)
             drawAvgLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain, entryList, stockEntry, childCount, AvgType.Avg20Type)
         }
     }
+
+
+    private fun drawAttacheChart(){
+
+    }
+
 
     private fun drawAvgLine(
         canvas: Canvas,
@@ -165,7 +175,6 @@ class  StockChartRenderer<T:ValueFormatter> constructor(var mStockAttrs: StockCh
     private fun drawChartLine(canvas: Canvas, points: FloatArray, avgType: AvgType) {
         val color: Int = mLineChartPaint.color
         mLineChartPaint.color = getAvgColor(avgType, mStockAttrs)
-        Log.d("KLine", "drawChartLine: invoke $points")
         canvas.drawLines(points, mLineChartPaint)
         mLineChartPaint.color = color
     }

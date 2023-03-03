@@ -24,14 +24,13 @@ import com.yxc.chartlib.utils.ColorUtil;
 import com.yxc.chartlib.utils.DisplayUtil;
 import com.yxc.chartlib.utils.TextUtil;
 import com.yxc.chartlib.utils.DecimalUtil;
+ public class XAxisRender<V extends BaseChartAttrs> {
 
-final public class XAxisRender<V extends BaseChartAttrs> {
+     protected Paint mTextPaint;
+     protected Paint mBgPaint;
+     protected Paint mLinePaint;
 
-    private Paint mTextPaint;
-    private Paint mBgPaint;
-    private Paint mLinePaint;
-
-    private V mBarChartAttrs;
+     protected V mBarChartAttrs;
 
     public XAxisRender(V barChartAttrs) {
         this.mBarChartAttrs = barChartAttrs;
@@ -86,7 +85,7 @@ final public class XAxisRender<V extends BaseChartAttrs> {
     }
 
     //绘制网格 纵轴线
-    final public void drawVerticalLine(Canvas canvas, RecyclerView parent, XAxis xAxis) {
+    public void drawVerticalLine(Canvas canvas, RecyclerView parent, XAxis xAxis) {
         if (!mBarChartAttrs.enableXAxisGridLine) {
             return;
         }
@@ -156,7 +155,7 @@ final public class XAxisRender<V extends BaseChartAttrs> {
         }
     }
 
-    private String getXAxisLabel(RecyclerBarEntry barEntry, ValueFormatter valueFormatter){
+    protected String getXAxisLabel(RecyclerBarEntry barEntry, ValueFormatter valueFormatter){
         String dateStr = valueFormatter.getBarLabel(barEntry);
         if (barEntry.type == RecyclerBarEntry.TYPE_XAXIS_END_DAY
                 && !mBarChartAttrs.enableEndDayXAxis){
@@ -166,7 +165,7 @@ final public class XAxisRender<V extends BaseChartAttrs> {
     }
 
     //绘制X坐标
-    final public void drawXAxis(Canvas canvas, RecyclerView parent, XAxis xAxis) {
+    public void drawXAxis(Canvas canvas, RecyclerView parent, XAxis xAxis) {
         if (!mBarChartAttrs.enableXAxisLabel) {
             return;
         }

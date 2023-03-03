@@ -9,22 +9,23 @@ import com.yxc.fitness.chart.entrys.RecyclerBarEntry
  *
  */
 class StockEntry : RecyclerBarEntry {
-    constructor(x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float)
+    constructor(x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float, volume:Long)
             :super(x, shadowH, time, type = TYPE_XAXIS_THIRD){
-        mShadowHigh = shadowH
-        mShadowLow = shadowL
+        mHigh = shadowH
+        mLow = shadowL
         mOpen = open
         mClose = close
+        this.volume = volume
     }
     /**
      * shadow-high value
      */
-    var mShadowHigh = 0f
+    var mHigh = 0f
 
     /**
      * shadow-low value
      */
-    var mShadowLow = 0f
+    var mLow = 0f
 
     /**
      * close value
@@ -35,6 +36,8 @@ class StockEntry : RecyclerBarEntry {
      * open value
      */
     var mOpen = 0f
+
+    var volume:Long = 0
 
     //
     var isRise: Boolean = true
@@ -49,14 +52,29 @@ class StockEntry : RecyclerBarEntry {
                 return MaxMinModel(100f, 0f)
             }
             val maxMinEntry = entries[0]
-            var max = maxMinEntry.mShadowHigh
-            var min = maxMinEntry.mShadowLow
+            //todo 这里的最大最小值 得 考虑 ma5/ma10/ma20
+            var max = maxMinEntry.mHigh
+            var min = maxMinEntry.mLow
             for (i in entries.indices) {
                 val entryTemp = entries[i]
-                max = Math.max(max, entryTemp.mShadowHigh)
-                min = Math.min(min, entryTemp.mShadowLow)
+                max = Math.max(max, entryTemp.mHigh)
+                min = Math.min(min, entryTemp.mLow)
             }
             return MaxMinModel(max, min)
+        }
+
+        fun getTheMaxMinModelVolume(entries: List<StockEntry>): MaxMinModel {
+            if (entries == null || entries.isEmpty()) {
+                return MaxMinModel(100f, 0f)
+            }
+            val maxMinEntry = entries[0]
+            var max = maxMinEntry.volume
+            var min = 0f
+            for (i in entries.indices) {
+                val entryTemp = entries[i]
+                max = Math.max(max, entryTemp.volume)
+            }
+            return MaxMinModel(max.toFloat(), min)
         }
     }
 

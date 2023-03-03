@@ -14,7 +14,6 @@ import com.yxc.chartlib.entrys.model.AvgType
  */
 object StockDrawHelper {
 
-
     fun <E : YAxis> getYPosition(
         yValue: Float,
         parent: RecyclerView,
@@ -28,7 +27,6 @@ object StockDrawHelper {
         val height: Float = (yValue - yMin) / (yAxis.axisMaximum - yMin) * realYAxisLabelHeight
         return contentBottom - height
     }
-
 
     fun getAvgValue(avgType: AvgType, entry: StockEntry): Float {
         return when (avgType) {

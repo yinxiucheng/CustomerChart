@@ -2,14 +2,13 @@ package com.yxc.chartlib.barchart.itemdecoration
 
 import android.graphics.Canvas
 import androidx.recyclerview.widget.RecyclerView
-import com.yxc.chartlib.attrs.LineChartAttrs
 import com.yxc.chartlib.attrs.StockChartAttrs
+import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.formatter.StockValueFormatter
-import com.yxc.chartlib.formatter.ValueFormatter
-import com.yxc.chartlib.render.HrmYAxisRender
 import com.yxc.chartlib.render.StockChartRenderer
+import com.yxc.chartlib.render.StockXAxisRender
 import com.yxc.chartlib.render.StockYAxisRender
 
 /**
@@ -21,13 +20,14 @@ import com.yxc.chartlib.render.StockYAxisRender
 class StockChartItemDecoration : BaseChartItemDecoration<StockChartAttrs, YAxis>{
 
     private  var mChartRender: StockChartRenderer<StockValueFormatter>
-    private  var mHighLightValueFormatter: ValueFormatter
+    private  var mAttacheYAxis: StockYAxis
 
-    constructor(yAxis:YAxis, xAxis: XAxis, stockChartAttrs: StockChartAttrs)
+    constructor(yAxis:YAxis, xAxis: XAxis, stockChartAttrs: StockChartAttrs, attacheYAxis:StockYAxis)
             :super(yAxis, xAxis, stockChartAttrs){
-          mHighLightValueFormatter =  StockValueFormatter()
-          mChartRender = StockChartRenderer(stockChartAttrs, mHighLightValueFormatter as StockValueFormatter)
-         yAxisRenderer = StockYAxisRender(stockChartAttrs)
+        mAttacheYAxis = attacheYAxis
+        mChartRender = StockChartRenderer(stockChartAttrs, StockValueFormatter(), mAttacheYAxis)
+        yAxisRenderer = StockYAxisRender(stockChartAttrs)
+        xAxisRenderer = StockXAxisRender(stockChartAttrs)
     }
 
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -41,4 +41,8 @@ class StockChartItemDecoration : BaseChartItemDecoration<StockChartAttrs, YAxis>
         mBarBoardRender.drawBarBorder3(canvas, parent)
     }
 
+    fun setYAxis(yAxis: YAxis, attacheYAxis:StockYAxis) {
+        super.setYAxis(yAxis)
+        mAttacheYAxis = attacheYAxis
+    }
 }

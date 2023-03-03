@@ -14,9 +14,10 @@ import com.yxc.chartlib.barchart.BarChartAdapter
 import com.yxc.chartlib.barchart.SpeedRatioLayoutManager
 import com.yxc.chartlib.barchart.itemdecoration.StockChartItemDecoration
 import com.yxc.chartlib.component.StockYAxis
+import com.yxc.chartlib.component.StockYAxis.Companion.createYAxisWithLabelCount
+import com.yxc.chartlib.component.StockYAxis.Companion.resetStockYAxis
 import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.entrys.StockEntry
-import com.yxc.chartlib.formatter.StockValueFormatter
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.listener.RecyclerItemGestureListener
 import com.yxc.chartlib.listener.SimpleItemGestureListener
@@ -40,6 +41,7 @@ class KLineDayFragment : BaseLineFragment() {
     lateinit var mItemDecoration: StockChartItemDecoration
     lateinit var mItemGestureListener: RecyclerItemGestureListener<StockEntry>
     lateinit var mYAxis: StockYAxis
+    lateinit var mAttacheYAxis: StockYAxis
     lateinit var mXAxis: XAxis
     lateinit var valueFormatter: ValueFormatter
     var mType = 0
@@ -71,8 +73,9 @@ class KLineDayFragment : BaseLineFragment() {
         valueFormatter = StockKLineXAxisFormatter()
         val layoutManager = SpeedRatioLayoutManager(activity, mBarChartAttrs)
         mYAxis = StockYAxis(mBarChartAttrs)
+        mAttacheYAxis = StockYAxis(mBarChartAttrs)
         mXAxis = XAxis(mBarChartAttrs, displayNumber, valueFormatter)
-        mItemDecoration = StockChartItemDecoration(mYAxis, mXAxis, mBarChartAttrs)
+        mItemDecoration = StockChartItemDecoration(mYAxis, mXAxis, mBarChartAttrs, mAttacheYAxis)
         recyclerView.addItemDecoration(mItemDecoration)
         mBarChartAdapter = BarChartAdapter(activity, mEntries, recyclerView, mXAxis, mBarChartAttrs)
         recyclerView.adapter = mBarChartAdapter
@@ -86,28 +89,30 @@ class KLineDayFragment : BaseLineFragment() {
         }
     }
 
-    protected fun reSizeYAxis() {
+    private fun reSizeYAxis() {
         if (mEntries.size == 0) {
             return
         }
         val visibleSize = Math.min(displayNumber, mEntries.size)
         recyclerView.scrollToPosition(0)
         val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
-
         val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
-        mYAxis = StockYAxis.createYAxisWithLabelCount(mBarChartAttrs, maxMinModel.max, maxMinModel.min, 4)
-        mItemDecoration.setYAxis(mYAxis)
+        mYAxis = createYAxisWithLabelCount(mBarChartAttrs, maxMinModel.max, maxMinModel.min, 4)
+        val maxMinModelAttache = StockEntry.getTheMaxMinModelVolume(visibleEntries)
+        mAttacheYAxis = createYAxisWithLabelCount(mBarChartAttrs, maxMinModelAttache.max, maxMinModelAttache.min, 4)
+        mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)
         mBarChartAdapter.setYAxis(mYAxis)
-        mBarChartAdapter.notifyDataSetChanged()
         setVisibleEntries(visibleEntries)
     }
 
-    protected fun resetYAxis(recyclerView: RecyclerView) {
+    private fun resetYAxis(recyclerView: RecyclerView) {
         val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, displayNumber)
         val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
         setVisibleEntries(visibleEntries)
-        mYAxis = StockYAxis.resetStockYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
-        mItemDecoration.setYAxis(mYAxis)
+        val maxMinModelAttache = StockEntry.getTheMaxMinModelVolume(visibleEntries)
+        mAttacheYAxis = resetStockYAxis(mYAxis, maxMinModelAttache.max, maxMinModelAttache.min, 2)
+        mYAxis = resetStockYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
+        mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)
     }
 
     private fun createStockEntryList(kEntityList:List<IKEntity>): WindowCountManager{
@@ -121,7 +126,7 @@ class KLineDayFragment : BaseLineFragment() {
         for (i in size - 1 downTo 0){
             val entity = kEntityList[i]
             val stockEntry = StockEntry((x++).toFloat(), entity.getTime()/1000, entity.getHighPrice(),
-                entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice())
+                entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice(), entity.getVolume())
             preEntry?.let {
                 stockEntry.isRise = it.mClose < stockEntry.mClose
                 val lastDate = TimeDateUtil.timestampToLocalDate(it.timestamp)

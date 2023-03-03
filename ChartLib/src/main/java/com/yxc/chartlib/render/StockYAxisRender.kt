@@ -6,6 +6,7 @@ import com.yxc.chartlib.attrs.StockChartAttrs
 import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.chartlib.utils.DisplayUtil
+import com.yxc.customercomposeview.utils.dp
 import com.yxc.fitness.chart.render.YAxisRender
 
 class StockYAxisRender: YAxisRender<StockYAxis, StockChartAttrs>{
@@ -69,7 +70,7 @@ class StockYAxisRender: YAxisRender<StockYAxis, StockChartAttrs>{
         for ((yAxisScaleLocation, yAxisScaleValue) in yAxisScaleMap) {
             i++
             val labelStr = DecimalUtil.getDecimalFloatStr(DecimalUtil.TWO_LENGTH_DECIMAL, yAxisScaleValue)
-            val txtY = yAxisScaleLocation + yAxis.labelVerticalPadding
+            val txtY = yAxisScaleLocation - 5.dp
             val txtX = parent.left +  yAxis.labelHorizontalPadding
             if (i <= yAxisScaleMap.size && drawText) {
                 canvas.drawText(labelStr, txtX, txtY, mTextPaint)

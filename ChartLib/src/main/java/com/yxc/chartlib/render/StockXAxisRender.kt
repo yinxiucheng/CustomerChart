@@ -51,8 +51,7 @@ class StockXAxisRender : XAxisRender<StockChartAttrs> {
                 val childWidth = child.width
                 val txtWidth = mTextPaint.measureText(dateStr)
                 val distance = childWidth - txtWidth
-                var txtXStart =
-                    if (isRTLDirection()) xStart - distance / 2 else xStart + distance / 2
+                var txtXStart = if (isRTLDirection()) xStart - distance / 2 else xStart + distance / 2
                 var txtXEnd = if (isRTLDirection()) txtXStart - txtWidth else txtXStart + txtWidth
 
                 //RTL 是从左到右 ， LTR是 右到左， 都是从坐标端开始。
@@ -79,8 +78,7 @@ class StockXAxisRender : XAxisRender<StockChartAttrs> {
                 val startRect = if (isRTLDirection()) txtXEnd else txtXStart
                 val endRect = if (isRTLDirection()) txtXStart else txtXEnd
                 val rectF = RectF(startRect, txtTop, endRect, txtBottom)
-                val baseLineY = getTextBaseY(rectF, mTextPaint) - 20
-
+                val baseLineY = getTextBaseY(rectF, mTextPaint)
                 //设置字体
                 if (mBarChartAttrs.xAxisLabelFont != -1) {
                     setTypeface(mTextPaint, mBarChartAttrs.xAxisLabelFont)

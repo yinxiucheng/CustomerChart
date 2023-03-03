@@ -21,6 +21,7 @@ import com.yxc.chartlib.util.StockDrawHelper.getYPosition
 import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.chartlib.utils.DisplayUtil.dip2px
 import com.yxc.chartlib.utils.TextUtil
+import com.yxc.customercomposeview.utils.dp
 import com.yxc.customercomposeview.utils.dpf
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 
@@ -33,12 +34,10 @@ import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockChartAttrs> {
     private val mStockAttrs: StockChartAttrs
     val valueFormatter: T
-    private val attacheYAxis: StockYAxis
     private lateinit var  mLineChartPaint: Paint
     constructor( mStockAttrs: StockChartAttrs, valueFormatter:T, attacheYAxis:StockYAxis):super(mStockAttrs, valueFormatter){
         this.mStockAttrs = mStockAttrs
         this.valueFormatter = valueFormatter
-        this.attacheYAxis = attacheYAxis
         initLinePaint()
     }
 
@@ -55,21 +54,24 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         TODO("Not yet implemented")
     }
 
-    fun <Y : YAxis> drawStockChart(canvas: Canvas, parent: RecyclerView, yAxis: Y) {
+    fun <T:YAxis>drawStockChart(canvas: Canvas, parent: RecyclerView, yAxis: T, attacheYAxis: StockYAxis) {
         val parentRight = parent.right.toFloat()
         val parentLeft = parent.left.toFloat()
         val childCount = parent.childCount
         val adapter = parent.adapter as BaseBarChartAdapter<StockEntry, YAxis>
         val entryList: List<StockEntry> = adapter.entries
+        drawAttacheTextAndDivide(canvas, parent, parentLeft, parentRight)
 
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
             val stockEntry = child.tag as StockEntry
             val rectMain = getStockRectF(child, parent, yAxis, mStockAttrs, stockEntry)
+            val rectAttache = getAttacheStockRectF(child, parent, attacheYAxis, mStockAttrs, stockEntry)
             val color = if (stockEntry.isRise) mStockAttrs.riseColor else mStockAttrs.downColor
             mBarChartPaint.color = color
             //todo 注意RTL
             drawChart(canvas, rectMain, parentLeft, parentRight, 1f)
+            drawChart(canvas, rectAttache, parentLeft, parentRight, 1f)
             mHighLightLinePaint.color = color
             if (stockEntry.mHigh > Math.max(stockEntry.mClose, stockEntry.mOpen)){
                 drawTopLine(stockEntry.mHigh, canvas, rectMain, yAxis, parent)
@@ -83,9 +85,20 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         }
     }
 
-
-    private fun drawAttacheChart(){
-
+    private fun drawAttacheTextAndDivide(canvas: Canvas, parent: RecyclerView, parentStart: Float, parentEnd: Float){
+        val yDivideTop = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom
+        val yDivideBottom = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom + 25.dp
+        mLineChartPaint.color = mStockAttrs.yAxisLineColor
+        mLineChartPaint.strokeWidth = 0.75f
+        canvas.drawLine(parentStart, yDivideBottom, parentEnd, yDivideBottom, mLineChartPaint)
+        val volumeStr = "成交量:9399万股"
+        val txtWidth = mHighLightDescPaint.measureText(volumeStr)
+        val rectLeft = parent.left + 5.dpf
+        val rectF = RectF(rectLeft, yDivideTop, rectLeft + txtWidth, yDivideBottom)
+        val baseY = TextUtil.getTextBaseY(rectF, mHighLightDescPaint)
+        mHighLightDescPaint.color = mStockAttrs.xAxisTxtColor
+        mHighLightDescPaint.textSize = mStockAttrs.xAxisTxtSize
+        canvas.drawText(volumeStr, rectLeft, baseY, mHighLightDescPaint)
     }
 
 
@@ -175,6 +188,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
     private fun drawChartLine(canvas: Canvas, points: FloatArray, avgType: AvgType) {
         val color: Int = mLineChartPaint.color
         mLineChartPaint.color = getAvgColor(avgType, mStockAttrs)
+        mLineChartPaint.strokeWidth = dip2px(1f).toFloat()
         canvas.drawLines(points, mLineChartPaint)
         mLineChartPaint.color = color
     }
@@ -230,7 +244,6 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val distance = parentRight - rectF.left
             rectF.right = rectF.left + distance
             val path = CanvasUtil.createRectRoundPath(rectF, radius, RoundRectType.TYPE_LEFT_TOP)
-            mBarChartPaint.color = mBarChartAttrs.chartEdgeColor
             canvas.drawPath(path, mBarChartPaint)
         }
     }
@@ -261,6 +274,28 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         return rectF
     }
 
+    private fun getAttacheStockRectF(child: View, parent: RecyclerView, attacheYAxis: StockYAxis,
+        mAttrs: StockChartAttrs, stockEntry: StockEntry): RectF {
+        val rectF = RectF()
+        val contentBottom = parent.bottom - parent.paddingBottom - 18.dpf
+        val contentTop = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom + 27.dp
+        val realYAxisLabelHeight = contentBottom - contentTop
+        Log.d("KLine", "attacheYAxis:${attacheYAxis.mAxisMaximum} - ${attacheYAxis.mAxisMinimum}")
+        val rectHeight = stockEntry.volume / (attacheYAxis.axisMaximum - attacheYAxis.axisMinimum) * realYAxisLabelHeight
+        val rectFTop = contentBottom - rectHeight
+        var rectFBottom = contentBottom
+        if (rectFTop == rectFBottom && rectFTop != contentBottom) rectFBottom += dip2px(2f).toFloat()
+        val width = child.width.toFloat()
+        val barSpaceWidth = width * mAttrs.barSpace
+        val barChartWidth = width - barSpaceWidth //柱子的宽度
+        val left = child.left + barSpaceWidth / 2
+        val right = left + barChartWidth
+        val top = Math.max(rectFTop, contentTop)
+        if ((rectFBottom - top) < 1f.dpf) rectFBottom = top + 1f.dpf
+        rectF[left, top, right] = rectFBottom
+        return rectF
+    }
+
     //绘制选中时 highLight 标线及浮框。
     fun drawHighLight(canvas: Canvas, parent: RecyclerView, yAxis: YAxis) {
         if (mStockAttrs.enableValueMark) {
@@ -268,6 +303,8 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val childCount = parent.childCount
             val contentRight = (parent.width - parent.paddingRight).toFloat()
             val contentBottom: Float = parent.height - parent.paddingBottom - mStockAttrs.contentPaddingBottom
+            val attacheTop = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom + 25.dp
+            val attacheBottom = parent.bottom - parent.paddingBottom - 18.dpf
             val contentLeft = parent.paddingLeft.toFloat()
             var child: View
             for (i in 0 until childCount) {
@@ -277,9 +314,11 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
                 val childCenter = child.left + width / 2
                 val valueStr = mHighLightValueFormatter.getBarLabel(barEntry)
                 val points = floatArrayOf(childCenter, contentBottom, childCenter, parentTop)
+                val pointsAttache = floatArrayOf(childCenter, attacheBottom, childCenter, attacheTop)
                 if (barEntry.isSelected() && !TextUtils.isEmpty(valueStr)) {
                     val chartColor: Int = mStockAttrs.highLightColor
                     drawHighLightLine(canvas, points, barChartColor = chartColor)
+                    drawHighLightLine(canvas, pointsAttache, barChartColor = chartColor)
                     drawHighLightValue(canvas, valueStr, childCenter, contentLeft, contentRight, parentTop, chartColor)
                 }
             }

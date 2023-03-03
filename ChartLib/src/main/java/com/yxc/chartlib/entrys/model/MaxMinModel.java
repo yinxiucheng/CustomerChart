@@ -13,4 +13,12 @@ public class MaxMinModel {
         this.max = max;
         this.min = min;
     }
+
+    @Override
+    public String toString() {
+        return "MaxMinModel{" +
+                "max=" + max +
+                ", min=" + min +
+                '}';
+    }
 }

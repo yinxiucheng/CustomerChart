@@ -9,7 +9,7 @@ import com.yxc.fitness.chart.entrys.RecyclerBarEntry
  *
  */
 class StockEntry : RecyclerBarEntry {
-    constructor(x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float, volume:Long)
+    constructor(x:Float, time:Long, shadowH: Float, shadowL:Float, open:Float, close:Float, volume:Float)
             :super(x, shadowH, time, type = TYPE_XAXIS_THIRD){
         mHigh = shadowH
         mLow = shadowL
@@ -37,7 +37,7 @@ class StockEntry : RecyclerBarEntry {
      */
     var mOpen = 0f
 
-    var volume:Long = 0
+    var volume:Float = 0f
 
     //
     var isRise: Boolean = true

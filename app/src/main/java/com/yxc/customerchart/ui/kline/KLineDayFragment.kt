@@ -110,7 +110,7 @@ class KLineDayFragment : BaseLineFragment() {
         val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
         setVisibleEntries(visibleEntries)
         val maxMinModelAttache = StockEntry.getTheMaxMinModelVolume(visibleEntries)
-        mAttacheYAxis = resetStockYAxis(mYAxis, maxMinModelAttache.max, maxMinModelAttache.min, 2)
+        mAttacheYAxis = resetStockYAxis(mAttacheYAxis, maxMinModelAttache.max, maxMinModelAttache.min, 2)
         mYAxis = resetStockYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
         mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)
     }
@@ -125,8 +125,10 @@ class KLineDayFragment : BaseLineFragment() {
         val windowCount20 = WindowCount()
         for (i in size - 1 downTo 0){
             val entity = kEntityList[i]
+            //todo Mock volume值
+            val volume = (20 until 100).random()
             val stockEntry = StockEntry((x++).toFloat(), entity.getTime()/1000, entity.getHighPrice(),
-                entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice(), entity.getVolume())
+                entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice(), volume.toFloat())
             preEntry?.let {
                 stockEntry.isRise = it.mClose < stockEntry.mClose
                 val lastDate = TimeDateUtil.timestampToLocalDate(it.timestamp)

@@ -36,7 +36,7 @@ class StockChartItemDecoration : BaseChartItemDecoration<StockChartAttrs, YAxis>
         yAxisRenderer.drawHorizontalLine(canvas, parent, mYAxis) //画横的网格线
         xAxisRenderer.drawXAxis(canvas, parent, mXAxis)
         xAxisRenderer.drawVerticalLine(canvas, parent, mXAxis);
-        mChartRender.drawStockChart(canvas, parent, mYAxis) //draw LineChart
+        mChartRender.drawStockChart(canvas, parent, mYAxis, mAttacheYAxis) //draw LineChart
         mChartRender.drawHighLight(canvas, parent, mYAxis)// highLight
         mBarBoardRender.drawBarBorder3(canvas, parent)
     }

@@ -210,7 +210,7 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
                 }
             }
         };
-        recyclerView.setOnChartTouchListener(onChartTouchListener);
+        recyclerView.addOnChartTouchListener(onChartTouchListener);
 
 
         OnScrollListener scrollListener = new OnScrollListener() {

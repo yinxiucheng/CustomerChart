@@ -180,7 +180,7 @@ public class RecyclerItemGestureListener2<T extends RecyclerBarEntry> implements
                 }
             }
         };
-        parent.setOnChartTouchListener(onChartTouchListener);
+        parent.addOnChartTouchListener(onChartTouchListener);
 
 
         OnScrollListener scrollListener = new OnScrollListener() {

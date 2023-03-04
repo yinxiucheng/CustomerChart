@@ -31,6 +31,7 @@ import com.yxc.customerchart.R
 import com.yxc.customerchart.mock.DataMock
 import com.yxc.customerchart.ui.ecg.TestData
 import com.yxc.customerchart.ui.line.BaseLineFragment
+import com.yxc.customerchart.ui.utils.DataHelper.createStockEntryList
 import com.yxc.customerchart.ui.valueformatter.StockKLineXAxisFormatter
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 import com.yxc.mylibrary.TimeDateUtil
@@ -47,7 +48,7 @@ class KLineDayFragment : BaseLineFragment() {
     lateinit var mXAxis: XAxis
     lateinit var valueFormatter: ValueFormatter
     var mType = 0
-    private var displayNumber = 0
+//    private var displayNumber = 0
     lateinit private var mBarChartAttrs: StockChartAttrs
     lateinit var mContext: Context
     private var currentPage:Int = 0
@@ -70,13 +71,12 @@ class KLineDayFragment : BaseLineFragment() {
     }
 
     private fun initData() {
-        displayNumber = mBarChartAttrs.displayNumbers
         mType = TestData.VIEW_DAY
         valueFormatter = StockKLineXAxisFormatter()
         val layoutManager = SpeedRatioLayoutManager(activity, mBarChartAttrs)
         mYAxis = StockYAxis(mBarChartAttrs)
         mAttacheYAxis = StockYAxis(mBarChartAttrs)
-        mXAxis = XAxis(mBarChartAttrs, displayNumber, valueFormatter)
+        mXAxis = XAxis(mBarChartAttrs, mBarChartAttrs.displayNumbers, valueFormatter)
         mItemDecoration = StockChartItemDecoration(mYAxis, mXAxis, mBarChartAttrs, mAttacheYAxis)
         recyclerView.addItemDecoration(mItemDecoration)
         mBarChartAdapter = BarChartAdapter(activity, mEntries, recyclerView, mXAxis, mBarChartAttrs)
@@ -84,9 +84,9 @@ class KLineDayFragment : BaseLineFragment() {
         recyclerView.layoutManager = layoutManager
 
         DataMock.loadDayData(mContext, currentPage) { entityList ->
-            val windowCountManager = createStockEntryList(entityList)
+            val windowCountManager = createStockEntryList(entityList, mEntries.size)
             bindBarChartList(windowCountManager.stockEntryList, true)
-            setXAxis(displayNumber)
+            setXAxis(mBarChartAttrs.displayNumbers)
             reSizeYAxis()
         }
     }
@@ -95,7 +95,7 @@ class KLineDayFragment : BaseLineFragment() {
         if (mEntries.size == 0) {
             return
         }
-        val visibleSize = Math.min(displayNumber, mEntries.size)
+        val visibleSize = Math.min(mBarChartAttrs.displayNumbers, mEntries.size)
         recyclerView.scrollToPosition(0)
         val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
         val maxMinModel = getTheMaxMinModel(visibleEntries)
@@ -108,7 +108,7 @@ class KLineDayFragment : BaseLineFragment() {
     }
 
     private fun resetYAxis(recyclerView: RecyclerView) {
-        val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, displayNumber)
+        val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, mBarChartAttrs.displayNumbers)
         val maxMinModel = getTheMaxMinModel(visibleEntries)
         setVisibleEntries(visibleEntries)
         val maxMinModelAttache = getTheMaxMinModelVolume(visibleEntries)
@@ -116,47 +116,6 @@ class KLineDayFragment : BaseLineFragment() {
         mYAxis = resetStockYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
         mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)
     }
-
-    private fun createStockEntryList(kEntityList:List<IKEntity>): WindowCountManager{
-        val stockEntryList = mutableListOf<StockEntry>()
-        var x = mEntries.size
-        var preEntry:StockEntry? = null
-        val size = kEntityList.size
-        val windowCount5 = WindowCount()
-        val windowCount10 = WindowCount()
-        val windowCount20 = WindowCount()
-        for (i in size - 1 downTo 0){
-            val entity = kEntityList[i]
-            //todo Mock volume值
-            val volume = (20 until 100).random()
-            val stockEntry = StockEntry((x++).toFloat(), entity.getTime()/1000, entity.getHighPrice(),
-                entity.getLowPrice(), entity.getOpenPrice(), entity.getClosePrice(), volume.toFloat())
-            preEntry?.let {
-                stockEntry.isRise = it.mClose < stockEntry.mClose
-                val lastDate = TimeDateUtil.timestampToLocalDate(it.timestamp)
-                val thisDate = TimeDateUtil.timestampToLocalDate(stockEntry.timestamp)
-                if (!TimeDateUtil.isSameMonth(lastDate, thisDate)){
-                    stockEntry.type = RecyclerBarEntry.TYPE_XAXIS_FIRST
-                }
-            }
-            val avg5 = windowCount5.getAvg(5, stockEntry.mClose)
-            if (!DecimalUtil.equals(avg5, -1f)){
-                stockEntry.ma5 = avg5
-            }
-            val avg10 = windowCount10.getAvg(10, stockEntry.mClose)
-            if (!DecimalUtil.equals(avg10, -1f)){
-                stockEntry.ma10 = avg10
-            }
-            val avg20 = windowCount20.getAvg(20, stockEntry.mClose)
-            if (!DecimalUtil.equals(avg20, -1f)){
-                stockEntry.ma20 = avg20
-            }
-            preEntry = stockEntry
-            stockEntryList.add(0, stockEntry)
-        }
-        return WindowCountManager(windowCount5, windowCount10, windowCount20, stockEntryList)
-    }
-
 
     //滑动监听
     private fun setListener() {
@@ -171,7 +130,7 @@ class KLineDayFragment : BaseLineFragment() {
                         if (!recyclerView.canScrollHorizontally(-1) && isRightScrollInner) {
                             Log.d(TAG, " can't Scroll left ! entry size:" + mEntries.size)
                             DataMock.loadDayData(mContext, currentPage++){ entityList ->
-                                val windowCountManager = createStockEntryList(entityList)
+                                val windowCountManager = createStockEntryList(entityList, mEntries.size)
                                 bindBarChartList(windowCountManager.stockEntryList, false,
                                     windowCountManager.windowCount5,
                                     windowCountManager.windowCount10,

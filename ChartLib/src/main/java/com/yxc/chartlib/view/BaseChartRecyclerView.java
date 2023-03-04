@@ -35,16 +35,11 @@ public abstract class BaseChartRecyclerView<T extends BaseChartAttrs, I extends 
         }
     }
 
-    public <Y extends BaseYAxis>void setYAxis(Y mYAxis){
-        mItemDecoration.setYAxis(mYAxis);
-    }
-
     public BaseChartRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.mAttrs = getAttrs(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
@@ -72,24 +67,8 @@ public abstract class BaseChartRecyclerView<T extends BaseChartAttrs, I extends 
         return super.fling(velocityX, velocityY);
     }
 
-
-
-    public void setOnChartTouchListener(OnChartTouchListener onChartTouchListener) {
+    public void addOnChartTouchListener(OnChartTouchListener onChartTouchListener) {
         this.onChartTouchListener = onChartTouchListener;
-    }
-
-    private void setRecyclerViewDefaultPadding() {
-        int paddingLeft = getPaddingLeft();
-        int paddingRight = getPaddingRight();
-        if (mAttrs.enableStartYAxisLabel) {
-            paddingRight = DisplayUtil.dip2px(36);
-        }
-        if (mAttrs.enableEndYAxisLabel) {
-            paddingLeft = DisplayUtil.dip2px(36);
-        }
-        int paddingStart = AppUtil.isRTLDirection() ? paddingRight : paddingLeft;
-        int paddingEnd = AppUtil.isRTLDirection() ? paddingLeft : paddingStart;
-        setPadding(paddingStart, getPaddingTop(), paddingEnd, getPaddingBottom());
     }
 
     public interface OnChartTouchListener {

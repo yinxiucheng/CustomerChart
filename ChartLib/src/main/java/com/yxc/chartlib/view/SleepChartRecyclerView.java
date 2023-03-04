@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.yxc.chartlib.attrs.ChartAttrsUtil;
 import com.yxc.chartlib.attrs.SleepChartAttrs;
 import com.yxc.chartlib.barchart.itemdecoration.BarChartItemDecoration;
+import com.yxc.chartlib.barchart.itemdecoration.SleepChartItemDecoration;
 import com.yxc.chartlib.utils.DisplayUtil;
 
 
@@ -20,7 +21,7 @@ import com.yxc.chartlib.utils.DisplayUtil;
  * @author yxc
  * @since 2019/4/26
  */
-public class SleepChartRecyclerView extends BaseChartRecyclerView<SleepChartAttrs, BarChartItemDecoration> {
+public class SleepChartRecyclerView extends BaseChartRecyclerView<SleepChartAttrs, SleepChartItemDecoration> {
 
     private static final String TAG = "SleepChartRecyclerView";
     private int mLastMotionX;

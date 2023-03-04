@@ -33,7 +33,8 @@ class StockChartRecyclerView : BaseChartRecyclerView<StockChartAttrs, StockChart
     private var originalOffestX = 0f
     private var offsetX = 0f
 
-    public var resetDisplayNumber: ((displayNumber:Int) -> Unit)? = null
+    var resetDisplayNumber: ((displayNumber:Int) -> Unit)? = null
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val pointCount = event.pointerCount
         var sum = 0f
@@ -42,7 +43,6 @@ class StockChartRecyclerView : BaseChartRecyclerView<StockChartAttrs, StockChart
             sum += event.getX(i)
         }
         focusX = sum / pointCount
-
         val result = scaleGestureDetector.onTouchEvent(event)
         if (!scaleGestureDetector.isInProgress) {
             when(event.actionMasked){

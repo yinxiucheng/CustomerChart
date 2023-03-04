@@ -100,7 +100,7 @@ class KLineDayFragment : BaseLineFragment() {
         if (mEntries.size == 0) {
             return
         }
-        val visibleSize = Math.min(displayNumber, mEntries.size)
+        val visibleSize = displayNumber.coerceAtMost(mEntries.size)
         recyclerView.scrollToPosition(0)
         val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
         val maxMinModel = getTheMaxMinModel(visibleEntries)

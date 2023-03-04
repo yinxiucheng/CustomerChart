@@ -72,8 +72,6 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         val parentRight = parent.right.toFloat()
         val parentLeft = parent.left.toFloat()
         val childCount = parent.childCount
-        val adapter = parent.adapter as BaseBarChartAdapter<StockEntry, YAxis>
-        val entryList: List<StockEntry> = adapter.entries
         drawAttacheTextAndDivide(canvas, parent, parentLeft, parentRight)
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)

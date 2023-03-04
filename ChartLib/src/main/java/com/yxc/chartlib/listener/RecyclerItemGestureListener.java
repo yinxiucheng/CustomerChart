@@ -9,6 +9,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 
@@ -28,7 +29,7 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
 
     private T selectBarEntry;
 
-    private GestureDetector mGestureDetector;
+    private GestureDetectorCompat mGestureDetector;
 
     private SpeedRatioLayoutManager layoutManager;
 
@@ -36,12 +37,11 @@ public class RecyclerItemGestureListener<T extends RecyclerBarEntry> implements 
 
     private int lastPosition;
 
-    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public RecyclerItemGestureListener(Context context, final BaseChartRecyclerView recyclerView, final OnItemGestureListener listener) {
         mListener = listener;
         layoutManager = (SpeedRatioLayoutManager) recyclerView.getLayoutManager();
         mAdapter = recyclerView.getAdapter();
-        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+        mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 float x = e.getX();

@@ -9,6 +9,7 @@ import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
 import androidx.recyclerview.widget.RecyclerView
 import com.yxc.chartlib.attrs.BaseChartAttrs
 import com.yxc.chartlib.barchart.itemdecoration.BaseChartItemDecoration
+import kotlin.math.max
 
 /**
  * @author yxc
@@ -28,6 +29,10 @@ abstract class BaseChartRecyclerView<T : BaseChartAttrs, I : BaseChartItemDecora
     var mAttrs: T
     var mItemDecoration: I? = null
     var displayNumber = 0
+
+    var minDisplayNumber = 30
+    var maxDisplayNumber = 400
+
     override fun addItemDecoration(decor: ItemDecoration) {
         super.addItemDecoration(decor)
         if (decor is BaseChartItemDecoration<*, *>) {
@@ -98,23 +103,22 @@ abstract class BaseChartRecyclerView<T : BaseChartAttrs, I : BaseChartItemDecora
         this.onRestDisplayNumberListener = resetDisplayNumberListener
     }
 
-    inner class MyScaleGestureListener: SimpleOnScaleGestureListener(){
+    inner class MyScaleGestureListener : SimpleOnScaleGestureListener() {
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             Log.i(TAG, "scale = " + detector.scaleFactor)   // 缩放因子
-            Log.i(TAG, "currentSpanX = " +  detector.currentSpanX)
-            if (detector.currentSpanX > 4) {
+            Log.i(TAG, "currentSpanX = " + detector.currentSpanX)
+            return  if (detector.currentSpanX > 4) {
                 if (detector.scaleFactor >= 1) {//放大
                     displayNumber -= (displayNumber * (detector.scaleFactor - 1)).toInt()
                 } else {
                     displayNumber += (displayNumber * (1 - detector.scaleFactor)).toInt()
                 }
+                displayNumber = displayNumber.coerceAtLeast(minDisplayNumber).coerceAtMost(maxDisplayNumber)
                 mAttrs.displayNumbers = displayNumber
                 Log.i(TAG, "displayNumber = ${mAttrs.displayNumbers}")
                 onRestDisplayNumberListener?.resetDisplayNumber(displayNumber)
-                return true
-            } else {
-                return false
-            }
+                 true
+            } else  false
         }
 
         override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {

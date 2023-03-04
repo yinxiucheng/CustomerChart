@@ -221,6 +221,6 @@
 
     <color name="color_avg5">#ffff33</color>
     <color name="color_avg10">#ff33ff</color>
-    <color name="color_avg20">#0000FF</color>
+    <color name="color_avg20">#0000EE</color>
 
 </resources>

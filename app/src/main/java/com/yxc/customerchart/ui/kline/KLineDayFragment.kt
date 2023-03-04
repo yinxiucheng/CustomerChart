@@ -18,6 +18,8 @@ import com.yxc.chartlib.component.StockYAxis.Companion.createYAxisWithLabelCount
 import com.yxc.chartlib.component.StockYAxis.Companion.resetStockYAxis
 import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.entrys.StockEntry
+import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModel
+import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModelVolume
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.listener.RecyclerItemGestureListener
 import com.yxc.chartlib.listener.SimpleItemGestureListener
@@ -96,9 +98,9 @@ class KLineDayFragment : BaseLineFragment() {
         val visibleSize = Math.min(displayNumber, mEntries.size)
         recyclerView.scrollToPosition(0)
         val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
-        val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
+        val maxMinModel = getTheMaxMinModel(visibleEntries)
         mYAxis = createYAxisWithLabelCount(mBarChartAttrs, maxMinModel.max, maxMinModel.min, 4)
-        val maxMinModelAttache = StockEntry.getTheMaxMinModelVolume(visibleEntries)
+        val maxMinModelAttache = getTheMaxMinModelVolume(visibleEntries)
         mAttacheYAxis = createYAxisWithLabelCount(mBarChartAttrs, maxMinModelAttache.max, maxMinModelAttache.min, 4)
         mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)
         mBarChartAdapter.setYAxis(mYAxis)
@@ -107,9 +109,9 @@ class KLineDayFragment : BaseLineFragment() {
 
     private fun resetYAxis(recyclerView: RecyclerView) {
         val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, displayNumber)
-        val maxMinModel = StockEntry.getTheMaxMinModel(visibleEntries)
+        val maxMinModel = getTheMaxMinModel(visibleEntries)
         setVisibleEntries(visibleEntries)
-        val maxMinModelAttache = StockEntry.getTheMaxMinModelVolume(visibleEntries)
+        val maxMinModelAttache = getTheMaxMinModelVolume(visibleEntries)
         mAttacheYAxis = resetStockYAxis(mAttacheYAxis, maxMinModelAttache.max, maxMinModelAttache.min, 2)
         mYAxis = resetStockYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
         mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)

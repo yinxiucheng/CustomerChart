@@ -39,14 +39,9 @@ public abstract class BaseChartRecyclerView<T extends BaseChartAttrs, I extends 
         mItemDecoration.setYAxis(mYAxis);
     }
 
-    public I getItemDecoration(){
-        return mItemDecoration;
-    }
-
     public BaseChartRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.mAttrs = getAttrs(context, attrs);
-//        setRecyclerViewDefaultPadding();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
@@ -69,6 +64,16 @@ public abstract class BaseChartRecyclerView<T extends BaseChartAttrs, I extends 
         return super.onTouchEvent(e);
     }
 
+
+    @Override
+    public boolean fling(int velocityX, int velocityY) {
+        velocityX *= mAttrs.ratioVelocity;
+        velocityY *= mAttrs.ratioVelocity;
+        return super.fling(velocityX, velocityY);
+    }
+
+
+
     public void setOnChartTouchListener(OnChartTouchListener onChartTouchListener) {
         this.onChartTouchListener = onChartTouchListener;
     }
@@ -86,16 +91,6 @@ public abstract class BaseChartRecyclerView<T extends BaseChartAttrs, I extends 
         int paddingEnd = AppUtil.isRTLDirection() ? paddingLeft : paddingStart;
         setPadding(paddingStart, getPaddingTop(), paddingEnd, getPaddingBottom());
     }
-
-
-    @Override
-    public boolean fling(int velocityX, int velocityY) {
-        velocityX *= mAttrs.ratioVelocity;
-        velocityY *= mAttrs.ratioVelocity;
-        return super.fling(velocityX, velocityY);
-    }
-
-
 
     public interface OnChartTouchListener {
 

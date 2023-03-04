@@ -25,7 +25,7 @@ class StockChartItemDecoration : BaseChartItemDecoration<StockChartAttrs, YAxis>
     constructor(yAxis:YAxis, xAxis: XAxis, stockChartAttrs: StockChartAttrs, attacheYAxis:StockYAxis)
             :super(yAxis, xAxis, stockChartAttrs){
         mAttacheYAxis = attacheYAxis
-        mChartRender = StockChartRenderer(stockChartAttrs, StockValueFormatter(), mAttacheYAxis)
+        mChartRender = StockChartRenderer(stockChartAttrs, StockValueFormatter())
         yAxisRenderer = StockYAxisRender(stockChartAttrs)
         xAxisRenderer = StockXAxisRender(stockChartAttrs)
     }

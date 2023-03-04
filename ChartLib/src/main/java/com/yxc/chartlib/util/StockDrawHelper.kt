@@ -1,10 +1,18 @@
 package com.yxc.chartlib.util
 
+import android.graphics.PointF
+import android.graphics.RectF
+import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.yxc.chartlib.attrs.StockChartAttrs
+import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.entrys.StockEntry
 import com.yxc.chartlib.entrys.model.AvgType
+import com.yxc.chartlib.utils.DisplayUtil
+import com.yxc.customercomposeview.utils.dp
+import com.yxc.customercomposeview.utils.dpf
 
 /**
  * @author xiuchengyin
@@ -43,4 +51,64 @@ object StockDrawHelper {
             is AvgType.Avg20Type -> mStockAttrs.avg20Color
         }
     }
+
+     fun <E : YAxis> getStockRectF(
+        child: View, parent: RecyclerView, yAxis: E,
+        mAttrs: StockChartAttrs, stockEntry: StockEntry): RectF {
+        val rectF = RectF()
+        val maxY = Math.max(stockEntry.mClose, stockEntry.mOpen)
+        val minY = Math.min(stockEntry.mClose, stockEntry.mOpen)
+        val contentBottom = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom
+        val contentTop = parent.paddingTop + mAttrs.contentPaddingTop
+        val realYAxisLabelHeight = contentBottom - contentTop
+        val yMin = yAxis.axisMinimum
+        val maxHeight = (maxY - yMin) / (yAxis.axisMaximum - yMin) * realYAxisLabelHeight
+        val minHeight = (minY - yMin) / (yAxis.axisMaximum - yMin) * realYAxisLabelHeight
+        val rectFTop = contentBottom - maxHeight
+        var rectFBottom = contentBottom - minHeight
+        if (rectFTop == rectFBottom && rectFTop != contentBottom) rectFBottom += DisplayUtil.dip2px(
+            2f
+        ).toFloat()
+        val width = child.width.toFloat()
+        val barSpaceWidth = width * mAttrs.barSpace
+        val barChartWidth = width - barSpaceWidth //柱子的宽度
+        val left = child.left + barSpaceWidth / 2
+        val right = left + barChartWidth
+        val top = Math.max(rectFTop, contentTop)
+        if ((rectFBottom - top) < 1f.dpf) rectFBottom = top + 1f.dpf
+        rectF[left, top, right] = rectFBottom
+        return rectF
+    }
+
+    fun getAttacheStockRectF(child: View, parent: RecyclerView, attacheYAxis: StockYAxis,
+                                     mAttrs: StockChartAttrs, stockEntry: StockEntry): RectF {
+        val rectF = RectF()
+        val contentBottom = parent.bottom - parent.paddingBottom - 18.dpf
+        val contentTop = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom + 27.dp
+        val realYAxisLabelHeight = contentBottom - contentTop
+        val rectHeight = stockEntry.volume / (attacheYAxis.axisMaximum - attacheYAxis.axisMinimum) * realYAxisLabelHeight
+        val rectFTop = contentBottom - rectHeight
+        var rectFBottom = contentBottom
+        if (rectFTop == rectFBottom && rectFTop != contentBottom) rectFBottom += DisplayUtil.dip2px(
+            2f
+        ).toFloat()
+        val width = child.width.toFloat()
+        val barSpaceWidth = width * mAttrs.barSpace
+        val barChartWidth = width - barSpaceWidth //柱子的宽度
+        val left = child.left + barSpaceWidth / 2
+        val right = left + barChartWidth
+        val top = Math.max(rectFTop, contentTop)
+        if ((rectFBottom - top) < 1f.dpf) rectFBottom = top + 1f.dpf
+        rectF[left, top, right] = rectFBottom
+        return rectF
+    }
+
+    fun createNearPoint(avgType:AvgType, parent: RecyclerView,mAttrs: StockChartAttrs, barEntryNear: StockEntry,
+                                currentPoint: PointF, viewWidth: Int, yAxis: YAxis, leftOrRight: Boolean): PointF {
+        val xNear = if (leftOrRight) currentPoint.x - viewWidth else currentPoint.x + viewWidth
+        val yNear = getYPosition(getAvgValue(avgType, barEntryNear), parent, yAxis, mAttrs)
+        return PointF(xNear, yNear)
+    }
+
+
 }

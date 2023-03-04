@@ -37,7 +37,6 @@ public class BarChartAdapter<T extends RecyclerBarEntry> extends BaseBarChartAda
         super(context, entries, recyclerView, xAxis, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onBindViewHolder(@NonNull BarChartViewHolder viewHolder, int position) {
         super.onBindViewHolder(viewHolder, position);

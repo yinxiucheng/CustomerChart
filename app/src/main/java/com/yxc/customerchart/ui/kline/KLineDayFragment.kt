@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.data.BarEntry
-import com.github.wangyiqian.stockchart.entities.IKEntity
 import com.yxc.chartlib.attrs.StockChartAttrs
 import com.yxc.chartlib.barchart.BarChartAdapter
 import com.yxc.chartlib.barchart.SpeedRatioLayoutManager
@@ -26,6 +25,7 @@ import com.yxc.chartlib.listener.SimpleItemGestureListener
 import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.utils.AppUtil
 import com.yxc.chartlib.utils.DecimalUtil
+import com.yxc.chartlib.view.BaseChartRecyclerView.OnResetDisplayNumberListener
 import com.yxc.chartlib.view.StockChartRecyclerView
 import com.yxc.customerchart.R
 import com.yxc.customerchart.mock.DataMock
@@ -34,7 +34,6 @@ import com.yxc.customerchart.ui.line.BaseLineFragment
 import com.yxc.customerchart.ui.utils.DataHelper.createStockEntryList
 import com.yxc.customerchart.ui.valueformatter.StockKLineXAxisFormatter
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
-import com.yxc.mylibrary.TimeDateUtil
 
 class KLineDayFragment : BaseLineFragment() {
     val TAG = "KLineDayFragment"
@@ -48,7 +47,7 @@ class KLineDayFragment : BaseLineFragment() {
     lateinit var mXAxis: XAxis
     lateinit var valueFormatter: ValueFormatter
     var mType = 0
-//    private var displayNumber = 0
+    private var displayNumber = 0
     lateinit private var mBarChartAttrs: StockChartAttrs
     lateinit var mContext: Context
     private var currentPage:Int = 0
@@ -71,12 +70,13 @@ class KLineDayFragment : BaseLineFragment() {
     }
 
     private fun initData() {
+        displayNumber = mBarChartAttrs.displayNumbers
         mType = TestData.VIEW_DAY
         valueFormatter = StockKLineXAxisFormatter()
         val layoutManager = SpeedRatioLayoutManager(activity, mBarChartAttrs)
         mYAxis = StockYAxis(mBarChartAttrs)
         mAttacheYAxis = StockYAxis(mBarChartAttrs)
-        mXAxis = XAxis(mBarChartAttrs, mBarChartAttrs.displayNumbers, valueFormatter)
+        mXAxis = XAxis(mBarChartAttrs, displayNumber, valueFormatter)
         mItemDecoration = StockChartItemDecoration(mYAxis, mXAxis, mBarChartAttrs, mAttacheYAxis)
         recyclerView.addItemDecoration(mItemDecoration)
         mBarChartAdapter = BarChartAdapter(activity, mEntries, recyclerView, mXAxis, mBarChartAttrs)
@@ -86,16 +86,24 @@ class KLineDayFragment : BaseLineFragment() {
         DataMock.loadDayData(mContext, currentPage) { entityList ->
             val windowCountManager = createStockEntryList(entityList, mEntries.size)
             bindBarChartList(windowCountManager.stockEntryList, true)
-            setXAxis(mBarChartAttrs.displayNumbers)
+            setXAxis(displayNumber)
             reSizeYAxis()
         }
+
+        recyclerView.addOnDisplayNumberListener(object : OnResetDisplayNumberListener {
+            override fun resetDisplayNumber(displayNumber: Int) {
+                this@KLineDayFragment.displayNumber = displayNumber
+                mXAxis.resetDisplayNumber(this@KLineDayFragment.displayNumber)
+                mBarChartAdapter.updateXAxis(mXAxis)
+            }
+        })
     }
 
     private fun reSizeYAxis() {
         if (mEntries.size == 0) {
             return
         }
-        val visibleSize = Math.min(mBarChartAttrs.displayNumbers, mEntries.size)
+        val visibleSize = Math.min(displayNumber, mEntries.size)
         recyclerView.scrollToPosition(0)
         val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
         val maxMinModel = getTheMaxMinModel(visibleEntries)
@@ -108,7 +116,7 @@ class KLineDayFragment : BaseLineFragment() {
     }
 
     private fun resetYAxis(recyclerView: RecyclerView) {
-        val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, mBarChartAttrs.displayNumbers)
+        val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, displayNumber)
         val maxMinModel = getTheMaxMinModel(visibleEntries)
         setVisibleEntries(visibleEntries)
         val maxMinModelAttache = getTheMaxMinModelVolume(visibleEntries)

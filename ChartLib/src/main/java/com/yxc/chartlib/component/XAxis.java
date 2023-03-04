@@ -40,6 +40,10 @@ public class XAxis extends AxisBase {
         this.labelTxtPadding = attrs.xAxisLabelTxtPadding;
     }
 
+    public void resetDisplayNumber(int displayNumbers){
+        this.displayNumbers = displayNumbers;
+    }
+
     public static boolean isSecondXAxis(int hourOfTheDay, BaseChartAttrs attrs) {
         if (hourOfTheDay == -1) {
             return false;

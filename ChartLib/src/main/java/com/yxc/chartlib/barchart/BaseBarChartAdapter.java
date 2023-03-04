@@ -103,4 +103,8 @@ public abstract class BaseBarChartAdapter<T extends RecyclerBarEntry, V extends 
         notifyDataSetChanged();
     }
 
+    public void updateXAxis(XAxis xAxis){
+        this.mXAxis = xAxis;
+        notifyDataSetChanged();
+    }
 }

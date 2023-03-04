@@ -16,7 +16,7 @@ class StockChartRecyclerView : BaseChartRecyclerView<StockChartAttrs, StockChart
 
     constructor(context: Context, attrs:AttributeSet):super(context, attrs)
 
-    override fun getAttrs(context: Context, attrs: AttributeSet?): StockChartAttrs {
+    override fun getAttrs(context: Context, attrs: AttributeSet): StockChartAttrs {
        return ChartAttrsUtil.getStockChartAttrs(context, attrs)
 
     }

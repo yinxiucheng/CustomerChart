@@ -25,7 +25,6 @@ import com.yxc.chartlib.listener.SimpleItemGestureListener
 import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.utils.AppUtil
 import com.yxc.chartlib.utils.DecimalUtil
-import com.yxc.chartlib.view.BaseChartRecyclerView.OnResetDisplayNumberListener
 import com.yxc.chartlib.view.StockChartRecyclerView
 import com.yxc.customerchart.R
 import com.yxc.customerchart.mock.DataMock
@@ -90,13 +89,11 @@ class KLineDayFragment : BaseLineFragment() {
             reSizeYAxis()
         }
 
-        recyclerView.addOnDisplayNumberListener(object : OnResetDisplayNumberListener {
-            override fun resetDisplayNumber(displayNumber: Int) {
-                this@KLineDayFragment.displayNumber = displayNumber
-                mXAxis.resetDisplayNumber(this@KLineDayFragment.displayNumber)
-                mBarChartAdapter.updateXAxis(mXAxis)
-            }
-        })
+        recyclerView.resetDisplayNumber = { displayNumber ->
+            this@KLineDayFragment.displayNumber = displayNumber
+            mXAxis.resetDisplayNumber(this@KLineDayFragment.displayNumber)
+            mBarChartAdapter.updateXAxis(mXAxis)
+        }
     }
 
     private fun reSizeYAxis() {

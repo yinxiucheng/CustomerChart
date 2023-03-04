@@ -2,7 +2,6 @@ package com.yxc.chartlib.util
 
 import android.graphics.PointF
 import android.graphics.RectF
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.yxc.chartlib.attrs.StockChartAttrs
@@ -56,8 +55,8 @@ object StockDrawHelper {
         child: View, parent: RecyclerView, yAxis: E,
         mAttrs: StockChartAttrs, stockEntry: StockEntry): RectF {
         val rectF = RectF()
-        val maxY = Math.max(stockEntry.mClose, stockEntry.mOpen)
-        val minY = Math.min(stockEntry.mClose, stockEntry.mOpen)
+        val maxY = stockEntry.mClose.coerceAtLeast(stockEntry.mOpen)
+        val minY = stockEntry.mClose.coerceAtMost(stockEntry.mOpen)
         val contentBottom = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom
         val contentTop = parent.paddingTop + mAttrs.contentPaddingTop
         val realYAxisLabelHeight = contentBottom - contentTop
@@ -74,7 +73,7 @@ object StockDrawHelper {
         val barChartWidth = width - barSpaceWidth //柱子的宽度
         val left = child.left + barSpaceWidth / 2
         val right = left + barChartWidth
-        val top = Math.max(rectFTop, contentTop)
+        val top = rectFTop.coerceAtLeast(contentTop)
         if ((rectFBottom - top) < 1f.dpf) rectFBottom = top + 1f.dpf
         rectF[left, top, right] = rectFBottom
         return rectF
@@ -97,7 +96,7 @@ object StockDrawHelper {
         val barChartWidth = width - barSpaceWidth //柱子的宽度
         val left = child.left + barSpaceWidth / 2
         val right = left + barChartWidth
-        val top = Math.max(rectFTop, contentTop)
+        val top = rectFTop.coerceAtLeast(contentTop)
         if ((rectFBottom - top) < 1f.dpf) rectFBottom = top + 1f.dpf
         rectF[left, top, right] = rectFBottom
         return rectF

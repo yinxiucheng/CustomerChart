@@ -144,6 +144,7 @@
     <color name="white_12">#1EFFFFFF</color>
     <color name="white_8">#14FFFFFF</color>
     <color name="white_4">#0AFFFFFF</color>
+    <color name="white_2">#05FFFFFF</color>
 
     <color name="black">#000000</color>
     <color name="black_90">#E6000000</color>
@@ -163,6 +164,7 @@
     <color name="black_4">#0A000000</color>
     <color name="black_3">#07000000</color>
     <color name="black_2">#05000000</color>
+    <color name="black_1">#02000000</color>
 
     <!--chart start-->
     <color name="chart_empty_color">@color/black_4</color>
@@ -222,5 +224,8 @@
     <color name="color_avg5">#ffff33</color>
     <color name="color_avg10">#ff33ff</color>
     <color name="color_avg20">#0000EE</color>
+
+    <color name="color_avg5_fill">#4D262626</color>
+
 
 </resources>

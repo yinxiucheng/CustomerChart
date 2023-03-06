@@ -1,8 +1,10 @@
 package com.yxc.customerchart.ui.kline
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +20,6 @@ import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.entrys.StockEntry
 import com.yxc.chartlib.entrys.StockEntry.Companion.getAttacheMaxMinModel
 import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModel
-import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModelVolume
 import com.yxc.chartlib.entrys.model.AttachedChartType
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.listener.RecyclerStockItemGestureListener
@@ -31,7 +32,6 @@ import com.yxc.customerchart.R
 import com.yxc.customerchart.mock.DataMock
 import com.yxc.customerchart.ui.ecg.TestData
 import com.yxc.customerchart.ui.line.BaseLineFragment
-import com.yxc.customerchart.ui.utils.DataHelper
 import com.yxc.customerchart.ui.utils.DataHelper.createStockEntryList
 import com.yxc.customerchart.ui.valueformatter.StockKLineXAxisFormatter
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
@@ -213,6 +213,38 @@ class KLineDayFragment : BaseLineFragment() {
         override fun showBottomPopWindow() {
             Log.d(TAG, "show hello ketiy2.")
             showPopupWindow()
+        }
+
+
+        private var sharePopupWindow: SharePopupWindow? = null
+
+        private fun showPopupWindow() {
+            if (null == sharePopupWindow) {
+                val itemsOnClick = View.OnClickListener { v: View ->
+                    sharePopupWindow!!.dismiss()
+                    val id = v.id
+                    if (id == R.id.rl_share_wx_session) {
+                        mBarChartAttrs.attachedType = AttachedChartType.Volume
+                        resetYAxis(recyclerView)
+                        mBarChartAdapter.notifyDataSetChanged()
+                    } else if (id == R.id.rl_share_timeline) {
+                        mBarChartAttrs.attachedType = AttachedChartType.MADC
+                        resetYAxis(recyclerView)
+                        mBarChartAdapter.notifyDataSetChanged()
+                    } else if (id == R.id.rl_download) { //检测读写权限
+                        mBarChartAttrs.attachedType = AttachedChartType.KDJ
+                        resetYAxis(recyclerView)
+                        mBarChartAdapter.notifyDataSetChanged()
+                    }
+                }
+                sharePopupWindow = SharePopupWindow(mContext, itemsOnClick)
+            }
+            sharePopupWindow!!.showAtLocation(
+                view,
+                Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL,
+                0,
+                0
+            )
         }
 
 

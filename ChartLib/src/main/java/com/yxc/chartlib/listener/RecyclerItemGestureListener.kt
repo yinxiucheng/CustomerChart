@@ -14,35 +14,33 @@ import com.yxc.chartlib.view.BaseChartRecyclerView
 import com.yxc.chartlib.view.BaseChartRecyclerView.OnChartTouchListener
 import com.yxc.chartlib.view.StockChartRecyclerView
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
+import kotlin.math.abs
 
 /**
  * @author yxc
  * @since 2019/4/23
  */
-class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
-    private val recyclerView: BaseChartRecyclerView<*, *>,
-    private val mListener: OnItemGestureListener<*>?) : OnItemTouchListener {
+open class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?, val recyclerView: BaseChartRecyclerView<*, *>,
+    val mListener: OnItemGestureListener<*>) : OnItemTouchListener {
+    protected var isLongPressing = false
+    protected var selectBarEntry: RecyclerBarEntry? = null
+    protected val layoutManager: SpeedRatioLayoutManager = recyclerView.layoutManager as SpeedRatioLayoutManager
+    protected val mAdapter: RecyclerView.Adapter<*> = recyclerView.adapter as RecyclerView.Adapter
+    protected var lastPosition = 0
+    protected val onChartTouchListener: OnChartTouchListener by lazy { MyOnChartTouchListener() }
+    protected val myScrollListener: MyOnScrollListener by lazy { MyOnScrollListener() }
 
-    var isLongPressing = false
-    private var selectBarEntry: T? = null
     private val mGestureListener: MyOnGestureListener by lazy { MyOnGestureListener() }
     private val mGestureDetector: GestureDetectorCompat by lazy { GestureDetectorCompat(context, mGestureListener) }
-    private val onChartTouchListener: OnChartTouchListener by lazy { MyOnChartTouchListener() }
-    private val myScrollListener: MyOnScrollListener by lazy { MyOnScrollListener() }
-    private val layoutManager: SpeedRatioLayoutManager
-    private val mAdapter: RecyclerView.Adapter<*>
-    private var lastPosition = 0
 
     init {
-        layoutManager = recyclerView.layoutManager as SpeedRatioLayoutManager
-        mAdapter = recyclerView.adapter as RecyclerView.Adapter
         recyclerView.addOnChartTouchListener(onChartTouchListener)
         recyclerView.addOnScrollListener(myScrollListener)
     }
 
     override fun onInterceptTouchEvent(view: RecyclerView, e: MotionEvent): Boolean {
         val childView = view.findChildViewUnder(e.x, e.y)
-        if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+        if (childView != null && mGestureDetector.onTouchEvent(e)) {
             mListener.onItemClick(childView, view.getChildAdapterPosition(childView))
             return true
         }
@@ -67,17 +65,17 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
             val y = e.y
             val child = recyclerView.findChildViewUnder(x, y)
             val parentRight = (recyclerView.width - recyclerView.paddingRight).toFloat()
-            if (child != null && mListener != null) {
-//                    Logger.d("BarChart Render click begin time:" + System.currentTimeMillis());
-                val reservedWidth = child.width / 2.0f
+            if (child != null) {
+            // Logger.d("BarChart Render click begin time:" + System.currentTimeMillis());
+            // val reservedWidth = child.width / 2.0f
                 if (x < recyclerView.paddingLeft || x > parentRight) {
                     return false
                 }
                 val position = recyclerView.getChildAdapterPosition(child)
                 if (position != RecyclerView.NO_POSITION) {
-                    val barEntry = child.tag as T
+                    val barEntry = child.tag as RecyclerBarEntry
                     Log.d("MPChart", "BarChart Render notify change + SingleTapUp$barEntry")
-                    if (barEntry!!.y <= 0) {
+                    if (barEntry.y <= 0) {
                         if (null != selectBarEntry) {
                             selectBarEntry!!.selected = RecyclerBarEntry.TYPE_UNSELECTED
                         }
@@ -89,7 +87,7 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
                         mListener.onItemSelected(null, position)
                         mAdapter.notifyItemChanged(position, false)
                         return false
-                    } else if (!barEntry.equals(selectBarEntry)) {
+                    } else if (barEntry != selectBarEntry) {
                         //重置原来的SelectBarEntry
                         if (null != selectBarEntry) {
                             selectBarEntry!!.selected = RecyclerBarEntry.TYPE_UNSELECTED
@@ -115,21 +113,19 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
             val child = recyclerView.findChildViewUnder(x, y)
             val parentRight = (recyclerView.width - recyclerView.paddingRight).toFloat()
             isLongPressing = true
-            if (null != layoutManager) {
-                layoutManager.ratioSpeed = 0.0
-            }
-            if (child != null && mListener != null) {
-                val reservedWidth = child.width / 2.0f
+            layoutManager.ratioSpeed = 0.0
+            if (child != null) {
+            // val reservedWidth = child.width / 2.0f
                 if (x < recyclerView.paddingLeft || x > parentRight) {
                     return
                 }
                 val position = recyclerView.getChildAdapterPosition(child)
                 if (position != RecyclerView.NO_POSITION) {
-                    val barEntry = child.tag as T
+                    val barEntry = child.tag as RecyclerBarEntry
                     Log.i("MPChart", "BarChart Render notify change + LongPress$barEntry")
-                    if (barEntry!!.y <= 0) {
+                    if (barEntry.y <= 0) {
                         return
-                    } else if (!barEntry.equals(selectBarEntry)) {
+                    } else if (barEntry != selectBarEntry) {
                         //重置原来的SelectBarEntry
                         if (null != selectBarEntry) {
                             selectBarEntry!!.selected = RecyclerBarEntry.TYPE_UNSELECTED
@@ -140,7 +136,7 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
                         selectBarEntry = null
                         barEntry.selected = RecyclerBarEntry.TYPE_UNSELECTED //再次被点击
                     }
-                    mAdapter?.notifyItemChanged(position, 0)
+                    mAdapter.notifyItemChanged(position, 0)
                     mListener.onLongItemClick(child, position)
                     mListener.onItemSelected(barEntry, position)
                 }
@@ -163,27 +159,26 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
         }
 
         override fun onChartGestureMovingOn(e: MotionEvent) {
-//                Log.d("OnItemTouch", " onChartGestureMovingOn： " + System.currentTimeMillis() / 1000);
+            //Log.d("OnItemTouch", " onChartGestureMovingOn： " + System.currentTimeMillis() / 1000);
             val x = e.x
             val y = e.y
-            val child: View?
-            child = recyclerView.findChildViewUnder(x, y)
+            val child: View? = recyclerView.findChildViewUnder(x, y)
             val parentRight = (recyclerView.width - recyclerView.paddingRight).toFloat()
             if (child != null && isLongPressing) {
                 // longPress not action end, then moving the item is touched should be set selected
-                val reservedWidth = child.width / 2.0f
-                //deal with the condition of the edge
+                // val reservedWidth = child.width / 2.0f
+                // deal with the condition of the edge
                 if (x < recyclerView.paddingLeft || x > parentRight) {
                     return
                 }
                 val position = recyclerView.getChildAdapterPosition(child)
                 lastPosition = position
                 if (position != RecyclerView.NO_POSITION) {
-                    val barEntry = child.tag as T
-                    if (barEntry!!.y <= 0) {
+                    val barEntry = child.tag as RecyclerBarEntry
+                    if (barEntry.y <= 0) {
                         return
                     }
-                    if (!barEntry.equals(selectBarEntry)) {
+                    if (barEntry != selectBarEntry) {
                         if (selectBarEntry != null) {
                             selectBarEntry!!.selected = RecyclerBarEntry.TYPE_UNSELECTED
                         }
@@ -191,10 +186,10 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
                         barEntry.selected = RecyclerBarEntry.TYPE_LONG_PRESS_SELECTED
                         mAdapter.notifyItemChanged(position, 0)
                     }
-                    mListener!!.onItemSelected(barEntry, position)
+                    mListener.onItemSelected(barEntry, position)
                 }
             } else {
-                //when is not longPress, normal condition reset the selected BarEntry
+                // when is not longPress, normal condition reset the selected BarEntry
                 if (null != selectBarEntry && selectBarEntry!!.selected == RecyclerBarEntry.TYPE_LONG_PRESS_SELECTED && isLongPressing) {
                     selectBarEntry!!.selected = RecyclerBarEntry.TYPE_UNSELECTED
                     selectBarEntry = null
@@ -205,8 +200,8 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
                         "MPChart",
                         "BarChart Render notify change lastPosition" + lastPosition + "child" + child + "isLongPressing" + isLongPressing
                     )
-                    //                        Log.d("OnItemTouch", " onItemSelected 释放 在 onChartGestureMovingOn： " + System.currentTimeMillis() / 1000);
-                    mListener!!.onItemSelected(null, -1)
+                    // Log.d("OnItemTouch", " onItemSelected 释放 在 onChartGestureMovingOn： " + System.currentTimeMillis() / 1000);
+                    mListener.onItemSelected(null, -1)
                 }
             }
         }
@@ -215,22 +210,20 @@ class RecyclerItemGestureListener<T : RecyclerBarEntry?>(context: Context?,
     inner class MyOnScrollListener: RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            mListener?.onScrollStateChanged(recyclerView, newState)
+            mListener.onScrollStateChanged(recyclerView, newState)
         }
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            if (null != mListener) {
-                if (null != selectBarEntry && selectBarEntry!!.selected != RecyclerBarEntry.TYPE_UNSELECTED && !isLongPressing) {
-                    if (Math.abs(dx) > 4) {
-                        selectBarEntry!!.selected = RecyclerBarEntry.TYPE_UNSELECTED
-                        selectBarEntry = null
-                        //                            Log.d("OnItemTouch", " onItemSelected 释放 在 onScrolled： " + System.currentTimeMillis() / 1000);
-                        mListener.onItemSelected(null, -1)
-                    }
+            if (null != selectBarEntry && selectBarEntry!!.selected != RecyclerBarEntry.TYPE_UNSELECTED && !isLongPressing) {
+                if (abs(dx) > 4) {
+                    selectBarEntry!!.selected = RecyclerBarEntry.TYPE_UNSELECTED
+                    selectBarEntry = null
+                    //                            Log.d("OnItemTouch", " onItemSelected 释放 在 onScrolled： " + System.currentTimeMillis() / 1000);
+                    mListener.onItemSelected(null, -1)
                 }
-                mListener.onScrolled(recyclerView, dx, dy)
             }
+            mListener.onScrolled(recyclerView, dx, dy)
         }
     }
 }

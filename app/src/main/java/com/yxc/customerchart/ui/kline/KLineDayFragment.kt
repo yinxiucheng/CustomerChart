@@ -39,7 +39,6 @@ class KLineDayFragment : BaseLineFragment() {
     lateinit var mBarChartAdapter: BarChartAdapter<StockEntry>
     val mEntries: MutableList<StockEntry> = mutableListOf()
     lateinit var mItemDecoration: StockChartItemDecoration
-    lateinit var mItemGestureListener: RecyclerItemGestureListener<StockEntry>
     lateinit var mYAxis: StockYAxis
     lateinit var mAttacheYAxis: StockYAxis
     lateinit var mXAxis: XAxis

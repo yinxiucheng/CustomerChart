@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.github.mikephil.charting.data.BarEntry
 import com.yxc.chartlib.attrs.StockChartAttrs
 import com.yxc.chartlib.barchart.BarChartAdapter
 import com.yxc.chartlib.barchart.SpeedRatioLayoutManager
@@ -126,9 +125,8 @@ class KLineDayFragment : BaseLineFragment() {
     private fun setListener() {
         mItemGestureListener = RecyclerItemGestureListener<RecyclerBarEntry>(
             activity, recyclerView,
-            object : SimpleItemGestureListener() {
+            object : SimpleItemGestureListener<RecyclerBarEntry>() {
                 var isRightScrollInner = false
-                override fun onItemSelected(barEntry: BarEntry, position: Int) {}
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     // 当不滚动时
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {

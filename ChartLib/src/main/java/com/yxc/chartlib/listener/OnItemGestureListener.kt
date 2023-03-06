@@ -1,25 +1,17 @@
-package com.yxc.chartlib.listener;
+package com.yxc.chartlib.listener
 
-import android.view.View;
-
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
-
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 
 /**
  * @author yxc
  * @date 2019-09-17
  */
-public interface OnItemGestureListener<T extends RecyclerBarEntry> {
-
-    void onItemClick(View view, int position);
-
-    void onLongItemClick(View view, int position);
-
-    void onItemSelected(T barEntry, int position);
-
-    void onScrollStateChanged(RecyclerView recyclerView, int newState);
-
-    void onScrolled(RecyclerView recyclerView, int dx, int dy);
+interface OnItemGestureListener<T : RecyclerBarEntry?> {
+    fun onItemClick(view: View, position: Int)
+    fun onLongItemClick(view: View, position: Int)
+    fun onItemSelected(barEntry: RecyclerBarEntry?, position: Int)
+    fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int)
+    fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int)
 }

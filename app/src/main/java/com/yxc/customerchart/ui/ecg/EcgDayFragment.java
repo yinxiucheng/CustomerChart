@@ -132,9 +132,6 @@ public class EcgDayFragment extends BaseLineFragment {
                 new SimpleItemGestureListener() {
             boolean isRightScrollInner = false;
                     @Override
-                    public void onItemSelected(BarEntry barEntry, int position) {
-                    }
-                    @Override
                     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                         // 当不滚动时
                         if (newState == RecyclerView.SCROLL_STATE_IDLE) {

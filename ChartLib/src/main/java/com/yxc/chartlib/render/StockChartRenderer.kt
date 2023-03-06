@@ -105,7 +105,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
 
     private fun drawAttacheTextAndDivide(canvas: Canvas, parent: RecyclerView, parentStart: Float, parentEnd: Float){
         val yDivideTop = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom
-        val yDivideBottom = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom + 25.dp
+        val yDivideBottom = yDivideTop + mStockAttrs.mAttachedDescHeight
         mLineChartPaint.color = mStockAttrs.yAxisLineColor
         mLineChartPaint.strokeWidth = 0.75f
         canvas.drawLine(parentStart, yDivideBottom, parentEnd, yDivideBottom, mLineChartPaint)
@@ -227,8 +227,8 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val parentTop = parent.paddingTop.toFloat()
             val childCount = parent.childCount
             val contentRight = (parent.width - parent.paddingRight).toFloat()
-            val contentBottom: Float = parent.height - parent.paddingBottom - mStockAttrs.contentPaddingBottom
-            val attacheTop = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom + 25.dp
+            val contentBottom = parent.height - parent.paddingBottom - mStockAttrs.contentPaddingBottom
+            val attacheTop = contentBottom + mStockAttrs.mAttachedDescHeight
             val attacheBottom = parent.bottom - parent.paddingBottom - 18.dpf
             val contentLeft = parent.paddingLeft.toFloat()
             var child: View

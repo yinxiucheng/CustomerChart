@@ -16,6 +16,6 @@ open class SimpleStockItemGestureListener: OnStockItemGestureListener<RecyclerBa
     override fun onItemSelected(barEntry: RecyclerBarEntry?, position: Int) {}
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {}
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {}
-    override fun onStockItemBottomClick(view: View, position: Int){}
-    override fun showBottomPopWindow(view: View){}
+    override fun onStockItemBottomClick(view: View){}
+    override fun showBottomPopWindow(){}
 }

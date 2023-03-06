@@ -10,6 +10,6 @@ import com.yxc.fitness.chart.entrys.RecyclerBarEntry
  *
  */
 interface OnStockItemGestureListener<T : RecyclerBarEntry?> : OnItemGestureListener<T> {
-    fun onStockItemBottomClick(view: View, position: Int)
-    fun showBottomPopWindow(view: View)
+    fun onStockItemBottomClick(view: View)
+    fun showBottomPopWindow()
 }

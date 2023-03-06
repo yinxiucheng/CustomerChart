@@ -20,7 +20,9 @@ import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModel
 import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModelVolume
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.listener.RecyclerItemGestureListener
+import com.yxc.chartlib.listener.RecyclerStockItemGestureListener
 import com.yxc.chartlib.listener.SimpleItemGestureListener
+import com.yxc.chartlib.listener.SimpleStockItemGestureListener
 import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.utils.AppUtil
 import com.yxc.chartlib.utils.DecimalUtil
@@ -48,6 +50,7 @@ class KLineDayFragment : BaseLineFragment() {
     lateinit private var mBarChartAttrs: StockChartAttrs
     lateinit var mContext: Context
     private var currentPage:Int = 0
+    private val stockItemGestureListener:SimpleStockItemGestureListener by lazy { MySimpleStockItemGestureListener() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -122,34 +125,7 @@ class KLineDayFragment : BaseLineFragment() {
 
     //滑动监听
     private fun setListener() {
-        mItemGestureListener = RecyclerItemGestureListener<RecyclerBarEntry>(
-            activity, recyclerView,
-            object : SimpleItemGestureListener<RecyclerBarEntry>() {
-                var isRightScrollInner = false
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    // 当不滚动时
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        if (!recyclerView.canScrollHorizontally(-1) && isRightScrollInner) {
-                            Log.d(TAG, " can't Scroll left ! entry size:" + mEntries.size)
-                            DataMock.loadDayData(mContext, currentPage++){ entityList ->
-                                val windowCountManager = createStockEntryList(entityList, mEntries.size)
-                                bindBarChartList(windowCountManager.stockEntryList, false,
-                                    windowCountManager.windowCount5,
-                                    windowCountManager.windowCount10,
-                                    windowCountManager.windowCount20)
-                                mBarChartAdapter.notifyDataSetChanged()
-                            }
-                        } else if (!recyclerView.canScrollHorizontally(1)) {
-                        }
-                    }
-                    resetYAxis(recyclerView)
-                }
-
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    isRightScrollInner = dx < 0
-                    resetYAxis(recyclerView)
-                }
-            })
+        mItemGestureListener = RecyclerStockItemGestureListener<RecyclerBarEntry>(activity, recyclerView, stockItemGestureListener)
         recyclerView.addOnItemTouchListener(mItemGestureListener)
     }
 
@@ -199,4 +175,41 @@ class KLineDayFragment : BaseLineFragment() {
 
     override fun displayDateAndRate() {}
     override fun scrollToCurrentCycle() {}
+    private fun showPopupWindow(){}
+
+    inner class MySimpleStockItemGestureListener: SimpleStockItemGestureListener(){
+        var isRightScrollInner = false
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            // 当不滚动时
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (!recyclerView.canScrollHorizontally(-1) && isRightScrollInner) {
+                    Log.d(TAG, " can't Scroll left ! entry size:" + mEntries.size)
+                    DataMock.loadDayData(mContext, currentPage++){ entityList ->
+                        val windowCountManager = createStockEntryList(entityList, mEntries.size)
+                        bindBarChartList(windowCountManager.stockEntryList, false,
+                            windowCountManager.windowCount5,
+                            windowCountManager.windowCount10,
+                            windowCountManager.windowCount20)
+                        mBarChartAdapter.notifyDataSetChanged()
+                    }
+                } else if (!recyclerView.canScrollHorizontally(1)) {
+                }
+            }
+            resetYAxis(recyclerView)
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            isRightScrollInner = dx < 0
+            resetYAxis(recyclerView)
+        }
+
+        override fun onStockItemBottomClick(view: View) {
+            Log.d(TAG, "show hello ketiy")
+        }
+
+        override fun showBottomPopWindow() {
+            Log.d(TAG, "show hello ketiy2.")
+            showPopupWindow()
+        }
+    }
 }

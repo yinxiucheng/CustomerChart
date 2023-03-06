@@ -1,6 +1,7 @@
 package com.yxc.chartlib.attrs
 
 import android.graphics.Color
+import com.yxc.customercomposeview.utils.dp
 
 /**
  * @author xiuchengyin
@@ -32,6 +33,8 @@ class StockChartAttrs : BaseChartAttrs() {
 
     //20日均线
     var avg20Color: Int = DEFAULT_DOWN_COLOR
+
+    var mAttachedDescHeight = 25.dp
 
 }
 

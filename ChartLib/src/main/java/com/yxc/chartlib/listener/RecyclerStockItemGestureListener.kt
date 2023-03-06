@@ -4,8 +4,10 @@ import android.content.Context
 import android.util.Log
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
+import android.view.View
 import androidx.core.view.GestureDetectorCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.yxc.chartlib.attrs.StockChartAttrs
 import com.yxc.chartlib.barchart.SpeedRatioLayoutManager
 import com.yxc.chartlib.view.BaseChartRecyclerView
 import com.yxc.chartlib.view.BaseChartRecyclerView.OnChartTouchListener
@@ -38,13 +40,10 @@ class RecyclerStockItemGestureListener<T : RecyclerBarEntry?>(
     override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
 
     inner class MyOnGestureListener: SimpleOnGestureListener(){
-        override fun onSingleTapUp(e: MotionEvent): Boolean {
-            val x = e.x
-            val y = e.y
-            val child = recyclerView.findChildViewUnder(x, y)
-            if (child != null) {
+        private fun onMainChartClick(child: View?, x:Float):Boolean{
+            child?.let {
                 val parentRight = (recyclerView.width - recyclerView.paddingRight).toFloat()
-                //                    Logger.d("BarChart Render click begin time:" + System.currentTimeMillis());
+                //Logger.d("BarChart Render click begin time:" + System.currentTimeMillis());
 //                val reservedWidth = child.width / 2.0f
                 if (x < recyclerView.paddingLeft || x > parentRight) {
                     return false
@@ -81,6 +80,36 @@ class RecyclerStockItemGestureListener<T : RecyclerBarEntry?>(
                     mAdapter.notifyItemChanged(position, false)
                     return true
                 }
+            }
+            return false
+        }
+
+
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            val x = e.x
+            val y = e.y
+            val descTop =
+                recyclerView.bottom - recyclerView.paddingBottom - recyclerView.mAttrs.contentPaddingBottom
+            val descBottom = descTop + (recyclerView.mAttrs as StockChartAttrs).mAttachedDescHeight
+            val child = recyclerView.findChildViewUnder(x, y)
+            return if (y > descTop && y <= descBottom) {
+                onAttacheDescClick()
+            } else if (y > descBottom) {
+                onAttacheChartClick(child)
+            } else {
+                onMainChartClick(child, x)
+            }
+        }
+
+        private fun onAttacheDescClick():Boolean{
+            (mListener as SimpleStockItemGestureListener).showBottomPopWindow()
+            return true
+        }
+
+        private fun onAttacheChartClick(view:View?):Boolean{
+            view?.let {
+                (mListener as SimpleStockItemGestureListener).onStockItemBottomClick(it)
+                return true
             }
             return false
         }

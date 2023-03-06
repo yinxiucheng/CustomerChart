@@ -5,7 +5,6 @@ package com.yxc.customerchart.ui.kline;
  * @since 2019-07-16
  */
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -30,9 +29,9 @@ public class SharePopupWindow extends PopupWindow{
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(R.layout.share_path_popup_window, null);
 
-        mRlWXSession = mView.findViewById(R.id.rl_share_wx_session);
-        mRlWXTimeLine = mView.findViewById(R.id.rl_share_timeline);
-        mRlDownload = mView.findViewById(R.id.rl_download);
+        mRlWXSession = mView.findViewById(R.id.rl_volume);
+        mRlWXTimeLine = mView.findViewById(R.id.rl_madc);
+        mRlDownload = mView.findViewById(R.id.rl_kdj);
 
         mRlWXSession.setOnClickListener(itemsOnClick);
         mRlWXTimeLine.setOnClickListener(itemsOnClick);

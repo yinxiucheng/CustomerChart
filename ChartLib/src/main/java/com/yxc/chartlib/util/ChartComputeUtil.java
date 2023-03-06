@@ -9,11 +9,6 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-//import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
-//import com.xiaomi.fitness.chart.component.BaseYAxis;
-//import com.xiaomi.fitness.chart.component.DistanceCompare;
-//import com.xiaomi.fitness.chart.entrys.MultiBarEntry;
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 import com.yxc.chartlib.attrs.BaseChartAttrs;
 import com.yxc.chartlib.barchart.BaseBarChartAdapter;
@@ -26,12 +21,6 @@ import com.yxc.chartlib.transform.RecyclerTransform;
 import com.yxc.chartlib.utils.AppUtil;
 import com.yxc.chartlib.utils.ArrayUtils;
 import com.yxc.mylibrary.TimeDateUtil;
-//import com.xiaomi.fitness.chart.entrys.YAxisMaxEntries;
-//import com.xiaomi.fitness.chart.entrys.model.SleepItemTime;
-//import com.xiaomi.fitness.chart.transform.RecyclerTransform;
-//import com.xiaomi.fitness.common.utils.AppUtil;
-//import com.xiaomi.fitness.common.utils.ArrayUtils;
-//import com.xiaomi.fitness.common.utils.TimeDateUtil;
 
 //import org.joda.time.LocalDate;
 

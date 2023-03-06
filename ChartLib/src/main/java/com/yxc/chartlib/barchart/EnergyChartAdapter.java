@@ -6,13 +6,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-//import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-//import com.xiaomi.fitness.chart.barchart.BarChartViewHolder;
-//import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
-//import com.xiaomi.fitness.chart.component.BaseYAxis;
-//import com.xiaomi.fitness.chart.component.XAxis;
-//import com.xiaomi.fitness.chart.entrys.model.EnergyEntry;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 

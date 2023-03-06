@@ -11,5 +11,5 @@ public class Constant {
 
     public static final String APATCH_PATH = "/out.apatch";
     public static final String EXTERNALPATH  = Environment.getExternalStorageDirectory().getAbsolutePath();
-    public static final String HTTP_BASE = "http://7xrnuc.com1.z0.glb.clouddn.com/";/*http://f5.market.xiaomi.com/download/AppStore/";*/
+    public static final String HTTP_BASE = "http://7xrnuc.com1.z0.glb.clouddn.com/";
 }

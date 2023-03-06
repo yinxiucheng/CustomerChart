@@ -88,8 +88,7 @@ class RecyclerStockItemGestureListener<T : RecyclerBarEntry?>(
         override fun onSingleTapUp(e: MotionEvent): Boolean {
             val x = e.x
             val y = e.y
-            val descTop =
-                recyclerView.bottom - recyclerView.paddingBottom - recyclerView.mAttrs.contentPaddingBottom
+            val descTop = recyclerView.bottom - recyclerView.paddingBottom - recyclerView.mAttrs.contentPaddingBottom
             val descBottom = descTop + (recyclerView.mAttrs as StockChartAttrs).mAttachedDescHeight
             val child = recyclerView.findChildViewUnder(x, y)
             return if (y > descTop && y <= descBottom) {

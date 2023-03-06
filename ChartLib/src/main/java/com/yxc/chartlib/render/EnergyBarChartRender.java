@@ -1,8 +1,5 @@
 package com.yxc.chartlib.render;
 
-//import static com.xiaomi.fitness.chart.entrys.model.EnergyEntry.ENERGY_TYPE_PRESS;
-//import static com.xiaomi.fitness.chart.entrys.model.EnergyEntry.ENERGY_TYPE_SPORT;
-
 import static com.yxc.chartlib.entrys.model.EnergyEntry.ENERGY_TYPE_PRESS;
 import static com.yxc.chartlib.entrys.model.EnergyEntry.ENERGY_TYPE_SPORT;
 
@@ -15,8 +12,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-//import com.xiaomi.fitness.chart.component.YAxis;
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 import com.yxc.chartlib.attrs.BarChartAttrs;
 import com.yxc.chartlib.component.YAxis;

@@ -11,9 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
-//import com.xiaomi.fitness.chart.attrs.BezierChartAttrs;
-//import com.xiaomi.fitness.chart.bezier.ControlPoint;
-//import com.xiaomi.fitness.chart.component.BaseYAxis;
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry;
 import com.yxc.chartlib.attrs.BezierChartAttrs;
 import com.yxc.chartlib.bezier.ControlPoint;

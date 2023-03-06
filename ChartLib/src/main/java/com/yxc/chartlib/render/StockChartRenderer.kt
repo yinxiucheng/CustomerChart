@@ -136,9 +136,9 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
     private fun drawKDJChart(canvas:Canvas, parent: RecyclerView, i:Int, attacheYAxis: StockYAxis,
                               parentStart: Float, parentEnd: Float, stockEntry: StockEntry, childCount: Int){
         val kdjEntry = stockEntry.kdjEntity as KDJEntry
-        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 1, childCount, AvgType.Avg5Type)
-        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 2, childCount, AvgType.Avg10Type)
-        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 3, childCount, AvgType.Avg20Type)
+        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 1, childCount, ColorUtil.getResourcesColor(R.color.color_kdj_k))
+        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 2, childCount, ColorUtil.getResourcesColor(R.color.color_kdj_d))
+        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 3, childCount, ColorUtil.getResourcesColor(R.color.color_kdj_j))
     }
 
     private fun drawVolumeChart(canvas:Canvas, parent: RecyclerView, child:View, attacheYAxis: StockYAxis,
@@ -194,7 +194,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val pointF1 = PointF(rectF.centerX() - viewWidth, yPointFLeft)
             if (pointF1.x >= parentStart && pointF2.x <= parentEnd) {
                 val pointsOut = floatArrayOf(pointF1.x, pointF1.y, pointF2.x, pointF2.y)
-                drawChartLine(canvas, pointsOut, avgType)
+                drawChartLine(canvas, pointsOut, getAvgColor(avgType, mStockAttrs))
                 if (enableDrawFill){
                     val bottom = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom
                     drawFill(canvas, pointF1, pointF2, bottom)
@@ -229,7 +229,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val pointF1 = PointF(xF - viewWidth, yPointFLeft)
             if (pointF1.x >= parentStart && pointF2.x <= parentEnd) {
                 val pointsOut = floatArrayOf(pointF1.x, pointF1.y, pointF2.x, pointF2.y)
-                drawChartLine(canvas, pointsOut, avgType)
+                drawChartLine(canvas, pointsOut, getAvgColor(avgType, mStockAttrs))
             }
         }
     }
@@ -243,7 +243,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         parentEnd: Float,
         kdjEntry: KDJEntry,
         kdjType: Int,
-        childCount: Int, avgType: AvgType) {
+        childCount: Int, color: Int) {
         val child = parent.getChildAt(i)
         val xF = (child.left + child.right)/2f
         val viewWidth = child.width
@@ -260,7 +260,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val pointF1 = PointF(xF - viewWidth, yPointFLeft)
             if (pointF1.x >= parentStart && pointF2.x <= parentEnd) {
                 val pointsOut = floatArrayOf(pointF1.x, pointF1.y, pointF2.x, pointF2.y)
-                drawChartLine(canvas, pointsOut, avgType)
+                drawChartLine(canvas, pointsOut, color)
             }
         }
     }
@@ -273,9 +273,9 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         drawable.draw(canvas)
     }
 
-    private fun drawChartLine(canvas: Canvas, points: FloatArray, avgType: AvgType) {
+    private fun drawChartLine(canvas: Canvas, points: FloatArray, colorParams: Int) {
         val color: Int = mLineChartPaint.color
-        mLineChartPaint.color = getAvgColor(avgType, mStockAttrs)
+        mLineChartPaint.color = colorParams
         mLineChartPaint.strokeWidth = dip2px(1f).toFloat()
         canvas.drawLines(points, mLineChartPaint)
         mLineChartPaint.color = color

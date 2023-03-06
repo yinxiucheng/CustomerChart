@@ -47,7 +47,6 @@ object DisplayUtil {
     }
 
     @JvmStatic
-    @Deprecated("", ReplaceWith("dpValue.dp","com.xiaomi.fitness.common.utils.ExtUtils"))
     fun dp2px(context: Context, dpValue: Float): Int {
         val density = context.resources.displayMetrics.density
         return (dpValue * density + 0.5f).toInt()
@@ -59,14 +58,12 @@ object DisplayUtil {
     }
 
     @JvmStatic
-    @Deprecated("", ReplaceWith("dpValue.sp","com.xiaomi.fitness.common.utils.ExtUtils"))
     fun sp2px(dpValue: Float): Int {
         val scale = Resources.getSystem().displayMetrics.density
         return (dpValue * scale + 0.5f).toInt()
     }
 
     @JvmStatic
-    @Deprecated("", ReplaceWith("dpValue.sp","com.xiaomi.fitness.common.utils.ExtUtils"))
     fun sp2px(context: Context, spValue: Float): Int {
         val scaleDensity = context.resources.displayMetrics.scaledDensity
         return (spValue * scaleDensity + 0.5f).toInt()

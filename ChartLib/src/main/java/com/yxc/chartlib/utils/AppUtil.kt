@@ -15,10 +15,6 @@ object AppUtil {
 
     private const val TAG = "AppUtil"
 
-    const val PACKAGE_NAME_MIHEALTH = "com.mi.health"
-
-    const val PACKAGE_NAME_WEARABLE = "com.xiaomi.wearable"
-
     @Volatile
     private var sApp: Application? = null
 

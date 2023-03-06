@@ -225,6 +225,10 @@
     <color name="color_avg10">#ff33ff</color>
     <color name="color_avg20">#0000EE</color>
 
+    <color name="color_kdj_k">#8470FF</color>
+    <color name="color_kdj_d">#7FFF00</color>
+    <color name="color_kdj_j">#FF3366</color>
+
     <color name="color_avg5_fill">#4D262626</color>
 
 

@@ -1,7 +1,6 @@
 package com.yxc.customerchart.ui.kline
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -223,15 +222,15 @@ class KLineDayFragment : BaseLineFragment() {
                 val itemsOnClick = View.OnClickListener { v: View ->
                     sharePopupWindow!!.dismiss()
                     val id = v.id
-                    if (id == R.id.rl_share_wx_session) {
+                    if (id == R.id.rl_volume) {
                         mBarChartAttrs.attachedType = AttachedChartType.Volume
                         resetYAxis(recyclerView)
                         mBarChartAdapter.notifyDataSetChanged()
-                    } else if (id == R.id.rl_share_timeline) {
+                    } else if (id == R.id.rl_madc) {
                         mBarChartAttrs.attachedType = AttachedChartType.MADC
                         resetYAxis(recyclerView)
                         mBarChartAdapter.notifyDataSetChanged()
-                    } else if (id == R.id.rl_download) { //检测读写权限
+                    } else if (id == R.id.rl_kdj) { //检测读写权限
                         mBarChartAttrs.attachedType = AttachedChartType.KDJ
                         resetYAxis(recyclerView)
                         mBarChartAdapter.notifyDataSetChanged()

@@ -15,14 +15,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-//import com.xiaomi.fitness.chart.attrs.BaseChartAttrs;
-//import com.xiaomi.fitness.chart.attrs.LineChartAttrs;
-//import com.xiaomi.fitness.chart.barchart.BaseBarChartAdapter;
-//import com.xiaomi.fitness.chart.barchart.itemdecoration.LineChartDrawable;
-//import com.xiaomi.fitness.chart.component.BaseYAxis;
 import com.yxc.chartlib.component.YAxis;
-import com.yxc.chartlib.entrys.BarEntry;
 import com.yxc.chartlib.formatter.DefaultHighLightMarkValueFormatter;
 import com.yxc.chartlib.utils.DisplayUtil;
 import com.yxc.chartlib.utils.TextUtil;

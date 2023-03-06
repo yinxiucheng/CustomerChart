@@ -6,12 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-//import com.xiaomi.fitness.chart.attrs.BarChartAttrs;
-//import com.xiaomi.fitness.chart.component.VarietyMaxYAxis;
-//import com.xiaomi.fitness.chart.component.XAxis;
-//import com.xiaomi.fitness.chart.entrys.HearingEntry;
-
 import com.yxc.chartlib.attrs.BarChartAttrs;
 import com.yxc.chartlib.component.VarietyMaxYAxis;
 import com.yxc.chartlib.component.XAxis;

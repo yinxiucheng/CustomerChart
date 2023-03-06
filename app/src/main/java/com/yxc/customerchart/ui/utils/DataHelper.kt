@@ -59,13 +59,12 @@ object DataHelper {
 
             val randomVal = (1..50).random()
             var macdVal = if(stockEntry.isRise) 50 + randomVal else 50 - randomVal
-            macdVal = macdVal.coerceAtLeast(0).coerceAtMost(100)
             val randomVal2 = (1..10).random()
 
-            var dea = if (stockEntry.isRise) macdVal + randomVal2 else macdVal - randomVal2
-            dea = dea.coerceAtLeast(0).coerceAtMost(100)
+            var dea = if (stockEntry.isRise) 100 - macdVal else 50 + macdVal
+
             val randomVal3 = (1..8).random()
-            var dif = if (stockEntry.isRise) macdVal + randomVal3 else macdVal - randomVal3
+            var dif = if (stockEntry.isRise) dea + randomVal3 else dea - randomVal3
             dif = dif.coerceAtLeast(0).coerceAtLeast(100)
             stockEntry.macdEntry = MACDEntry(dea.toFloat() , dif.toFloat() , macdVal.toFloat())
             preEntry = stockEntry

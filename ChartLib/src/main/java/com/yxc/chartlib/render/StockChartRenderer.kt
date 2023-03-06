@@ -116,8 +116,8 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
     private fun drawAttachedChart(canvas:Canvas, parent: RecyclerView, child:View, attacheYAxis: StockYAxis,
                                   parentStart: Float, parentEnd: Float, stockEntry: StockEntry, i: Int, childCount: Int){
         when(mStockAttrs.attachedType){
-              AttachedChartType.Volume -> drawVolumeChart(canvas, parent, child, attacheYAxis, parentStart, parentEnd, stockEntry)
-              AttachedChartType.MADC -> drawMADCChart(canvas, parent, child, attacheYAxis, parentStart, parentEnd, stockEntry, i, childCount)
+            AttachedChartType.Volume -> drawVolumeChart(canvas, parent, child, attacheYAxis, parentStart, parentEnd, stockEntry)
+            AttachedChartType.MADC -> drawMADCChart(canvas, parent, child, attacheYAxis, parentStart, parentEnd, stockEntry, i, childCount)
             AttachedChartType.KDJ -> drawKDJChart(canvas, parent, i, attacheYAxis, parentStart, parentEnd, stockEntry, childCount)
         }
     }
@@ -126,11 +126,11 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
                               parentStart: Float, parentEnd: Float, stockEntry: StockEntry, i:Int , childCount: Int){
         attacheYAxis.mAxisMaximum = 100f
         attacheYAxis.mAxisMinimum = 0f
-        val rectAttache = getAttacheMACDRectF(child, parent, attacheYAxis, mStockAttrs, stockEntry)
-        drawChart(canvas, rectAttache, parentStart, parentEnd, 1f)
         val macdEntry:MACDEntry = stockEntry.macdEntry as MACDEntry
 //        drawMADCLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, macdEntry, 1, childCount, AvgType.Avg5Type)
 //        drawMADCLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, macdEntry, 2, childCount, AvgType.Avg10Type)
+        val rectAttache = getAttacheMACDRectF(child, parent, attacheYAxis, mStockAttrs, stockEntry)
+        drawChart(canvas, rectAttache, parentStart, parentEnd, 1f)
     }
 
     private fun drawKDJChart(canvas:Canvas, parent: RecyclerView, i:Int, attacheYAxis: StockYAxis,

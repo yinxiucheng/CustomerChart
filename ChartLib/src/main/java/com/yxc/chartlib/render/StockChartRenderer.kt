@@ -255,8 +255,8 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val pointF1Child = parent.getChildAt(i + 1)
             val barEntryLeft = pointF1Child.tag as StockEntry
             val kdjEntry = barEntryLeft.kdjEntity as KDJEntry
-            val avgValue2 = kdjEntry.getKDJVal(kdjType)
-            val yPointFLeft = getAttacheYPosition(avgValue2, parent, attacheYAxis, mStockAttrs)
+            val kdjVal2 = kdjEntry.getKDJVal(kdjType)
+            val yPointFLeft = getAttacheYPosition(kdjVal2, parent, attacheYAxis, mStockAttrs)
             val pointF1 = PointF(xF - viewWidth, yPointFLeft)
             if (pointF1.x >= parentStart && pointF2.x <= parentEnd) {
                 val pointsOut = floatArrayOf(pointF1.x, pointF1.y, pointF2.x, pointF2.y)

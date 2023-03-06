@@ -1,5 +1,6 @@
 package com.yxc.chartlib.entrys
 
+import com.yxc.chartlib.entrys.model.AttachedChartType
 import com.yxc.chartlib.entrys.model.MaxMinModel
 import com.yxc.chartlib.entrys.stock.KDJEntry
 import com.yxc.chartlib.entrys.stock.MACDEntry
@@ -67,6 +68,31 @@ class StockEntry : RecyclerBarEntry {
             }
             return MaxMinModel(max, min)
         }
+
+        fun getAttacheMaxMinModel(entries: List<StockEntry>, attachedChartType: AttachedChartType): MaxMinModel{
+            return when (attachedChartType) {
+                AttachedChartType.Volume -> getTheMaxMinModelVolume(entries)
+                AttachedChartType.MADC -> MaxMinModel(100f, 0f)
+                AttachedChartType.KDJ -> getTheMaxMinModelKDJ(entries)
+            }
+        }
+
+        fun getTheMaxMinModelKDJ(entries: List<StockEntry>): MaxMinModel {
+            if (entries.isEmpty()) {
+                return MaxMinModel(100f, 0f)
+            }
+            var max = 100f
+            var min = 0f
+            for (i in entries.indices) {
+                val kdjEntry = entries[i].kdjEntity as KDJEntry
+                val maxTemp = kdjEntry.dVal.coerceAtMost(kdjEntry.jVal).coerceAtMost(kdjEntry.kVal)
+                val minTemp = kdjEntry.dVal.coerceAtLeast(kdjEntry.jVal).coerceAtLeast(kdjEntry.kVal)
+                max = max.coerceAtMost(maxTemp)
+                min = min.coerceAtLeast(minTemp)
+            }
+            return MaxMinModel(max, min)
+        }
+
         fun getTheMaxMinModelVolume(entries: List<StockEntry>): MaxMinModel {
             if (entries.isEmpty()) {
                 return MaxMinModel(100f, 0f)

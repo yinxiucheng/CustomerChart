@@ -43,8 +43,8 @@ object StockDrawHelper {
         yAxis: E,
         mAttrs: StockChartAttrs
     ): Float {
-        val contentBottom = parent.bottom - parent.paddingBottom
-        val contentTop = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom
+        val contentBottom = parent.bottom - parent.paddingBottom - 20.dp
+        val contentTop = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom + mAttrs.mAttachedDescHeight
         val realYAxisLabelHeight = contentBottom - contentTop
         val yMin = yAxis.axisMinimum
         val height: Float = (yValue - yMin) / (yAxis.axisMaximum - yMin) * realYAxisLabelHeight

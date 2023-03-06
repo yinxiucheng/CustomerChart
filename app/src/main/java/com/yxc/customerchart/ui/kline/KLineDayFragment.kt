@@ -16,6 +16,7 @@ import com.yxc.chartlib.component.StockYAxis.Companion.createYAxisWithLabelCount
 import com.yxc.chartlib.component.StockYAxis.Companion.resetStockYAxis
 import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.entrys.StockEntry
+import com.yxc.chartlib.entrys.StockEntry.Companion.getAttacheMaxMinModel
 import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModel
 import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModelVolume
 import com.yxc.chartlib.entrys.model.AttachedChartType
@@ -30,6 +31,7 @@ import com.yxc.customerchart.R
 import com.yxc.customerchart.mock.DataMock
 import com.yxc.customerchart.ui.ecg.TestData
 import com.yxc.customerchart.ui.line.BaseLineFragment
+import com.yxc.customerchart.ui.utils.DataHelper
 import com.yxc.customerchart.ui.utils.DataHelper.createStockEntryList
 import com.yxc.customerchart.ui.valueformatter.StockKLineXAxisFormatter
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
@@ -105,7 +107,7 @@ class KLineDayFragment : BaseLineFragment() {
         val visibleEntries: List<StockEntry> = mEntries.subList(0, visibleSize)
         val maxMinModel = getTheMaxMinModel(visibleEntries)
         mYAxis = createYAxisWithLabelCount(mBarChartAttrs, maxMinModel.max, maxMinModel.min, 4)
-        val maxMinModelAttache = getTheMaxMinModelVolume(visibleEntries)
+        val maxMinModelAttache = getAttacheMaxMinModel(visibleEntries, mBarChartAttrs.attachedType)
         mAttacheYAxis = createYAxisWithLabelCount(mBarChartAttrs, maxMinModelAttache.max, maxMinModelAttache.min, 4)
         mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)
         mBarChartAdapter.setYAxis(mYAxis)
@@ -116,7 +118,7 @@ class KLineDayFragment : BaseLineFragment() {
         val visibleEntries: List<StockEntry> = ChartComputeUtil.getVisibleEntriesJust(recyclerView, displayNumber)
         val maxMinModel = getTheMaxMinModel(visibleEntries)
         setVisibleEntries(visibleEntries)
-        val maxMinModelAttache = getTheMaxMinModelVolume(visibleEntries)
+        val maxMinModelAttache = getAttacheMaxMinModel(visibleEntries, mBarChartAttrs.attachedType)
         mAttacheYAxis = resetStockYAxis(mAttacheYAxis, maxMinModelAttache.max, maxMinModelAttache.min, 2)
         mYAxis = resetStockYAxis(mYAxis, maxMinModel.max, maxMinModel.min, 4)
         mItemDecoration.setYAxis(mYAxis, mAttacheYAxis)
@@ -204,6 +206,7 @@ class KLineDayFragment : BaseLineFragment() {
 
         override fun onStockItemBottomClick(view: View) {
             mBarChartAttrs.attachedType = AttachedChartType.proceedType(mBarChartAttrs.attachedType)
+            resetYAxis(recyclerView)
             mBarChartAdapter.notifyDataSetChanged()
         }
 

@@ -55,7 +55,7 @@ object DataHelper {
             }
 
             //todo mock kdj 数据。
-            stockEntry.kdjEntity = KDJEntry(abs(100 - stockEntry.ma5), abs(100 - stockEntry.ma10), abs(100 - stockEntry.ma20))
+            stockEntry.kdjEntity = KDJEntry(stockEntry.ma5, stockEntry.ma10, stockEntry.ma20)
 
             val randomVal = (1..50).random()
             var macdVal = if(stockEntry.isRise) 50 + randomVal else 50 - randomVal

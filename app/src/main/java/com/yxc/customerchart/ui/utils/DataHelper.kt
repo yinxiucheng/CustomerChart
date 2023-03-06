@@ -2,11 +2,14 @@ package com.yxc.customerchart.ui.utils
 
 import com.github.wangyiqian.stockchart.entities.IKEntity
 import com.yxc.chartlib.entrys.StockEntry
+import com.yxc.chartlib.entrys.stock.KDJEntry
+import com.yxc.chartlib.entrys.stock.MACDEntry
 import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.customerchart.ui.kline.WindowCount
 import com.yxc.customerchart.ui.kline.WindowCountManager
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 import com.yxc.mylibrary.TimeDateUtil
+import java.lang.Math.abs
 
 /**
  * @author xiuchengyin
@@ -50,6 +53,21 @@ object DataHelper {
             if (!DecimalUtil.equals(avg20, -1f)){
                 stockEntry.ma20 = avg20
             }
+
+            //todo mock kdj 数据。
+            stockEntry.kdjEntity = KDJEntry(abs(100 - stockEntry.ma5), abs(100 - stockEntry.ma10), abs(100 - stockEntry.ma20))
+
+            val randomVal = (1..50).random()
+            var macdVal = if(stockEntry.isRise) 50 + randomVal else 50 - randomVal
+            macdVal = macdVal.coerceAtLeast(0).coerceAtMost(100)
+            val randomVal2 = (1..10).random()
+
+            var dea = if (stockEntry.isRise) macdVal + randomVal2 else macdVal - randomVal2
+            dea = dea.coerceAtLeast(0).coerceAtMost(100)
+            val randomVal3 = (1..8).random()
+            var dif = if (stockEntry.isRise) macdVal + randomVal3 else macdVal - randomVal3
+            dif = dif.coerceAtLeast(0).coerceAtLeast(100)
+            stockEntry.macdEntry = MACDEntry(dea.toFloat() , dif.toFloat() , macdVal.toFloat())
             preEntry = stockEntry
             stockEntryList.add(0, stockEntry)
         }

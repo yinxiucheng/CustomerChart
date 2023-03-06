@@ -1,6 +1,8 @@
 package com.yxc.chartlib.entrys
 
 import com.yxc.chartlib.entrys.model.MaxMinModel
+import com.yxc.chartlib.entrys.stock.KDJEntry
+import com.yxc.chartlib.entrys.stock.MACDEntry
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 /**
  * @author xiuchengyin
@@ -46,9 +48,12 @@ class StockEntry : RecyclerBarEntry {
     var ma10 = 0f
     var ma20 = 0f
 
+    var macdEntry: MACDEntry? = null
+    var kdjEntity: KDJEntry? = null
+
     companion object{
         fun getTheMaxMinModel(entries: List<StockEntry>): MaxMinModel {
-            if (entries == null || entries.isEmpty()) {
+            if (entries.isEmpty()) {
                 return MaxMinModel(100f, 0f)
             }
             val maxMinEntry = entries[0]
@@ -57,14 +62,13 @@ class StockEntry : RecyclerBarEntry {
             var min = maxMinEntry.mLow
             for (i in entries.indices) {
                 val entryTemp = entries[i]
-                max = Math.max(max, entryTemp.mHigh)
-                min = Math.min(min, entryTemp.mLow)
+                max = max.coerceAtLeast(entryTemp.mHigh)
+                min = min.coerceAtMost(entryTemp.mLow)
             }
             return MaxMinModel(max, min)
         }
-
         fun getTheMaxMinModelVolume(entries: List<StockEntry>): MaxMinModel {
-            if (entries == null || entries.isEmpty()) {
+            if (entries.isEmpty()) {
                 return MaxMinModel(100f, 0f)
             }
             val maxMinEntry = entries[0]
@@ -72,9 +76,9 @@ class StockEntry : RecyclerBarEntry {
             var min = 0f
             for (i in entries.indices) {
                 val entryTemp = entries[i]
-                max = Math.max(max, entryTemp.volume)
+                max = max.coerceAtLeast(entryTemp.volume)
             }
-            return MaxMinModel(max.toFloat(), min)
+            return MaxMinModel(max, min)
         }
     }
 

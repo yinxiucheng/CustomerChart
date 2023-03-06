@@ -18,10 +18,9 @@ import com.yxc.chartlib.component.XAxis
 import com.yxc.chartlib.entrys.StockEntry
 import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModel
 import com.yxc.chartlib.entrys.StockEntry.Companion.getTheMaxMinModelVolume
+import com.yxc.chartlib.entrys.model.AttachedChartType
 import com.yxc.chartlib.formatter.ValueFormatter
-import com.yxc.chartlib.listener.RecyclerItemGestureListener
 import com.yxc.chartlib.listener.RecyclerStockItemGestureListener
-import com.yxc.chartlib.listener.SimpleItemGestureListener
 import com.yxc.chartlib.listener.SimpleStockItemGestureListener
 import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.utils.AppUtil
@@ -204,12 +203,15 @@ class KLineDayFragment : BaseLineFragment() {
         }
 
         override fun onStockItemBottomClick(view: View) {
-            Log.d(TAG, "show hello ketiy")
+            mBarChartAttrs.attachedType = AttachedChartType.proceedType(mBarChartAttrs.attachedType)
+            mBarChartAdapter.notifyDataSetChanged()
         }
 
         override fun showBottomPopWindow() {
             Log.d(TAG, "show hello ketiy2.")
             showPopupWindow()
         }
+
+
     }
 }

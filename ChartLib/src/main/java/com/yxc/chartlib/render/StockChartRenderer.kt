@@ -8,17 +8,21 @@ import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.yxc.chartlib.attrs.StockChartAttrs
-import com.yxc.chartlib.barchart.BaseBarChartAdapter
 import com.yxc.chartlib.barchart.itemdecoration.LineChartDrawable
 import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.entrys.StockEntry
+import com.yxc.chartlib.entrys.model.AttachedChartType
 import com.yxc.chartlib.entrys.model.AvgType
+import com.yxc.chartlib.entrys.stock.KDJEntry
+import com.yxc.chartlib.entrys.stock.MACDEntry
 import com.yxc.chartlib.formatter.ValueFormatter
 import com.yxc.chartlib.util.CanvasUtil
 import com.yxc.chartlib.util.ChartComputeUtil
 import com.yxc.chartlib.util.RoundRectType
+import com.yxc.chartlib.util.StockDrawHelper.getAttacheMACDRectF
 import com.yxc.chartlib.util.StockDrawHelper.getAttacheStockRectF
+import com.yxc.chartlib.util.StockDrawHelper.getAttacheYPosition
 import com.yxc.chartlib.util.StockDrawHelper.getAvgColor
 import com.yxc.chartlib.util.StockDrawHelper.getAvgValue
 import com.yxc.chartlib.util.StockDrawHelper.getStockRectF
@@ -28,7 +32,6 @@ import com.yxc.chartlib.utils.DecimalUtil
 import com.yxc.chartlib.utils.DisplayUtil.dip2px
 import com.yxc.chartlib.utils.TextUtil
 import com.yxc.customerchart.R
-import com.yxc.customercomposeview.utils.dp
 import com.yxc.customercomposeview.utils.dpf
 import com.yxc.fitness.chart.entrys.RecyclerBarEntry
 
@@ -69,10 +72,10 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
     }
 
     fun <T:YAxis> drawStockChart(canvas: Canvas, parent: RecyclerView, yAxis: T, attacheYAxis: StockYAxis) {
-        val parentRight = parent.right.toFloat()
-        val parentLeft = parent.left.toFloat()
+        val parentEnd = parent.right.toFloat()
+        val parentStart = parent.left.toFloat()
         val childCount = parent.childCount
-        drawAttacheTextAndDivide(canvas, parent, parentLeft, parentRight)
+        drawAttacheTextAndDivide(canvas, parent, parentStart, parentEnd, getDesStr())
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
             val stockEntry = child.tag as StockEntry
@@ -83,7 +86,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
             val rectMain = getStockRectF(child, parent, yAxis, mStockAttrs, stockEntry)
             if (mStockAttrs.displayNumbers < 160){
                 //todo 注意RTL
-                drawChart(canvas, rectMain, parentLeft, parentRight, 1f)
+                drawChart(canvas, rectMain, parentStart, parentEnd, 1f)
                 mHighLightLinePaint.color = color
                 if (stockEntry.mHigh > stockEntry.mClose.coerceAtLeast(stockEntry.mOpen)){
                     drawTopLine(stockEntry.mHigh, canvas, rectMain, yAxis, parent)
@@ -91,25 +94,66 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
                 if (stockEntry.mLow < stockEntry.mClose.coerceAtMost(stockEntry.mOpen)){
                     drawDownLine(stockEntry.mLow, canvas, rectMain, yAxis, parent)
                 }
-                drawLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain,  stockEntry, childCount, AvgType.Avg5Type)
-                drawLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain,  stockEntry, childCount, AvgType.Avg10Type)
-                drawLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain,  stockEntry, childCount, AvgType.Avg20Type)
+                drawLine(canvas, parent, yAxis, i, parentStart, parentEnd, rectMain,  stockEntry, childCount, AvgType.Avg5Type)
+                drawLine(canvas, parent, yAxis, i, parentStart, parentEnd, rectMain,  stockEntry, childCount, AvgType.Avg10Type)
+                drawLine(canvas, parent, yAxis, i, parentStart, parentEnd, rectMain,  stockEntry, childCount, AvgType.Avg20Type)
             } else {
-                drawLine(canvas, parent, yAxis, i, parentLeft, parentRight, rectMain,  stockEntry, childCount, AvgType.Avg5Type, true)
+                drawLine(canvas, parent, yAxis, i, parentStart, parentEnd, rectMain,  stockEntry, childCount, AvgType.Avg5Type, true)
             }
             // draw Volume
-            val rectAttache = getAttacheStockRectF(child, parent, attacheYAxis, mStockAttrs, stockEntry)
-            drawChart(canvas, rectAttache, parentLeft, parentRight, 1f)
+            drawAttachedChart(canvas, parent, child, attacheYAxis, parentStart, parentEnd, stockEntry, i, childCount)
         }
     }
 
-    private fun drawAttacheTextAndDivide(canvas: Canvas, parent: RecyclerView, parentStart: Float, parentEnd: Float){
+    private fun getDesStr():String {
+        return when(mStockAttrs.attachedType){
+            is AttachedChartType.Volume -> "成交量:9399万股"
+            is AttachedChartType.MADC -> "MACD(120.2, 23.0, 56.9)"
+            is AttachedChartType.KDJ -> "KDJ(112.0, 23.34, 234.0)"
+        }
+    }
+
+    private fun drawAttachedChart(canvas:Canvas, parent: RecyclerView, child:View, attacheYAxis: StockYAxis,
+                                  parentStart: Float, parentEnd: Float, stockEntry: StockEntry, i: Int, childCount: Int){
+        when(mStockAttrs.attachedType){
+              AttachedChartType.Volume -> drawVolumeChart(canvas, parent, child, attacheYAxis, parentStart, parentEnd, stockEntry)
+              AttachedChartType.MADC -> drawMADCChart(canvas, parent, child, attacheYAxis, parentStart, parentEnd, stockEntry, i, childCount)
+            AttachedChartType.KDJ -> drawKDJChart(canvas, parent, i, attacheYAxis, parentStart, parentEnd, stockEntry, childCount)
+        }
+    }
+
+    private fun drawMADCChart(canvas:Canvas, parent: RecyclerView, child:View, attacheYAxis: StockYAxis,
+                              parentStart: Float, parentEnd: Float, stockEntry: StockEntry, i:Int , childCount: Int){
+        attacheYAxis.mAxisMaximum = 100f
+        attacheYAxis.mAxisMinimum = 0f
+        val rectAttache = getAttacheMACDRectF(child, parent, attacheYAxis, mStockAttrs, stockEntry)
+        drawChart(canvas, rectAttache, parentStart, parentEnd, 1f)
+        val macdEntry:MACDEntry = stockEntry.macdEntry as MACDEntry
+//        drawMADCLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, macdEntry, 1, childCount, AvgType.Avg5Type)
+//        drawMADCLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, macdEntry, 2, childCount, AvgType.Avg10Type)
+    }
+
+    private fun drawKDJChart(canvas:Canvas, parent: RecyclerView, i:Int, attacheYAxis: StockYAxis,
+                              parentStart: Float, parentEnd: Float, stockEntry: StockEntry, childCount: Int){
+        val kdjEntry = stockEntry.kdjEntity as KDJEntry
+        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 1, childCount, AvgType.Avg5Type)
+        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 2, childCount, AvgType.Avg10Type)
+        drawKDJLine(canvas, parent, attacheYAxis, i, parentStart, parentEnd, kdjEntry, 3, childCount, AvgType.Avg20Type)
+    }
+
+    private fun drawVolumeChart(canvas:Canvas, parent: RecyclerView, child:View, attacheYAxis: StockYAxis,
+                                parentStart: Float, parentEnd: Float, stockEntry: StockEntry){
+        val rectAttache = getAttacheStockRectF(child, parent, attacheYAxis, mStockAttrs, stockEntry)
+        drawChart(canvas, rectAttache, parentStart, parentEnd, 1f)
+    }
+
+    private fun drawAttacheTextAndDivide(canvas: Canvas, parent: RecyclerView, parentStart: Float, parentEnd: Float, descStr:String){
         val yDivideTop = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom
         val yDivideBottom = yDivideTop + mStockAttrs.mAttachedDescHeight
         mLineChartPaint.color = mStockAttrs.yAxisLineColor
         mLineChartPaint.strokeWidth = 0.75f
         canvas.drawLine(parentStart, yDivideBottom, parentEnd, yDivideBottom, mLineChartPaint)
-        val volumeStr = "成交量:9399万股"
+        val volumeStr = descStr
         val txtWidth = mHighLightDescPaint.measureText(volumeStr)
         val rectLeft = parent.left + 5.dpf
         val rectF = RectF(rectLeft, yDivideTop, rectLeft + txtWidth, yDivideBottom)
@@ -118,7 +162,6 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         mHighLightDescPaint.textSize = mStockAttrs.xAxisTxtSize
         canvas.drawText(volumeStr, rectLeft, baseY, mHighLightDescPaint)
     }
-
 
     private fun drawLine(
         canvas: Canvas,
@@ -156,6 +199,68 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
                     val bottom = parent.bottom - parent.paddingBottom - mStockAttrs.contentPaddingBottom
                     drawFill(canvas, pointF1, pointF2, bottom)
                 }
+            }
+        }
+    }
+
+    private fun drawMADCLine(
+        canvas: Canvas,
+        parent: RecyclerView,
+        attacheYAxis: StockYAxis,
+        i: Int,
+        parentStart: Float,
+        parentEnd: Float,
+        macdEntry: MACDEntry,
+        macdType: Int,
+        childCount: Int, avgType: AvgType) {
+        val child = parent.getChildAt(i)
+        val xF = (child.left + child.right)/2f
+        val viewWidth = child.width
+        val kdjValue = macdEntry.getLineValue(macdType)
+        val yPointF = getAttacheYPosition(kdjValue, parent, attacheYAxis, mStockAttrs)
+        val pointF2 = PointF(xF, yPointF)
+        //pointF2 即为当前for 循环到的点，从左往右一共涉及到4个点 pointF0, pointF1, pointF2, pointF3; 其中 pointF1、pointF2为显示的。
+        if (i < childCount - 1) {
+            val pointF1Child = parent.getChildAt(i + 1)
+            val barEntryLeft = pointF1Child.tag as StockEntry
+            val macdEntry2 = barEntryLeft.macdEntry as MACDEntry
+            val macdValue2 = macdEntry2.getLineValue(macdType)
+            val yPointFLeft = getAttacheYPosition(macdValue2, parent, attacheYAxis, mStockAttrs)
+            val pointF1 = PointF(xF - viewWidth, yPointFLeft)
+            if (pointF1.x >= parentStart && pointF2.x <= parentEnd) {
+                val pointsOut = floatArrayOf(pointF1.x, pointF1.y, pointF2.x, pointF2.y)
+                drawChartLine(canvas, pointsOut, avgType)
+            }
+        }
+    }
+
+    private fun drawKDJLine(
+        canvas: Canvas,
+        parent: RecyclerView,
+        attacheYAxis: StockYAxis,
+        i: Int,
+        parentStart: Float,
+        parentEnd: Float,
+        kdjEntry: KDJEntry,
+        kdjType: Int,
+        childCount: Int, avgType: AvgType) {
+        val child = parent.getChildAt(i)
+        val xF = (child.left + child.right)/2f
+        val viewWidth = child.width
+        val kdjValue = kdjEntry.getKDJVal(kdjType)
+        val yPointF = getAttacheYPosition(kdjValue, parent, attacheYAxis, mStockAttrs)
+        val pointF2 = PointF(xF, yPointF)
+        //pointF2 即为当前for 循环到的点，从左往右一共涉及到4个点 pointF0, pointF1, pointF2, pointF3; 其中 pointF1、pointF2为显示的。
+        if (i < childCount - 1) {
+            val pointF1Child = parent.getChildAt(i + 1)
+            val barEntryLeft = pointF1Child.tag as StockEntry
+            val kdjEntry = barEntryLeft.kdjEntity as KDJEntry
+            val avgValue2 = kdjEntry.getKDJVal(kdjType)
+            val yPointFLeft = getAttacheYPosition(avgValue2, parent, attacheYAxis, mStockAttrs)
+            val pointF1 = PointF(xF - viewWidth, yPointFLeft)
+            if (pointF1.x >= parentStart && pointF2.x <= parentEnd) {
+                val pointsOut = floatArrayOf(pointF1.x, pointF1.y, pointF2.x, pointF2.y)
+                drawChartLine(canvas, pointsOut, avgType)
             }
         }
     }
@@ -284,7 +389,7 @@ class  StockChartRenderer<T:ValueFormatter> :BaseChartRender<StockEntry, StockCh
         val leftRectF = RectF(rectF.left + leftPadding, rectTop + txtTopPadding,
             rectF.left + leftPadding + txtWidth, rectTop + txtTopPadding + rectFHeight
         )
-        mHighLightDescPaint.setTextAlign(Paint.Align.LEFT)
+        mHighLightDescPaint.textAlign = Paint.Align.LEFT
         val fontMetrics: Paint.FontMetrics = mHighLightDescPaint.getFontMetrics()
         mHighLightDescPaint.color = mStockAttrs.highLightColor
         val top = fontMetrics.top //为基线到字体上边框的距离,即上图中的top

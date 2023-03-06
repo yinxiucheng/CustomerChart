@@ -9,9 +9,11 @@ import com.yxc.chartlib.component.StockYAxis
 import com.yxc.chartlib.component.YAxis
 import com.yxc.chartlib.entrys.StockEntry
 import com.yxc.chartlib.entrys.model.AvgType
+import com.yxc.chartlib.entrys.stock.MACDEntry
 import com.yxc.chartlib.utils.DisplayUtil
 import com.yxc.customercomposeview.utils.dp
 import com.yxc.customercomposeview.utils.dpf
+import kotlin.math.abs
 
 /**
  * @author xiuchengyin
@@ -29,6 +31,20 @@ object StockDrawHelper {
     ): Float {
         val contentBottom = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom
         val contentTop = parent.paddingTop + mAttrs.contentPaddingTop
+        val realYAxisLabelHeight = contentBottom - contentTop
+        val yMin = yAxis.axisMinimum
+        val height: Float = (yValue - yMin) / (yAxis.axisMaximum - yMin) * realYAxisLabelHeight
+        return contentBottom - height
+    }
+
+    fun <E : YAxis> getAttacheYPosition(
+        yValue: Float,
+        parent: RecyclerView,
+        yAxis: E,
+        mAttrs: StockChartAttrs
+    ): Float {
+        val contentBottom = parent.bottom - parent.paddingBottom
+        val contentTop = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom
         val realYAxisLabelHeight = contentBottom - contentTop
         val yMin = yAxis.axisMinimum
         val height: Float = (yValue - yMin) / (yAxis.axisMaximum - yMin) * realYAxisLabelHeight
@@ -99,6 +115,29 @@ object StockDrawHelper {
         val top = rectFTop.coerceAtLeast(contentTop)
         if ((rectFBottom - top) < 1f.dpf) rectFBottom = top + 1f.dpf
         rectF[left, top, right] = rectFBottom
+        return rectF
+    }
+
+    fun getAttacheMACDRectF(child: View, parent: RecyclerView, attacheYAxis: StockYAxis,
+                             mAttrs: StockChartAttrs, stockEntry: StockEntry): RectF {
+        val rectF = RectF()
+        val contentBottom = parent.bottom - parent.paddingBottom - 18.dpf
+        val contentTop = parent.bottom - parent.paddingBottom - mAttrs.contentPaddingBottom + 27.dp
+        val realYAxisLabelHeight = contentBottom - contentTop
+        val centerY = contentTop + realYAxisLabelHeight/2
+        val macdEntry = stockEntry.macdEntry as MACDEntry
+        val rectHeight = abs(macdEntry.macd -  50) / 50 * (realYAxisLabelHeight/2)
+
+        val rectTop = if (stockEntry.isRise) centerY - rectHeight else centerY
+        val rectFBottom = if (stockEntry.isRise) centerY else centerY + rectHeight
+
+        val width = child.width.toFloat()
+        val barSpaceWidth = width * mAttrs.barSpace
+        val barChartWidth = width - barSpaceWidth //柱子的宽度
+        val left = child.left + barSpaceWidth / 2
+        val right = left + barChartWidth
+        rectF[left, rectTop, right] = rectFBottom
+
         return rectF
     }
 

@@ -1,6 +1,7 @@
 package com.yxc.chartlib.attrs
 
 import android.graphics.Color
+import com.yxc.chartlib.entrys.model.AttachedChartType
 import com.yxc.customercomposeview.utils.dp
 
 /**
@@ -36,6 +37,7 @@ class StockChartAttrs : BaseChartAttrs() {
 
     var mAttachedDescHeight = 25.dp
 
+    var attachedType:AttachedChartType = AttachedChartType.Volume
 }
 
 val DEFAULT_RISE_COLOR = Color.parseColor("#E36245")
